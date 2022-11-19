@@ -1,0 +1,14 @@
+{
+    "name": "Bonsai",
+    "description": "Proest Module (/bo)",
+    "version": "0.3",
+    "author": "freebonsai",
+    "entry": "index.js",
+    "requires": [
+        "requestV2",
+        "PogData",
+        "Vigilance",
+        "PromiseV2",
+        "BloomCore"
+    ]
+}
