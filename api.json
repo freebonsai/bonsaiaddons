@@ -2,6 +2,7 @@
     "latestVersion": "0.4.1",
     "changelog": [
         "Completely revamped the structure of the module",
+        "Added all features to readme",
         "Added terminal counter to this module, delete the old one"
     ],
     "author": "freebonsai"
