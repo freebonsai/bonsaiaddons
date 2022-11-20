@@ -3,11 +3,14 @@ import { prefix } from "../utils/prefix"
 import toRadians from "../utils/toradians"
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
 
+const rightClick = Client.getMinecraft().getClass().getDeclaredMethod("func_147121_ag")
+rightClick.setAccessible(true)
+
 let lastblock = new Date().getTime()-1000
 register("clicked", (a,c,btn) => {
   if (btn == 0) {
     if (Config.etherHelper) {
-      if (Dungeon.inDungeon) {
+      if (!Dungeon.inDungeon) {
         if (Player.isSneaking()) {
           ya = Player.getYaw()
           pi = Player.getPitch()
@@ -89,6 +92,17 @@ function etherthingy(b) {
     new Thread(() => {
       lookAtBlock(b)
       ChatLib.chat(prefix + " &bFound etherwarp block!")
+      Thread.sleep(10*Config.etherFOV)
+      click()
     }).start()
+  }
+}
+
+let lastclicktime = new Date().getTime() - 251
+function click() {
+  if (new Date().getTime() - lastclicktime > 250) {
+    rightClick.invoke(Client.getMinecraft())
+    console.log("clicked!")
+    lastclicktime = new Date().getTime()
   }
 }

@@ -93,19 +93,21 @@ register("chat", (name,time) => {
 
 register("chat", () => {
     if (Config.terminalCounter) {
-        ChatLib.chat(`${prefix} &6${name1} &bdid &a${tcount1} &bterms and &a${dcount1} &bdevices`)
-        if (names.length >= 2) {
+      ChatLib.chat(`${prefix} &6${name1} &bdid &a${tcount1} &bterms and &a${dcount1} &bdevices`)
+      if (name2.length >= 2) {
         ChatLib.chat(`${prefix} &6${name2} &bdid &a${tcount2} &bterms and &a${dcount2} &bdevices`)
-        }
-        if (names.length >= 3) {
+        console.log("2")
+      }
+      if (name3.length >= 3) {
         ChatLib.chat(`${prefix} &6${name3} &bdid &a${tcount3} &bterms and &a${dcount3} &bdevices`)
-        }
-        if (names.length >= 4) {
+      }
+      if (name4.length >= 4) {
         ChatLib.chat(`${prefix} &6${name4} &bdid &a${tcount4} &bterms and &a${dcount4} &bdevices`)
-        }
-        if (names.length >= 5) {
+      }
+      if (name4.length >= 5) {
         ChatLib.chat(`${prefix} &6${name5} &bdid &a${tcount5} &bterms and &a${dcount5} &bdevices`)
-        }
+      }
+      console.log("hi")
     }
     names = []
     name1 = ""
@@ -124,22 +126,6 @@ register("chat", () => {
     dcount4 = 0
     dcount5 = 0
 }).setChatCriteria("[BOSS] Goldor: You have done it, you destroyed the factory…")
-
-register("command", () => {
-  ChatLib.chat(`${prefix} &6${name1} &bdid &a${tcount1} &bterms and &a${dcount1} &bdevices`)
-  if (names.length >= 2) {
-    ChatLib.chat(`${prefix} &6${name2} &bdid &a${tcount2} &bterms and &a${dcount2} &bdevices`)
-  }
-  if (names.length >= 3) {
-    ChatLib.chat(`${prefix} &6${name3} &bdid &a${tcount3} &bterms and &a${dcount3} &bdevices`)
-  }
-  if (names.length >= 4) {
-    ChatLib.chat(`${prefix} &6${name4} &bdid &a${tcount4} &bterms and &a${dcount4} &bdevices`)
-  }
-  if (names.length >= 5) {
-    ChatLib.chat(`${prefix} &6${name5} &bdid &a${tcount5} &bterms and &a${dcount5} &bdevices`)
-  }
-}).setName("testtermcount")
 
 register("WorldLoad", () => {
   names = []

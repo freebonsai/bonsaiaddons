@@ -1,4 +1,5 @@
 import Config from "../Config"
+import toRadians from "../utils/toradians"
 register("command", (d) => {
     new Thread(() => {
       for (let i=0;i<d;i++) {

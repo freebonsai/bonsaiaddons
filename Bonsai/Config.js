@@ -101,6 +101,7 @@ class Config {
         this.addDependency("Etherwarp FOV", "Etherwarp Helper")
         this.addDependency("Etherwarp Distance", "Etherwarp Helper")
         this.addDependency("Etherwarp Block", "Etherwarp Helper")
+        this.addDependency("Etherwarp Auto Click", "Etherwarp Helper")
     }
     //#endregion
 
@@ -226,7 +227,7 @@ class Config {
         description: "Delay between every block funiclip moves",
         category: "Clipping",
         subcategory: "Funi",
-        min: 45,
+        min: 5,
         max: 150
     })
     funiinfdelay = 100;
@@ -268,6 +269,14 @@ class Config {
         triggerActionOnInitialization: false,
     })
     textInput = 'minecraft:diamond_block';
+
+    @SwitchProperty({
+        name: "Etherwarp Auto Click",
+        description: "Automatically right clicks after rotating you",
+        category: "Etherwarp",
+        subcategory: "Etherwarp"
+    })
+    etherClick = false
 
     // M7
     //#region 

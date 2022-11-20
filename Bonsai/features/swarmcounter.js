@@ -34,7 +34,7 @@ register("tick", () => {
           if (counter > 10) counter = 10
           if (counter > 0) {
             if (Config.SwarmCounterPercent) {
-              cDisplay.setLine(0, "&5&lSwarm Mobs:&6&l " + counter + ": " + counter*swarmlevel*2 + "%  ")
+              cDisplay.setLine(0, "&5&lSwarm Mobs:&6&l " + counter + ": &c&l" + counter*swarmlevel*2 + "%  ")
             } else {
               cDisplay.setLine(0, "&5&lSwarm Mobs:&6&l " + counter + " ")
             }
@@ -52,12 +52,13 @@ register("tick", () => {
   if (Config.swarmCounterMove.isOpen()) {
     cDisplay.setAlign("center")
     if (Config.SwarmCounterPercent) {
-      cDisplay.setLine(0, "&5&lSwarm Mobs:&6&l " + counter + ": " + counter*10 + "%  ")
+      cDisplay.setLine(0, "&5&lSwarm Mobs:&6&l " + counter + ": &c&l" + counter*10 + "%  ")
     } else {
       cDisplay.setLine(0, "&5&lSwarm Mobs:&6&l " + counter + " ")
     }
     mDisplay.setLine(0, "&6&lMove the swarm counter")
     mDisplay.getLine(0).setScale(2)
+    
   }
   if (Config.SwarmCounter == false) cDisplay.clearLines()
 })
@@ -66,12 +67,14 @@ register("tick", () => {
 register("tick", () => {
   try {
     Player.getHeldItem().getLore().map(lore => {
-      if(!lore.includes(swarmname)){
+      if(!lore.includes(swarmname) && !Config.swarmCounterMove.isOpen()){
         cDisplay.clearLines()
       }
     })
   } catch (error) {
-    cDisplay.clearLines()
+    if (!Config.swarmCounterMove.isOpen()) {
+      cDisplay.clearLines()
+    }
   }
 })
 

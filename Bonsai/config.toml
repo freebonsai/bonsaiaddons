@@ -10,7 +10,7 @@
 		infinite_sleep = 13
 
 	[clipping.funi]
-		funiclip_delay = 45
+		funiclip_delay = 51
 
 	[clipping.sinseeker]
 		clip_delay = 176
@@ -19,7 +19,7 @@
 [swarm_counter]
 
 	[swarm_counter.swarm_counter]
-		swarm_counter = false
+		swarm_counter = true
 		show_percent = true
 		swarm_counter_size = 100
 
@@ -143,9 +143,10 @@
 
 	[etherwarp.etherwarp]
 		etherwarp_block = "minecraft:diamond_block"
+		etherwarp_auto_click = true
 		etherwarp_distance = 50
 		etherwarp_helper = false
-		etherwarp_fov = 12
+		etherwarp_fov = 9
 
 [terminals]
 

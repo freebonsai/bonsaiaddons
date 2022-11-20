@@ -15,9 +15,9 @@ register("command", (d) => {
   // THE CLIPPING FUNCTION
   if (Config.dclipinf) {
     new Thread(() => {
-      for (let i=0;i<d;i++) {
-        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px + newx/d, py + newy/d, pz + newz/d)
-        Thread.sleep(Config.infdelay)
+      for (let i=0;i<(d*4);i++) {
+        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px + newx/d/4, py + newy/d/4, pz + newz/d/4)
+        Thread.sleep(Config.infdelay/4)
         ya = Player.getYaw()
         pi = Player.getPitch()
         px = Player.getX()
