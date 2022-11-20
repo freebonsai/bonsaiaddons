@@ -21,13 +21,13 @@ import {
     },
 
     getPropertyComparator: () => (a, b) => {
-        const names = ['Auto Terminals','Auto Term Delay','Click Type','Relic Caller','Relic','Auto Warp'];
+        const names = ['Auto Terminals','Auto Term Delay','Click Type','Relic Caller','Relic','Auto Warp','Terminal Counter'];
 
         return names.indexOf(a.attributesExt.name) - names.indexOf(b.attributesExt.name);
     },
 
     getSubcategoryComparator: () => (a, b) => {
-        const subcategories = ['Auto Terms', 'M7','Warp'];
+        const subcategories = ['Auto Terms', 'M7','Warp','Terminal Counter'];
 
         return subcategories.indexOf(a.getValue()[0].attributesExt.subcategory) -
             subcategories.indexOf(b.getValue()[0].attributesExt.subcategory);
@@ -177,6 +177,8 @@ class Config {
     startswith = true;
     //#endregion
     
+    
+
     // SINSEEKER
     @SwitchProperty({
         name: "Sinseeker Clip",
@@ -316,6 +318,14 @@ class Config {
     })
     warpDelay = 1000;
     //#endregion
+
+    @SwitchProperty({
+        name: "Terminal Counter",
+        description: "Counts how many terms and devices everyone in your team does.",
+        category: "Dungeons",
+        subcategory: "Terminal Counter"
+    })
+    terminalCounter = true
 
     // SWARM COUNTER
     //#region 

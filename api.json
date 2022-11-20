@@ -1,7 +1,8 @@
 {
-    "latestVersion": "0.4",
+    "latestVersion": "0.4.1",
     "changelog": [
-        "Completely revamped the structure of the module"
+        "Completely revamped the structure of the module",
+        "Added terminal counter to this module, delete the old one"
     ],
     "author": "freebonsai"
 }

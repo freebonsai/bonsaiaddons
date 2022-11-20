@@ -124,6 +124,9 @@
 		relic = 0
 		relic_caller = true
 
+	[dungeons.terminal_counter]
+		terminal_counter = true
+
 	[dungeons.type_of_terminals]
 		select_of_same = false
 		numbers = false
