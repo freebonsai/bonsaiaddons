@@ -2,6 +2,8 @@ import Dungeon from "../../BloomCore/dungeons/Dungeon"
 import { prefix } from "../utils/prefix"
 import Config from "../Config"
 
+// Counter
+//#region 
 names = []
 name1 = ""
 name2 = ""
@@ -94,18 +96,22 @@ register("chat", (name,time) => {
 register("chat", () => {
     if (Config.terminalCounter) {
       ChatLib.chat(`${prefix} &6${name1} &bdid &a${tcount1} &bterms and &a${dcount1} &bdevices`)
+      addtolog(name1,tcount1,dcount1)
       if (name2.length >= 2) {
         ChatLib.chat(`${prefix} &6${name2} &bdid &a${tcount2} &bterms and &a${dcount2} &bdevices`)
-        console.log("2")
+        addtolog(name2,tcount2,dcount2)
       }
       if (name3.length >= 3) {
         ChatLib.chat(`${prefix} &6${name3} &bdid &a${tcount3} &bterms and &a${dcount3} &bdevices`)
+        addtolog(name3,tcount3,dcount3)
       }
       if (name4.length >= 4) {
         ChatLib.chat(`${prefix} &6${name4} &bdid &a${tcount4} &bterms and &a${dcount4} &bdevices`)
+        addtolog(name4,tcount4,dcount4)
       }
       if (name4.length >= 5) {
         ChatLib.chat(`${prefix} &6${name5} &bdid &a${tcount5} &bterms and &a${dcount5} &bdevices`)
+        addtolog(name5,tcount5,dcount5)
       }
       console.log("hi")
     }
@@ -166,3 +172,51 @@ register("tick", () => {
         dcount5 = 0
     }
 })
+//#endregion
+
+function addtolog(n,t,d) {
+  if (!FileLib.exists("Bonsai", "data/termLogs.json")) FileLib.write("Bonsai", "data/termLogs.json", "[]")
+  let data = {
+    "n": n.toLowerCase(),
+    "t": t,
+    "d": d
+  }
+  let logs = JSON.parse(FileLib.read("Bonsai", "data/termLogs.json"))
+  logs.push(data)
+  FileLib.write("Bonsai", "data/termLogs.json", JSON.stringify(logs))
+}
+
+register("command", (a,b,c) => {
+  if (Player.getName() == 'freebonsai') {
+    addtolog(a,b,c)
+  }
+}).setName("testtermlog")
+
+register("command", (name) => {
+  if (name) {
+    termcount = 0
+    devcount = 0
+    runcount = 0
+    let logs = JSON.parse(FileLib.read("Bonsai", "data/termLogs.json"))
+    for (let i=0;i<logs.length;i++) {
+      if (name.toLowerCase() == logs[i].n) {
+        runcount++
+        termcount+=logs[i].t*1
+        devcount+=logs[i].d*1
+      }
+    }
+    if (runcount > 0) {
+      ChatLib.chat(`&5&m${ChatLib.getChatBreak(" ")}`)
+      ChatLib.chat(`${prefix} &bTotal runs with &a${name}&b: &d${runcount}`)
+      ChatLib.chat(`${prefix} &bTotal terms gotten by &a${name}&b: &d${termcount}`)
+      ChatLib.chat(`${prefix} &bTotal devices gotten by &a${name}&b: &d${devcount}`)
+      ChatLib.chat(`${prefix} &bAverage terms gotten by &a${name}&b: &d${Math.floor(termcount/runcount)}`)
+      ChatLib.chat(`${prefix} &bAverage devices gotten by &a${name}&b: &d${Math.floor(devcount/runcount)}`)
+      ChatLib.chat(`&5&m${ChatLib.getChatBreak(" ")}`)
+    } else {
+      ChatLib.chat(`${prefix} &cNo runs logged with this player`)
+    }
+  } else {
+    ChatLib.chat(`${prefix} &bInvalid arguments! &c/termlogs (name)`)
+  }
+}).setName("termlogs").setAliases("tlogs","tlog","tl","termlog")
