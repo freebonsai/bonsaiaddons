@@ -31,8 +31,8 @@ If you find a bug or want to share suggestions dm me on discord bonsai#8491
 
 - Auto Warp
 
-- Terminal Caller
-- Automatically calls selected terminals, has a display for anyone else using the mod which will show which terms were called by who.
+- Terminal Caller which automatically calls selected terminals, and has a display for anyone else using the mod which will show which terms were called by who.
+
 
 ### Commands
 - /bo - Open the config GUI
