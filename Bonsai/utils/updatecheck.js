@@ -21,7 +21,7 @@ register("step", () => {
             ),
             new TextComponent(`&7(Changelog)`).setHover(
                 "show_text",
-                `&5&nChangeLog for ${stuff.latestVersion}:\n &r- ` + stuff.changelog.join("\n &7- ")
+                `&5&lChangelog for ${stuff.latestVersion}:\n &r- ` + stuff.changelog.join("\n &r- ")
             ),
             `\n&9&m${ChatLib.getChatBreak(" ")}`).chat()
         }
