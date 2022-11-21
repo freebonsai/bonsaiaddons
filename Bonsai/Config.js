@@ -21,13 +21,13 @@ import {
     },
 
     getPropertyComparator: () => (a, b) => {
-        const names = ['Auto Terminals','Auto Term Delay','Click Type','Relic Caller','Relic','Auto Warp','Terminal Counter'];
+        const names = ['Auto Terminals','Auto Term Delay','Click Type','Relic Caller','Relic','Auto Warp','Terminal Counter','Auto Kick'];
 
         return names.indexOf(a.attributesExt.name) - names.indexOf(b.attributesExt.name);
     },
 
     getSubcategoryComparator: () => (a, b) => {
-        const subcategories = ['Auto Terms', 'M7','Warp','Terminal Counter'];
+        const subcategories = ['Auto Terms', 'M7','Warp','Terminal Counter','Auto Kick'];
 
         return subcategories.indexOf(a.getValue()[0].attributesExt.subcategory) -
             subcategories.indexOf(b.getValue()[0].attributesExt.subcategory);
@@ -336,6 +336,14 @@ class Config {
     })
     terminalCounter = true
 
+    @SwitchProperty({
+        name: "Auto Kick",
+        description: "Automatically kicks certain players when they join from pf. /blacklist help for more info",
+        category: "Dungeons",
+        subcategory: "Auto Kick"
+    })
+    autoKick = true
+    
     // SWARM COUNTER
     //#region 
     swarmCounterMove = new Gui()

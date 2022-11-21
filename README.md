@@ -44,6 +44,8 @@ If you find a bug or want to share suggestions dm me on discord bonsai#8491
 
 - Terminal Counter
 
+- Auto Kick
+
 ### Terminal Caller
 
 - Automatically calls selected terminals, and has a display for anyone else using the mod which will show which terms were called by who.

@@ -12,7 +12,7 @@ let inPhase = 0
 register("chat", () => {
   if (Dungeon.inDungeon) {
     inPhase = 1
-    cDisplay.clearLines()
+    tDisplay.clearLines()
     if (Config.oneleft1) {
       ChatLib.say("1st left $bterm$")
     } 
@@ -38,7 +38,7 @@ register("chat", () => {
 register("chat", () => {
   if (Dungeon.inDungeon) {
     inPhase++
-    cDisplay.clearLines()
+    tDisplay.clearLines()
     if (inPhase == 2) {
       if (Config.tworight1) {
         ChatLib.say("1st right $bterm$")
@@ -83,7 +83,7 @@ register("chat", () => {
 register("chat", () => {
   if (Dungeon.inDungeon) {
     inPhase++
-    cDisplay.clearLines()
+    tDisplay.clearLines()
     if (Config.threeleft1) {
       ChatLib.say("1st left $bterm$")
     } 
@@ -105,13 +105,13 @@ register("chat", () => {
 // GOLDOR OVER
 register("chat", () => {
   inPhase = 0
-  cDisplay.clearLines()
+  tDisplay.clearLines()
 }).setChatCriteria("[BOSS] Goldor: Necron, forgive me.")
 
 // GOLDOR OVER
 register("chat", () => {
   inPhase = 0
-  cDisplay.clearLines()
+  tDisplay.clearLines()
 }).setChatCriteria("[BOSS] Goldor: FINALLY! This took way too long.")
 
 

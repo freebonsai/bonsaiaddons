@@ -8,5 +8,6 @@ export const data = new PogObject("Bloom", {
     "termDisplay": {
         "x": 700,
         "y": 100
-    }
+    },
+    "bl": []
 }, "data/data.json")

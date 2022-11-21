@@ -24,6 +24,7 @@ register("chat", (chat,rank,name,msg,event) => {
       } else if (rank == "[VIP]" || rank == "[VIP+]") {
         ChatLib.chat(prefix + " &a" + name + " &dis smeshnik and shouldn't be allowed to speak")
       }
+      console.log(event)
       cancel(event)
     }
   }).setChatCriteria("${chat} > ${rank} ${name} ${grank}: ${msg}")

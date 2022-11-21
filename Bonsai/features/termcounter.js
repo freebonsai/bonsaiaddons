@@ -113,7 +113,6 @@ register("chat", () => {
         ChatLib.chat(`${prefix} &6${name5} &bdid &a${tcount5} &bterms and &a${dcount5} &bdevices`)
         addtolog(name5,tcount5,dcount5)
       }
-      console.log("hi")
     }
     names = []
     name1 = ""
@@ -219,4 +218,4 @@ register("command", (name) => {
   } else {
     ChatLib.chat(`${prefix} &bInvalid arguments! &c/termlogs (name)`)
   }
-}).setName("termlogs").setAliases("tlogs","tlog","tl","termlog")
+}).setName("termlogs").setAliases("tlogs","tlog","tl")
