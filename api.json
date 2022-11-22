@@ -1,7 +1,8 @@
 {
-    "latestVersion": "0.7",
+    "latestVersion": "0.7.1",
     "changelog": [
-        "Fixed a lot of stuff and added auto black cat for p3 (the timing might be a bit scuffed idk will fix at some point)"
+        "Auto Black cat should work even if you're in combat",
+        "Black cat timing should now be better gdrag timing might not be great tho"
     ],
     "author": "freebonsai"
 }
