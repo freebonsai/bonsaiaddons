@@ -11,7 +11,6 @@ register("chat", (n,c) => {
 }).setChatCriteria("Dungeon Finder > ${name} joined the dungeon group! ${lvl}")
 
 register("command", (...args) => {
-    console.log(data.bl)
     if (args == "list") {
         if (data.bl != undefined) {
             ChatLib.chat(prefix + " &bYour blacklist&a:")
@@ -58,4 +57,4 @@ register("command", (...args) => {
       ChatLib.chat(prefix + " &bCorrect capitalization is required!")
     }
     data.save()
-  }).setName("blacklist")
+}).setName("blacklist")

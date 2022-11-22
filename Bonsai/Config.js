@@ -21,13 +21,13 @@ import {
     },
 
     getPropertyComparator: () => (a, b) => {
-        const names = ['Auto Terminals','Auto Term Delay','Click Type','Relic Caller','Relic','Auto Warp','Terminal Counter','Auto Kick'];
+        const names = ['Auto Terminals','Auto Term Delay','Click Type','Relic Caller','Relic','Auto Warp','Terminal Counter','Auto Kick','Auto Black Cat'];
 
         return names.indexOf(a.attributesExt.name) - names.indexOf(b.attributesExt.name);
     },
 
     getSubcategoryComparator: () => (a, b) => {
-        const subcategories = ['Auto Terms', 'M7','Warp','Terminal Counter','Auto Kick'];
+        const subcategories = ['Auto Terms', 'M7','Warp','Terminal Counter','Auto Kick','Black Cat'];
 
         return subcategories.indexOf(a.getValue()[0].attributesExt.subcategory) -
             subcategories.indexOf(b.getValue()[0].attributesExt.subcategory);
@@ -343,6 +343,14 @@ class Config {
         subcategory: "Auto Kick"
     })
     autoKick = true
+
+    @SwitchProperty({
+        name: "Auto Black Cat",
+        description: "Automatically selects black cat pet at start of terminals in f7",
+        category: "Dungeons",
+        subcategory: "Black Cat"
+    })
+    blackCat = true
     
     // SWARM COUNTER
     //#region 
