@@ -27,6 +27,7 @@ const sv = 20
 let inTerm = false
 let q = []
 function clickQueue() {
+  let inv = Player.getContainer();
   new Thread(() => {
     for (let i = q.length-1; i >= 0; i--) {
       if (Config.autoClickType == 0) {

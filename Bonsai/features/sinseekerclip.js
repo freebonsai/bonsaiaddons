@@ -9,9 +9,7 @@ sinclipkey.registerKeyPress(() => {
     items = Player.getInventory().getItems()
     for (let i=0;i<items.length;i++) {
       if (items[i] == "1xitem.hoeGold@0") {
-        if (items[i].getName().includes("§5§4Sin§5seeker Scythe") || items[i].getName().includes("Heroic §5§4Sin§5seeker Scythe")) {
-          sinseekerslot = i
-        }
+        sinseekerslot = i
       }
     }
     if (sinseekerslot >= 0) {

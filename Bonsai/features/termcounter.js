@@ -216,6 +216,6 @@ register("command", (name) => {
       ChatLib.chat(`${prefix} &cNo runs logged with this player`)
     }
   } else {
-    ChatLib.chat(`${prefix} &bInvalid arguments! &c/termlogs (name)`)
+    ChatLib.chat(`${prefix} &bInvalid arguments! Use &c/termlogs (name)`)
   }
 }).setName("termlogs").setAliases("tlogs","tlog","tl")

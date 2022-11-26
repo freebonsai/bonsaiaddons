@@ -1,6 +1,6 @@
 import { prefix } from "../utils/prefix"
 
-let lastclick = new Date().getTime()-501
+let lastclick = new Date().getTime()-2000
 let clicked = false
 register("tick", () => {
     if (!clicked) {

@@ -1,10 +1,7 @@
 import {prefix} from "./prefix"
 import request from "../../requestV2"
 
-let checked = false
-register("step", () => {
-    if (checked) return
-    checked = true
+register("worldLoad", () => {
     request("https://raw.githubusercontent.com/freebonsai/bonsaiaddons/main/api.json").then(stuff => {
         stuff = JSON.parse(stuff.replace(new RegExp("    ", "g"), ""))
         // ChatLib.chat(JSON.stringify(stuff, "", 4))

@@ -1,8 +1,8 @@
 {
-    "latestVersion": "0.7.1",
+    "latestVersion": "0.7.2",
     "changelog": [
-        "Auto Black cat should work even if you're in combat",
-        "Black cat timing should now be better gdrag timing might not be great tho"
+        "Fixed a lot of stuff including term caller display",
+        "Might've improved auto black cat not sure tho"
     ],
     "author": "freebonsai"
 }

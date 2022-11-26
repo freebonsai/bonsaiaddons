@@ -29,3 +29,18 @@ register("command", (d,yaw,del) => {
     }).start()
   }
 }).setName("funiclip")
+
+register("command", (d,s) => {
+  new Thread(() => {
+    for (let i=0;i<d*10;i++) {
+      px = Player.getX()
+      py = Player.getY()
+      pz = Player.getZ()
+      yaw = Player.getYaw()
+      newx = -Math.sin(toRadians(yaw))*d
+      newz = Math.cos(toRadians(yaw))*d
+      Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px+newx/d/10,py,pz+newz/d/10)
+      Thread.sleep(s/10)
+    }
+  }).start()
+}).setName("funiclipbo")
