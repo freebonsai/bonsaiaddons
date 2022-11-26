@@ -24,3 +24,5 @@ import "./features/termcounter"
 import "./features/autokick"
 import "./features/autobuyarrow"
 import "./features/autoclip"
+
+import "./utils/firsttime"
