@@ -1,8 +1,9 @@
 {
-    "latestVersion": "0.7.2",
+    "latestVersion": "0.7.3",
     "changelog": [
         "Fixed a lot of stuff including term caller display",
-        "Might've improved auto black cat not sure tho"
+        "Might've improved auto black cat not sure tho",
+        "Added auto clip to middle of f5"
     ],
     "author": "freebonsai"
 }

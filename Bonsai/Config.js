@@ -178,7 +178,14 @@ class Config {
     startswith = true;
     //#endregion
     
-    
+    // AUTO
+    @SwitchProperty({
+        name: "Auto Clip F5",
+        description: "Automatically clips when entered f5 bossfight",
+        category: "Clipping",
+        subcategory: "Auto"
+    })
+    f5clip = true
 
     // SINSEEKER
     @SwitchProperty({
