@@ -34,6 +34,7 @@ register("chat", () => {
       ChatLib.say("Pre 4 bterm")
     }
   }
+  console.log("1")
 }).setChatCriteria("[BOSS] Goldor: Who dares trespass into my domain?")
 
 // SECOND AND FOURTH PHASE
@@ -61,6 +62,7 @@ register("chat", () => {
       if(Config.twoleft1) {
         ChatLib.say("1st left bterm")
       }
+      console.log("2")
     }
     if (inPhase == 4) {
       if (Config.fourleft1) {
@@ -78,6 +80,7 @@ register("chat", () => {
       if (Config.fourright1) {
         ChatLib.say("1st right bterm")
       }
+      console.log("4")
     }
   }
 }).setChatCriteria("${blah} (7/7)")
@@ -104,6 +107,31 @@ register("chat", () => {
       ChatLib.say("3rd left bterm")
     }
   }
+  console.log("3")
+}).setChatCriteria("${blah} (0/7)")
+
+register("chat", () => {
+  if (Dungeon.inDungeon) {
+    inPhase++
+    tDisplay.clearLines()
+    atline = 1
+    if (Config.threeleft1) {
+      ChatLib.say("1st left bterm")
+    } 
+    if (Config.threeleft2) {
+      ChatLib.say("2nd left bterm")
+    } 
+    if (Config.threedev) {
+      ChatLib.say("Device bterm")
+    } 
+    if (Config.threeright1) {
+      ChatLib.say("1st right bterm")
+    } 
+    if (Config.threeleft3) {
+      ChatLib.say("3rd left bterm")
+    }
+  }
+  console.log("3")
 }).setChatCriteria("${blah} (8/8)")
 
 // GOLDOR OVER

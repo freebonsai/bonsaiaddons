@@ -1,7 +1,8 @@
 {
-    "latestVersion": "0.7.4",
+    "latestVersion": "0.7.5",
     "changelog": [
-        "Added first time check"
+        "Fixed a lot of bugs i think",
+        "Drag the folder into the modules folder and click replace, this should keep all your settings and data"
     ],
     "author": "freebonsai"
 }

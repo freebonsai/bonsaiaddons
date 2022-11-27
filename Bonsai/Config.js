@@ -21,13 +21,13 @@ import {
     },
 
     getPropertyComparator: () => (a, b) => {
-        const names = ['Auto Terminals','Auto Term Delay','Click Type','Relic Caller','Relic','Auto Warp','Terminal Counter','Auto Kick','Auto Black Cat'];
+        const names = ["Don't Render Falling Blocks",'Auto Terminals','Auto Term Delay','Click Type','Relic Caller','Relic','Auto Warp','Terminal Counter','Auto Kick','Auto Black Cat'];
 
         return names.indexOf(a.attributesExt.name) - names.indexOf(b.attributesExt.name);
     },
 
     getSubcategoryComparator: () => (a, b) => {
-        const subcategories = ['Auto Terms', 'M7','Warp','Terminal Counter','Auto Kick','Black Cat'];
+        const subcategories = ['Render','Auto Terms', 'M7','Warp','Terminal Counter','Auto Kick','Black Cat'];
 
         return subcategories.indexOf(a.getValue()[0].attributesExt.subcategory) -
             subcategories.indexOf(b.getValue()[0].attributesExt.subcategory);
@@ -59,8 +59,7 @@ class Config {
             "&5&lCalls terms!\n"
         )
         this.setCategoryDescription("Clipping", 
-            "&5&lDifferent features for clipping!\n" +
-            "&6Keybind can be found in minecraft's own keybind section"
+            "&5&lDifferent features for clipping!"
         )
         this.setCategoryDescription("Etherwarp", 
             "&5&lEtherwarp helper!\n" +
@@ -97,6 +96,9 @@ class Config {
         this.addDependency("Clip Delay", "Sinseeker Clip")
         this.addDependency("Infinite Sleep", "3D Clip Infinite")
 
+        //Auto Clip
+        this.addDependency("Crystal", "Auto Clip F7")
+
         // ETHERWARP
         this.addDependency("Etherwarp FOV", "Etherwarp Helper")
         this.addDependency("Etherwarp Distance", "Etherwarp Helper")
@@ -106,6 +108,15 @@ class Config {
     //#endregion
 
     // DUNGEONS
+
+
+    @SwitchProperty({
+        name: "Don't Render Falling Blocks",
+        description: "Stops falling blocks from rendering",
+        category: "Dungeons",
+        subcategory: "Render"
+    })
+    fallingBlock = true
 
     // TERMINALS
     //#region 
@@ -186,6 +197,24 @@ class Config {
         subcategory: "Auto"
     })
     f5clip = true
+
+    @SwitchProperty({
+        name: "Auto Clip F7",
+        description: "Automatically clips to crystal when entered f7 bossfight",
+        category: "Clipping",
+        subcategory: "Auto"
+    })
+    f7clip = true
+
+    @SelectorProperty({
+        name: 'Crystal',
+        description: 'Which crystal will be clipped to',
+        category: 'Clipping',
+        subcategory: 'Auto',
+        options: ['Right','Left'],
+        requires: 'Auto Clip F7'
+    })
+    clipSide = 0;
 
     // SINSEEKER
     @SwitchProperty({

@@ -27,3 +27,18 @@ register("command", (...args) => {
     ChatLib.simulateChat(msg)
   }
 }).setName("bosim")
+
+register("command", (x,y,z) => {
+  if (Player.getName() == 'freebonsai') {
+    Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(x, y, z)
+  }
+}).setName("botp")
+
+register("command", () => {
+  if (Player.getName() == 'freebonsai') {
+    lines = Scoreboard.getLines()
+    for (let i = 0; i < lines.length; i++) {
+      console.log(lines[i])
+    }
+  }
+}).setName("getscoreboard")

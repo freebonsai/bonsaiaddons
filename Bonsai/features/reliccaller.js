@@ -3,7 +3,7 @@ import Config from "../Config"
 register("chat", () => {
   lines = Scoreboard.getLines()
   for (let i = 0;i < lines.length;i++) {
-    if (lines[i] == " §7⏣ §cThe Catac👾§combs §7(M7)" || lines[i] == " §7⏣ §cThe Catac🌠§combs §7(M7)" || lines[i] == " §7⏣ §cThe Catac🔮§combs §7(M7)") {
+    if (lines[i].toString().includes("M7")) {
       if (Config.relicCaller) {
         if (Config.relicType == 0) {
           ChatLib.say("green")
@@ -19,4 +19,4 @@ register("chat", () => {
       }
     }
   }
-}).setChatCriteria("[BOSS] Necron: All this, for nothing...")
+}).setChatCriteria("[BOSS] Necron: WITNESS MY RAW NUCLEAR POWER!")
