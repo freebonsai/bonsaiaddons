@@ -1,8 +1,9 @@
 {
-    "latestVersion": "0.7.7",
+    "latestVersion": "0.8",
     "changelog": [
         "relic i think fixed",
-        "added some new auto clip stuff i think"
+        "added some new auto clip stuff i think",
+        "auto clip down in f7 should be cool now!"
     ],
     "author": "freebonsai"
 }

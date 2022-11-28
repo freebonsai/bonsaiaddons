@@ -33,7 +33,7 @@ register("tick", () => {
         if (Dungeon.inDungeon) {
             let atCoords = (x,y,z) => Math.floor(Player.getX()) == x && Math.floor(Player.getY()) == y && Math.floor(Player.getZ()) == z
             if (atCoords(73,221,14)) {
-                if (Config.clipSide == 0) {
+                if (Config.clipSide == 0) { // RIGHT
                     px = Player.getX()
                     py = Player.getY()
                     pz = Player.getZ()
@@ -54,7 +54,7 @@ register("tick", () => {
                         rightClick.invoke(Client.getMinecraft())
                         clicked = true
                     }).start()
-                } else if (Config.clipSide == 1) {
+                } else if (Config.clipSide == 1) { // LEFT
                     px = Player.getX()
                     py = Player.getY()
                     pz = Player.getZ()
@@ -75,25 +75,40 @@ register("tick", () => {
                         rightClick.invoke(Client.getMinecraft())
                         clicked = true
                     }).start()
-                } else if (Config.clipSide == 2) {
+                } else if (Config.clipSide == 2) { // DOWN
                     px = Player.getX()
                     py = Player.getY()
                     pz = Player.getZ()
                     new Thread(() => {
-                        for (let i = 0; i < 25; i++) {
+                        starttime = new Date().getTime()
+                        for (let i = 0; i < 26; i++) {
                             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
                             Thread.sleep(6)
                             px = Player.getX()
                             py = Player.getY()
                             pz = Player.getZ()
                         }
-                        for (let i = 0; i < 5; i++) {
+                        for (let i = 0; i < 50; i++) {
                             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py - 1, pz)
                             Thread.sleep(6)
                             px = Player.getX()
                             py = Player.getY()
                             pz = Player.getZ()
                         }
+                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz+0.5)
+                        Thread.sleep(5)
+                        px = Player.getX()
+                        py = Player.getY()
+                        pz = Player.getZ()
+                        for (let i = 0; i < 14; i++) {
+                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px + 1, py, pz)
+                            Thread.sleep(6)
+                            px = Player.getX()
+                            py = Player.getY()
+                            pz = Player.getZ()
+                        }
+                        endtime = new Date().getTime()
+                        console.log(endtime-starttime)
                     }).start()
                 }
             }
