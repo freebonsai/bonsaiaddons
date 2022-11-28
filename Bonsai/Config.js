@@ -229,7 +229,7 @@ class Config {
         description: 'Which crystal will be clipped to',
         category: 'Clipping',
         subcategory: 'Auto',
-        options: ['Right','Left'],
+        options: ['Right','Left','Down'],
         requires: 'Auto Clip F7'
     })
     clipSide = 0;
@@ -474,6 +474,7 @@ class Config {
 
     // TERMINAL CALLER
     //#region
+
     // DISPLAY STUFF
     //#region  
     @SwitchProperty({
@@ -498,6 +499,238 @@ class Config {
         this.termdisplaymove.open()
     };
     //#endregion
+
+    // PRESETS
+
+    presetgui = new Gui()
+    // ALL OFF
+    //#region 
+    @ButtonProperty({
+        name: "All off",
+        description: "Turns all terminals off",
+        category: "Terminal Caller",
+        subcategory: "Presets",
+        placeholder: "All Off",
+    })
+    Off() {
+        this.oneleft1 = false
+        this.oneleft2 = false
+        this.oneright1 = false
+        this.oneright2 = false
+        this.onedev = false
+
+        this.tworight1 = false
+        this.tworight2 = false
+        this.tworight3 = false
+        this.tworight4 = false
+        this.twoleft1 = false
+        this.twodev = false
+
+        this.threeleft1 = false
+        this.threeleft2 = false
+        this.threeleft3 = false
+        this.threeright1 = false
+        this.threedev = false
+
+        this.fourleft1 = false
+        this.fourleft2 = false
+        this.fourleft3 = false
+        this.fourright1 = false
+        this.fourdev = false
+        this.presetgui.open()
+    };
+    //#endregion
+
+    // DEVICES
+    //#region 
+    @ButtonProperty({
+        name: "Devices",
+        description: "Sets your terminals to the devices preset",
+        category: "Terminal Caller",
+        subcategory: "Presets",
+        placeholder: "Devices",
+    })
+    Devices() {
+        this.oneleft1 = false
+        this.oneleft2 = false
+        this.oneright1 = false
+        this.oneright2 = false
+        this.onedev = true
+
+        this.tworight1 = false
+        this.tworight2 = false
+        this.tworight3 = false
+        this.tworight4 = false
+        this.twoleft1 = true
+        this.twodev = true
+
+        this.threeleft1 = false
+        this.threeleft2 = false
+        this.threeleft3 = false
+        this.threeright1 = false
+        this.threedev = true
+
+        this.fourleft1 = false
+        this.fourleft2 = false
+        this.fourleft3 = false
+        this.fourright1 = false
+        this.fourdev = true
+        this.presetgui.open()
+    };
+    //#endregion
+    
+    // FIRST TERMS
+    //#region 
+    @ButtonProperty({
+        name: "First Terms",
+        description: "Sets your terminals to the first term preset",
+        category: "Terminal Caller",
+        subcategory: "Presets",
+        placeholder: "First Terms",
+    })
+    First() {
+        this.oneleft1 = true
+        this.oneleft2 = false
+        this.oneright1 = false
+        this.oneright2 = false
+        this.onedev = false
+
+        this.tworight1 = true
+        this.tworight2 = false
+        this.tworight3 = false
+        this.tworight4 = false
+        this.twoleft1 = false
+        this.twodev = false
+
+        this.threeleft1 = true
+        this.threeleft2 = false
+        this.threeleft3 = false
+        this.threeright1 = false
+        this.threedev = false
+
+        this.fourleft1 = true
+        this.fourleft2 = false
+        this.fourleft3 = false
+        this.fourright1 = false
+        this.fourdev = false
+        this.presetgui.open()
+    };
+    //#endregion
+
+    // SECOND TERMS
+    //#region 
+    @ButtonProperty({
+        name: "Second Terms",
+        description: "Sets your terminals to the second term preset",
+        category: "Terminal Caller",
+        subcategory: "Presets",
+        placeholder: "Second Terms",
+    })
+    Second() {
+        this.oneleft1 = false
+        this.oneleft2 = true
+        this.oneright1 = false
+        this.oneright2 = false
+        this.onedev = false
+
+        this.tworight1 = false
+        this.tworight2 = true
+        this.tworight3 = false
+        this.tworight4 = false
+        this.twoleft1 = false
+        this.twodev = false
+
+        this.threeleft1 = false
+        this.threeleft2 = true
+        this.threeleft3 = false
+        this.threeright1 = false
+        this.threedev = false
+
+        this.fourleft1 = false
+        this.fourleft2 = true
+        this.fourleft3 = false
+        this.fourright1 = false
+        this.fourdev = false
+        this.presetgui.open()
+    };
+    //#endregion
+
+    // THIRD TERMS
+    //#region 
+    @ButtonProperty({
+        name: "Third Terms",
+        description: "Sets your terminals to the third term preset",
+        category: "Terminal Caller",
+        subcategory: "Presets",
+        placeholder: "Third Terms",
+    })
+    Third() {
+        this.oneleft1 = false
+        this.oneleft2 = false
+        this.oneright1 = true
+        this.oneright2 = false
+        this.onedev = false
+
+        this.tworight1 = false
+        this.tworight2 = false
+        this.tworight3 = true
+        this.tworight4 = false
+        this.twoleft1 = false
+        this.twodev = false
+
+        this.threeleft1 = false
+        this.threeleft2 = false
+        this.threeleft3 = true
+        this.threeright1 = false
+        this.threedev = false
+
+        this.fourleft1 = false
+        this.fourleft2 = false
+        this.fourleft3 = true
+        this.fourright1 = false
+        this.fourdev = false
+        this.presetgui.open()
+    };
+    //#endregion
+
+    // LAST TERMS
+    //#region 
+    @ButtonProperty({
+        name: "Last Terms",
+        description: "Sets your terminals to the last term preset",
+        category: "Terminal Caller",
+        subcategory: "Presets",
+        placeholder: "Last Terms",
+    })
+    Last() {
+        this.oneleft1 = false
+        this.oneleft2 = false
+        this.oneright1 = false
+        this.oneright2 = true
+        this.onedev = false
+
+        this.tworight1 = false
+        this.tworight2 = false
+        this.tworight3 = false
+        this.tworight4 = true
+        this.twoleft1 = false
+        this.twodev = false
+
+        this.threeleft1 = false
+        this.threeleft2 = false
+        this.threeleft3 = false
+        this.threeright1 = true
+        this.threedev = false
+
+        this.fourleft1 = false
+        this.fourleft2 = false
+        this.fourleft3 = false
+        this.fourright1 = true
+        this.fourdev = false
+        this.presetgui.open()
+    };
+    //#endregion
+
     // 1
     //#region 
     @CheckboxProperty({

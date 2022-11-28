@@ -54,7 +54,7 @@ register("tick", () => {
                         rightClick.invoke(Client.getMinecraft())
                         clicked = true
                     }).start()
-                } else {
+                } else if (Config.clipSide == 1) {
                     px = Player.getX()
                     py = Player.getY()
                     pz = Player.getZ()
@@ -74,6 +74,26 @@ register("tick", () => {
                         Thread.sleep(10)
                         rightClick.invoke(Client.getMinecraft())
                         clicked = true
+                    }).start()
+                } else if (Config.clipSide == 2) {
+                    px = Player.getX()
+                    py = Player.getY()
+                    pz = Player.getZ()
+                    new Thread(() => {
+                        for (let i = 0; i < 25; i++) {
+                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
+                            Thread.sleep(6)
+                            px = Player.getX()
+                            py = Player.getY()
+                            pz = Player.getZ()
+                        }
+                        for (let i = 0; i < 5; i++) {
+                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py - 1, pz)
+                            Thread.sleep(6)
+                            px = Player.getX()
+                            py = Player.getY()
+                            pz = Player.getZ()
+                        }
                     }).start()
                 }
             }
@@ -199,12 +219,12 @@ register("tick", () => {
                     new Thread(() => {
                         for (let i = 0; i < zleft; i++) {
                             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
-                            Thread.sleep(3)
+                            Thread.sleep(6)
                             pz = Player.getZ()
                         }
                         for (let i = 0; i < 9; i++) {
                             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px + 1, py, pz)
-                            Thread.sleep(3)
+                            Thread.sleep(6)
                             px = Player.getX()
                         }
                     }).start()
@@ -213,19 +233,19 @@ register("tick", () => {
                 let atCoords = (x,y,z) => Math.floor(Player.getX()) == x && Math.floor(Player.getY()) == y && Math.floor(Player.getZ()) == z
                 if (atCoords(-9,69,6)) {
                     px = Player.getX()
-                    py = Player.getY()+0.5
+                    py = Player.getY()+1
                     pz = Player.getZ()
                     zleft = 48
                     // -18 69 54
                     new Thread(() => {
                         for (let i = 0; i < zleft; i++) {
                             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
-                            Thread.sleep(3)
+                            Thread.sleep(6)
                             pz = Player.getZ()
                         }
                         for (let i = 0; i < 9; i++) {
                             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px - 1, py, pz)
-                            Thread.sleep(3)
+                            Thread.sleep(6)
                             px = Player.getX()
                         }
                     }).start()

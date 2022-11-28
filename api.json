@@ -1,7 +1,8 @@
 {
-    "latestVersion": "0.7.6",
+    "latestVersion": "0.7.7",
     "changelog": [
-        "hella fixes (relic fix coming soon)"
+        "relic i think fixed",
+        "added some new auto clip stuff i think"
     ],
     "author": "freebonsai"
 }
