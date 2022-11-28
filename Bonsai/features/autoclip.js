@@ -25,7 +25,7 @@ register("tick", () => {
 
 const rightClick = Client.getMinecraft().getClass().getDeclaredMethod("func_147121_ag")
 rightClick.setAccessible(true)
-
+clicked = false
 // F7
 // 64 238 49
 register("tick", () => {
@@ -52,16 +52,7 @@ register("tick", () => {
                         }
                         Thread.sleep(10)
                         rightClick.invoke(Client.getMinecraft())
-                        Thread.sleep(150)
-                        xleft = -12
-                        zleft = -10
-                        for (let i = 0; i < 10; i++) {
-                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px + (xleft/10), py, pz + (zleft/10))
-                            Thread.sleep(15)
-                            px = Player.getX()
-                            py = Player.getY()
-                            pz = Player.getZ()
-                        }
+                        clicked = true
                     }).start()
                 } else {
                     px = Player.getX()
@@ -82,15 +73,160 @@ register("tick", () => {
                         }
                         Thread.sleep(10)
                         rightClick.invoke(Client.getMinecraft())
-                        Thread.sleep(150)
-                        xleft = 12
-                        zleft = -10
-                        for (let i = 0; i < 10; i++) {
-                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px + (xleft/10), py, pz + (zleft/10))
-                            Thread.sleep(15)
-                            px = Player.getX()
-                            py = Player.getY()
+                        clicked = true
+                    }).start()
+                }
+            }
+        }
+    }
+})
+
+// AFTER CRYSTAL PICK UP
+register("chat", (name) => {
+    if (clicked) {
+        if (name == Player.getName()) {
+            if (Config.clipSide == 0) {
+                xleft = -12
+                zleft = -10
+                new Thread(() => {
+                    for (let i = 0; i < 10; i++) {
+                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px + (xleft/10), py, pz + (zleft/10))
+                        Thread.sleep(15)
+                        px = Player.getX()
+                        py = Player.getY()
+                        pz = Player.getZ()
+                    }
+                }).start()
+                clicked = false
+            } else {
+                xleft = 12
+                zleft = -10
+                new Thread(() => {
+                    for (let i = 0; i < 10; i++) {
+                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px + (xleft/10), py, pz + (zleft/10))
+                        Thread.sleep(15)
+                        px = Player.getX()
+                        py = Player.getY()
+                        pz = Player.getZ()
+                    }
+                }).start()
+                clicked = false
+            }
+        }
+    }
+}).setChatCriteria("${name} picked up an Energy Crystal!")
+
+
+// F6
+register("tick", () => {
+    if (Config.f6clip)  {
+        if (Dungeon.inDungeon) {
+            if (Config.f6Class == 0) { // Tank
+                let atCoords = (x,y,z) => Math.floor(Player.getX()) == x && Math.floor(Player.getY()) == y && Math.floor(Player.getZ()) == z
+                if (atCoords(-9,69,6)) {
+                    px = Player.getX()
+                    py = Player.getY()+1.5
+                    pz = Player.getZ()
+                    zleft = 31
+                    // -15 70 37
+                    new Thread(() => {
+                        for (let i = 0; i < zleft; i++) {
+                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
+                            Thread.sleep(5)
                             pz = Player.getZ()
+                        }
+                        for (let i = 0; i < 7; i++) {
+                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px - 1, py, pz)
+                            Thread.sleep(5)
+                            px = Player.getX()
+                        }
+                    }).start()
+                }
+            } else if (Config.f6Class == 1) { // Healer
+                let atCoords = (x,y,z) => Math.floor(Player.getX()) == x && Math.floor(Player.getY()) == y && Math.floor(Player.getZ()) == z
+                if (atCoords(-9,69,6)) {
+                    px = Player.getX()
+                    py = Player.getY()+0.5
+                    pz = Player.getZ()
+                    zleft = 30
+                    yleft = 8
+                    new Thread(() => {
+                        for (let i = 0; i < zleft; i++) {
+                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
+                            Thread.sleep(5)
+                            pz = Player.getZ()
+                        }
+                        for (let i = 0; i < yleft; i++) {
+                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py + 1, pz)
+                            Thread.sleep(5)
+                            py = Player.getY()
+                        }
+                        for (let i = 0; i < 6; i++) {
+                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px - 1, py, pz)
+                            Thread.sleep(5)
+                            px = Player.getX()
+                        }
+                    }).start()
+                }
+            } else if (Config.f6Class == 2) { // Mage
+                let atCoords = (x,y,z) => Math.floor(Player.getX()) == x && Math.floor(Player.getY()) == y && Math.floor(Player.getZ()) == z
+                if (atCoords(-9,69,6)) {
+                    px = Player.getX()
+                    py = Player.getY()+0.5
+                    pz = Player.getZ()
+                    zleft = 33
+                    new Thread(() => {
+                        for (let i = 0; i < zleft; i++) {
+                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
+                            Thread.sleep(5)
+                            pz = Player.getZ()
+                        }
+                        for (let i = 0; i < 2; i++) {
+                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px - 1, py, pz)
+                            Thread.sleep(5)
+                            px = Player.getX()
+                        }
+                    }).start()
+                }
+            } else if (Config.f6Class == 3) { // Archer
+                let atCoords = (x,y,z) => Math.floor(Player.getX()) == x && Math.floor(Player.getY()) == y && Math.floor(Player.getZ()) == z
+                if (atCoords(-9,69,6)) {
+                    px = Player.getX()
+                    py = Player.getY()+0.5
+                    pz = Player.getZ()
+                    zleft = 48
+                    // -18 69 54
+                    new Thread(() => {
+                        for (let i = 0; i < zleft; i++) {
+                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
+                            Thread.sleep(3)
+                            pz = Player.getZ()
+                        }
+                        for (let i = 0; i < 9; i++) {
+                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px + 1, py, pz)
+                            Thread.sleep(3)
+                            px = Player.getX()
+                        }
+                    }).start()
+                }
+            } else if (Config.f6Class == 4) { // Bers
+                let atCoords = (x,y,z) => Math.floor(Player.getX()) == x && Math.floor(Player.getY()) == y && Math.floor(Player.getZ()) == z
+                if (atCoords(-9,69,6)) {
+                    px = Player.getX()
+                    py = Player.getY()+0.5
+                    pz = Player.getZ()
+                    zleft = 48
+                    // -18 69 54
+                    new Thread(() => {
+                        for (let i = 0; i < zleft; i++) {
+                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
+                            Thread.sleep(3)
+                            pz = Player.getZ()
+                        }
+                        for (let i = 0; i < 9; i++) {
+                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px - 1, py, pz)
+                            Thread.sleep(3)
+                            px = Player.getX()
                         }
                     }).start()
                 }
@@ -98,3 +234,61 @@ register("tick", () => {
         }
     }
 })
+
+
+// -90 21
+// 0 6
+// 0 6
+register("chat", () => {
+    if (Config.f6clip)  {
+        if (Config.f6class == 0) {
+            new Thread(() => {
+                Player.getPlayer().field_70177_z = -90
+                Player.getPlayer().field_70125_A = 21
+                items = Player.getInventory().getItems()
+                for (let i = 0; i < items.length; i++) {
+                    if (items[i] == "1xitem.shovelDiamond@0") {
+                        aotvslot = i
+                    }
+                }
+                Thread.sleep(250)
+                Player.setHeldItemIndex(aotvslot)
+                rightClick.invoke(Client.getMinecraft())
+                Thread.sleep(700)
+
+                Player.getPlayer().field_70177_z = 0
+                Player.getPlayer().field_70125_A = 6
+                Thread.sleep(250)
+                Player.setHeldItemIndex(aotvslot)
+                rightClick.invoke(Client.getMinecraft())
+                Thread.sleep(100)
+
+                Player.getPlayer().field_70177_z = 0
+                Player.getPlayer().field_70125_A = 6
+                Thread.sleep(250)
+                Player.setHeldItemIndex(aotvslot)
+                rightClick.invoke(Client.getMinecraft())
+            }).start()
+        }
+    }
+}).setChatCriteria("[BOSS] Sadan: ENOUGH!")
+
+register("chat", () => {
+    if (Config.f6clip)  {
+        if (Config.f6class == 0) {
+            new Thread(() => {
+                Player.getPlayer().field_70177_z = 0
+                Player.getPlayer().field_70125_A = 0
+                items = Player.getInventory().getItems()
+                for (let i = 0; i < items.length; i++) {
+                    if (items[i] == "1xitem.shovelDiamond@0") {
+                        aotvslot = i
+                    }
+                }
+                Thread.sleep(250)
+                Player.setHeldItemIndex(aotvslot)
+                rightClick.invoke(Client.getMinecraft())
+            }).start()
+        }
+    }
+}).setChatCriteria("[BOSS] Sadan: You did it. I understand now, you have earned my respect.")

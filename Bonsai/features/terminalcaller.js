@@ -88,26 +88,28 @@ register("chat", () => {
 // THIRD PHASE
 register("chat", () => {
   if (Dungeon.inDungeon) {
-    inPhase++
-    tDisplay.clearLines()
-    atline = 1
-    if (Config.threeleft1) {
-      ChatLib.say("1st left bterm")
-    } 
-    if (Config.threeleft2) {
-      ChatLib.say("2nd left bterm")
-    } 
-    if (Config.threedev) {
-      ChatLib.say("Device bterm")
-    } 
-    if (Config.threeright1) {
-      ChatLib.say("1st right bterm")
-    } 
-    if (Config.threeleft3) {
-      ChatLib.say("3rd left bterm")
+    if (inPhase == 2) {
+      inPhase++
+      tDisplay.clearLines()
+      atline = 1
+      if (Config.threeleft1) {
+        ChatLib.say("1st left bterm")
+      } 
+      if (Config.threeleft2) {
+        ChatLib.say("2nd left bterm")
+      } 
+      if (Config.threedev) {
+        ChatLib.say("Device bterm")
+      } 
+      if (Config.threeright1) {
+        ChatLib.say("1st right bterm")
+      } 
+      if (Config.threeleft3) {
+        ChatLib.say("3rd left bterm")
+      }
+      console.log("3")
     }
   }
-  console.log("3")
 }).setChatCriteria("${blah} (0/7)")
 
 register("chat", () => {

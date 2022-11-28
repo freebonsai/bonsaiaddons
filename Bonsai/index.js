@@ -12,7 +12,6 @@ import "./commands/getspeed"
 import "./commands/devcommands"
 
 import "./features/abihider"
-import "./features/sinseekerclip"
 import "./features/swarmcounter"
 import "./features/autoterms"
 import "./features/messagehider"

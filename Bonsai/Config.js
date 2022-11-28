@@ -199,6 +199,24 @@ class Config {
     f5clip = true
 
     @SwitchProperty({
+        name: "Auto Clip F6",
+        description: "Automatically clips when entered f6 bossfight",
+        category: "Clipping",
+        subcategory: "Auto"
+    })
+    f6clip = true
+
+    @SelectorProperty({
+        name: 'F6 Class',
+        description: 'Where you will clip in f6',
+        category: 'Clipping',
+        subcategory: 'Auto',
+        options: ['Tank (Auto)', 'Healer', 'Mage','Archer','Berserker'],
+        requires: 'Auto Clip F6'
+    })
+    f6Class = 0;
+
+    @SwitchProperty({
         name: "Auto Clip F7",
         description: "Automatically clips to crystal when entered f7 bossfight",
         category: "Clipping",

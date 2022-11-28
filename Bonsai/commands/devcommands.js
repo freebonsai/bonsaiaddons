@@ -42,3 +42,21 @@ register("command", () => {
     }
   }
 }).setName("getscoreboard")
+
+// 6 101 8
+register("command", (x,y,z) => {
+  if (Player.getName() == 'freebonsai') {
+    x*=1
+    y*=1
+    z*=1
+    pos = new BlockPos(x,y,z)
+    console.log(pos)
+    Client.getMinecraft().func_71410_x().field_71441_e.func_175698_g(pos.toMCBlock())
+  }
+}).setName("setgb")
+
+register("command", (x,y,z) => {
+  if (Player.getName() == 'freebonsai') {
+    Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(x,y,z)
+  }
+}).setName("tpbo")
