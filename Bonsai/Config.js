@@ -116,7 +116,7 @@ class Config {
         category: "Dungeons",
         subcategory: "Render"
     })
-    fallingBlock = true
+    fallingBlock = false
 
     // TERMINALS
     //#region 
@@ -222,7 +222,7 @@ class Config {
         category: "Clipping",
         subcategory: "Auto"
     })
-    f7clip = true
+    f7clip = false
 
     @SelectorProperty({
         name: 'Crystal',
@@ -233,25 +233,6 @@ class Config {
         requires: 'Auto Clip F7'
     })
     clipSide = 0;
-
-    // SINSEEKER
-    @SwitchProperty({
-        name: "Sinseeker Clip",
-        description: "Automatically clips when key pressed (set up a keybind for sinseeker in oringo or floppa i cba)",
-        category: "Clipping",
-        subcategory: "Sinseeker"
-    })
-    sinclip = true
-
-    @SliderProperty({
-        name: "Clip Delay",
-        description: "Delay between keybind press and clip (from my testing minimum that works is 115 but maybe ping or smth just try)",
-        category: "Clipping",
-        subcategory: "Sinseeker",
-        min: 100,
-        max: 250
-    })
-    sindelay = 150;
 
     // 3D CLIP
 
@@ -292,7 +273,7 @@ class Config {
         category: "Etherwarp",
         subcategory: "Etherwarp"
     })
-    etherHelper = true
+    etherHelper = false
 
     @SliderProperty({
         name: "Etherwarp FOV",
@@ -340,7 +321,7 @@ class Config {
         category: "Dungeons",
         subcategory: "M7"
     })
-    relicCaller = true
+    relicCaller = false
 
     @SelectorProperty({
         name: 'Relic',
@@ -359,7 +340,7 @@ class Config {
         category: "Dungeons",
         subcategory: "Warp"
     })
-    autoWarp = true
+    autoWarp = false
 
     @TextProperty({
         name: 'Warped Name',
@@ -396,7 +377,7 @@ class Config {
         category: "Dungeons",
         subcategory: "Auto Kick"
     })
-    autoKick = true
+    autoKick = false
 
     @SwitchProperty({
         name: "Auto Black Cat",
@@ -404,7 +385,7 @@ class Config {
         category: "Dungeons",
         subcategory: "Black Cat"
     })
-    blackCat = true
+    blackCat = false
     
     // SWARM COUNTER
     //#region 
@@ -417,7 +398,7 @@ class Config {
         category: "Swarm Counter",
         subcategory: "Swarm Counter"
     })
-    SwarmCounter = true
+    SwarmCounter = false
 
     // SHOW PERCENT
     @SwitchProperty({
@@ -469,7 +450,7 @@ class Config {
         category: "Message Hider",
         subcategory: "Smeshnik"
     })
-    messageHider = true
+    messageHider = false
     //#endregion
 
     // TERMINAL CALLER
