@@ -33,10 +33,11 @@ register("chat", () => {
     if (Config.pre4) {
       ChatLib.say("Pre 4 bterm")
     }
+    fourdone = false
   }
   console.log("1")
 }).setChatCriteria("[BOSS] Goldor: Who dares trespass into my domain?")
-
+fourdone = false
 // SECOND AND FOURTH PHASE
 register("chat", () => {
   if (Dungeon.inDungeon) {
@@ -64,7 +65,7 @@ register("chat", () => {
       }
       console.log("2")
     }
-    if (inPhase == 4) {
+    if (inPhase == 4 && !fourdone) {
       if (Config.fourleft1) {
         ChatLib.say("1st left bterm")
       } 
@@ -80,6 +81,7 @@ register("chat", () => {
       if (Config.fourright1) {
         ChatLib.say("1st right bterm")
       }
+      fourdone = true
       console.log("4")
     }
   }

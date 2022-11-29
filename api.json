@@ -1,10 +1,7 @@
 {
-    "latestVersion": "0.8",
+    "latestVersion": "0.8.1",
     "changelog": [
-        "relic i think fixed",
-        "added some new auto clip stuff i think",
-        "auto clip down in f7 should be cool now!",
-        "made most settings off on default (thank flare or scream at him not me pls)"
+        "fixed main cmd just not working"
     ],
     "author": "freebonsai"
 }

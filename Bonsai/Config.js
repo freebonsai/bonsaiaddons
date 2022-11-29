@@ -92,9 +92,6 @@ class Config {
         this.addDependency("Warped Name", "Auto Warp")
         this.addDependency("Warp Delay", "Auto Warp")
 
-        // CLIP STUFF
-        this.addDependency("Clip Delay", "Sinseeker Clip")
-        this.addDependency("Infinite Sleep", "3D Clip Infinite")
 
         //Auto Clip
         this.addDependency("Crystal", "Auto Clip F7")
