@@ -1,7 +1,8 @@
 {
-    "latestVersion": "0.8.1",
+    "latestVersion": "0.8.2",
     "changelog": [
-        "fixed main cmd just not working"
+        "fixed main cmd just not working",
+        "added seen button on update thing"
     ],
     "author": "freebonsai"
 }

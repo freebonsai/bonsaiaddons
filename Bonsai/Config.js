@@ -115,6 +115,16 @@ class Config {
     })
     fallingBlock = false
 
+
+    //QUIZ
+    @SwitchProperty({
+        name: "Auto Quiz",
+        description: "Automatically clicks correct buttons in quiz (Extremely WIP)",
+        category: "Dungeons",
+        subcategory: "Quiz"
+    })
+    autoQuiz = false
+
     // TERMINALS
     //#region 
     @SwitchProperty({
