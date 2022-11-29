@@ -10,6 +10,8 @@ import "./commands/tpclip"
 import "./commands/unmute"
 import "./commands/getspeed"
 import "./commands/devcommands"
+import "./commands/onoffcommands"
+import "./commands/singasong"
 
 import "./features/abihider"
 import "./features/swarmcounter"

@@ -15,7 +15,7 @@ import {
     // SORTING OF STUFF
     //#region 
     getCategoryComparator: () => (a, b) => {
-        const categories = ['Dungeons','Etherwarp','Swarm Counter', 'Message Hider','Terminal Caller','Clipping'];
+        const categories = ['Dungeons','General','Etherwarp','Swarm Counter', 'Message Hider','Terminal Caller','Clipping'];
 
         return categories.indexOf(a.name) - categories.indexOf(b.name);
     },
@@ -115,16 +115,6 @@ class Config {
     })
     fallingBlock = false
 
-
-    //QUIZ
-    @SwitchProperty({
-        name: "Auto Quiz",
-        description: "Automatically clicks correct buttons in quiz (Extremely WIP)",
-        category: "Dungeons",
-        subcategory: "Quiz"
-    })
-    autoQuiz = false
-
     // TERMINALS
     //#region 
     @SwitchProperty({
@@ -196,6 +186,24 @@ class Config {
     startswith = true;
     //#endregion
     
+    @SwitchProperty({
+        name: "Song Singer",
+        description: "Sings the song at ./data/song.js when /singasong is executed",
+        category: "General",
+        subcategory: "Song"
+    })
+    singasong = true
+
+    @SliderProperty({
+        name: "Song Delay",
+        description: "Delay between song singer",
+        category: "General",
+        subcategory: "Song",
+        min: 1,
+        max: 1000
+    })
+    songsleep = 200;
+
     // AUTO
     @SwitchProperty({
         name: "Auto Clip F5",

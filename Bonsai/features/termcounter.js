@@ -209,8 +209,8 @@ register("command", (name) => {
       ChatLib.chat(`${prefix} &bTotal runs with &a${name}&b: &d${runcount}`)
       ChatLib.chat(`${prefix} &bTotal terms gotten by &a${name}&b: &d${termcount}`)
       ChatLib.chat(`${prefix} &bTotal devices gotten by &a${name}&b: &d${devcount}`)
-      ChatLib.chat(`${prefix} &bAverage terms gotten by &a${name}&b: &d${Math.floor(termcount/runcount)}`)
-      ChatLib.chat(`${prefix} &bAverage devices gotten by &a${name}&b: &d${Math.floor(devcount/runcount)}`)
+      ChatLib.chat(`${prefix} &bAverage terms gotten by &a${name}&b: &d${Math.round(termcount/runcount)}`)
+      ChatLib.chat(`${prefix} &bAverage devices gotten by &a${name}&b: &d${Math.round(devcount/runcount)}`)
       ChatLib.chat(`&5&m${ChatLib.getChatBreak(" ")}`)
     } else {
       ChatLib.chat(`${prefix} &cNo runs logged with this player`)

@@ -8,6 +8,10 @@ var mtDisplay = new Display();
 mtDisplay.setAlign("center")
 mtDisplay.setRenderLoc(Renderer.screen.getWidth()/2, 30)
 
+// register("step", () => {
+//   console.log(fourdone)
+// }).setDelay(5)
+
 let inPhase = 0
 // FIRST PHASE
 register("chat", () => {
@@ -82,7 +86,7 @@ register("chat", () => {
         ChatLib.say("1st right bterm")
       }
       fourdone = true
-      console.log("4")
+      console.log(inPhase + " we should be at 4")
     }
   }
 }).setChatCriteria("${blah} (7/7)")
@@ -110,6 +114,24 @@ register("chat", () => {
         ChatLib.say("3rd left bterm")
       }
       console.log("3")
+    } else if (inPhase == 4 && !fourdone) {
+      if (Config.fourleft1) {
+        ChatLib.say("1st left bterm")
+      } 
+      if (Config.fourleft2) {
+        ChatLib.say("2nd left bterm")
+      } 
+      if (Config.fourdev) {
+        ChatLib.say("Device bterm")
+      } 
+      if (Config.fourleft3) {
+        ChatLib.say("3rd left bterm")
+      } 
+      if (Config.fourright1) {
+        ChatLib.say("1st right bterm")
+      }
+      fourdone = true
+      console.log("4")
     }
   }
 }).setChatCriteria("${blah} (0/7)")
@@ -143,6 +165,7 @@ register("chat", () => {
   inPhase = 0
   tDisplay.clearLines()
   atline = 1
+  fourdone = false
 }).setChatCriteria("[BOSS] Goldor: Necron, forgive me.")
 
 // GOLDOR OVER
@@ -151,7 +174,6 @@ register("chat", () => {
   tDisplay.clearLines()
   atline = 1
 }).setChatCriteria("[BOSS] Goldor: FINALLY! This took way too long.")
-
 
 let atline = 1
 // TERM DISPLAY MESSAGE CATCHER

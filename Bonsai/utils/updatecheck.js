@@ -18,13 +18,13 @@ register("worldLoad", () => {
                     "show_text",
                     "&aClick to open\n&7https://github.com/freebonsai/bonsaiaddons"
                 ),
-                new TextComponent(`&7(Changelog)`).setHover(
+                new TextComponent(`&7(Changelog) \n`).setHover(
                     "show_text",
                     `&5&lChangelog for ${stuff.latestVersion}:\n &r- ` + stuff.changelog.join("\n &r- ")
                 ),
-                new TextComponent(`&7Click to set to seen until next time chattriggers loads!`).setClick(
+                new TextComponent(` &aClick to set to seen until next time chattriggers loads!`).setClick(
                     "run_command",
-                    "updateseen"
+                    "/updateseen"
                 ),
                 `\n&5&m${ChatLib.getChatBreak(" ")}`).chat()
             }
@@ -35,5 +35,6 @@ register("worldLoad", () => {
 })
 
 register("command", () => {
+    ChatLib.chat(`${prefix} &bThe update message won't be sent until the next time chattrigers loads!`)
     seen = true
 }).setName("updateseen")
