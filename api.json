@@ -2,7 +2,8 @@
     "latestVersion": "0.8.3",
     "changelog": [
         "term caller might be working (should atleast be better)",
-        "/singasong (credit: matej)"
+        "/singasong (credit: matej)",
+        "fixed relic caller stuff (will add auto gb later)"
     ],
     "author": "freebonsai"
 }

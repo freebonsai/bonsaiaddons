@@ -12,6 +12,7 @@ import "./commands/getspeed"
 import "./commands/devcommands"
 import "./commands/onoffcommands"
 import "./commands/singasong"
+import "./commands/enderpearl"
 
 import "./features/abihider"
 import "./features/swarmcounter"
