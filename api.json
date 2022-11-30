@@ -1,9 +1,9 @@
 {
-    "latestVersion": "0.8.4",
+    "latestVersion": "0.9",
     "changelog": [
-        "term caller might be working (should atleast be better)",
-        "/singasong (credit: matej)",
-        "fixed relic caller stuff (will add auto gb later)"
+        "added auto gb to relic caller",
+        "added /crash (very fun)",
+        "maybe fixed some stuff i dont remember"
     ],
     "author": "freebonsai"
 }

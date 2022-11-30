@@ -8,10 +8,6 @@ var mtDisplay = new Display();
 mtDisplay.setAlign("center")
 mtDisplay.setRenderLoc(Renderer.screen.getWidth()/2, 30)
 
-// register("step", () => {
-//   console.log(fourdone)
-// }).setDelay(5)
-
 let inPhase = 0
 // FIRST PHASE
 register("chat", () => {
@@ -39,7 +35,6 @@ register("chat", () => {
     }
     fourdone = false
   }
-  console.log("1")
 }).setChatCriteria("[BOSS] Goldor: Who dares trespass into my domain?")
 fourdone = false
 // SECOND AND FOURTH PHASE
@@ -67,7 +62,6 @@ register("chat", () => {
       if(Config.twoleft1) {
         ChatLib.say("1st left bterm")
       }
-      console.log("2")
     }
     if (inPhase == 4 && !fourdone) {
       if (Config.fourleft1) {
@@ -86,7 +80,6 @@ register("chat", () => {
         ChatLib.say("1st right bterm")
       }
       fourdone = true
-      console.log(inPhase + " we should be at 4")
     }
   }
 }).setChatCriteria("${blah} (7/7)")
@@ -113,7 +106,6 @@ register("chat", () => {
       if (Config.threeleft3) {
         ChatLib.say("3rd left bterm")
       }
-      console.log("3")
     } else if (inPhase == 4 && !fourdone) {
       if (Config.fourleft1) {
         ChatLib.say("1st left bterm")
@@ -131,7 +123,6 @@ register("chat", () => {
         ChatLib.say("1st right bterm")
       }
       fourdone = true
-      console.log("4")
     }
   }
 }).setChatCriteria("${blah} (0/7)")
@@ -157,7 +148,6 @@ register("chat", () => {
       ChatLib.say("3rd left bterm")
     }
   }
-  console.log("3")
 }).setChatCriteria("${blah} (8/8)")
 
 // GOLDOR OVER

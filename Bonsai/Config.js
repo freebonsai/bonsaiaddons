@@ -348,6 +348,14 @@ class Config {
     })
     relicType = 0;
 
+    @SwitchProperty({
+        name: "Mage Pad 2nd",
+        description: "Automatically says mage pad 2nd at storm phase in m7",
+        category: "Dungeons",
+        subcategory: "M7"
+    })
+    magepad2nd = false
+
     // WARP
     @SwitchProperty({
         name: "Auto Warp",
