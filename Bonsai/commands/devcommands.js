@@ -56,7 +56,5 @@ register("command", (x,y,z) => {
 }).setName("setgb")
 
 register("command", (x,y,z) => {
-  if (Player.getName() == 'freebonsai') {
-    Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(x,y,z)
-  }
+  Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(x,y,z)
 }).setName("tpbo")

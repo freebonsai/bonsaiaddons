@@ -1,7 +1,10 @@
 {
-    "latestVersion": "0.9.1",
+    "latestVersion": "0.10",
     "changelog": [
-        "added some more blocks to gb in relic caller"
+        "probably fixed a ton of bugs since last release",
+        "added auto ice fill (send me pattern and which direction ice fill was in if it fails i.e. North/South)",
+        "added no render armor stands in p5",
+        "will come more updates once i finish auto ice fill (its effort)"
     ],
     "author": "freebonsai"
 }

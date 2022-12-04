@@ -1,23 +1,62 @@
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
 import Config from "../Config"
 
+// F4
+
+register("tick", () => {
+    if (Config.f4clip)  {
+        if (Dungeon.inDungeon) {
+            lines = Scoreboard.getLines()
+            for (let i = 0;i < lines.length;i++) {
+                if (lines[i].toString().includes("F4") || lines[i].toString().includes("M4")) {
+                    //console.log(Math.floor(Player.getX()),Math.floor(Player.getY()),Math.floor(Player.getZ()))
+                    let atCoords = (x,y,z) => Math.floor(Player.getX()) == x && Math.floor(Player.getY()) == y && Math.floor(Player.getZ()) == z
+                    if (atCoords(5,69,-21)) {
+                        px = Player.getX()
+                        py = Player.getY()
+                        pz = Player.getZ()
+                        new Thread(() => {
+                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py+3, pz)
+                            py += 3
+                            Thread.sleep(100)
+                            for (let i = 0; i < 16; i++) {
+                                Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
+                                Thread.sleep(6)
+                                pz = Player.getZ()
+                            }
+                            Thread.sleep(100)
+                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py -2, pz)
+                        }).start()
+                    }
+                }
+            }
+        }
+    }
+})
+
+
 
 // F5
 register("tick", () => {
     if (Config.f5clip)  {
         if (Dungeon.inDungeon) {
-            let atCoords = (x,y,z) => Math.floor(Player.getX()) == x && Math.floor(Player.getY()) == y && Math.floor(Player.getZ()) == z
-            if (atCoords(5,69,0)) {
-                px = Player.getX()
-                py = Player.getY()+1.5
-                pz = Player.getZ()
-                new Thread(() => {
-                    for (let i = 0; i < 42; i++) {
-                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
-                        Thread.sleep(5)
+            lines = Scoreboard.getLines()
+            for (let i = 0;i < lines.length;i++) {
+                if (lines[i].toString().includes("F5") || lines[i].toString().includes("M5")) {
+                    let atCoords = (x,y,z) => Math.floor(Player.getX()) == x && Math.floor(Player.getY()) == y && Math.floor(Player.getZ()) == z
+                    if (atCoords(5,69,0)) {
+                        px = Player.getX()
+                        py = Player.getY()+1.5
                         pz = Player.getZ()
+                        new Thread(() => {
+                            for (let i = 0; i < 42; i++) {
+                                Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
+                                Thread.sleep(5)
+                                pz = Player.getZ()
+                            }
+                        }).start()
                     }
-                }).start()
+                }
             }
         }
     }
@@ -83,7 +122,7 @@ register("tick", () => {
                         starttime = new Date().getTime()
                         for (let i = 0; i < 26; i++) {
                             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
-                            Thread.sleep(6)
+                            Thread.sleep(7)
                             px = Player.getX()
                             py = Player.getY()
                             pz = Player.getZ()
@@ -156,114 +195,119 @@ register("chat", (name) => {
 register("tick", () => {
     if (Config.f6clip)  {
         if (Dungeon.inDungeon) {
-            if (Config.f6Class == 0) { // Tank
-                let atCoords = (x,y,z) => Math.floor(Player.getX()) == x && Math.floor(Player.getY()) == y && Math.floor(Player.getZ()) == z
-                if (atCoords(-9,69,6)) {
-                    px = Player.getX()
-                    py = Player.getY()+1.5
-                    pz = Player.getZ()
-                    zleft = 31
-                    // -15 70 37
-                    new Thread(() => {
-                        for (let i = 0; i < zleft; i++) {
-                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
-                            Thread.sleep(5)
-                            pz = Player.getZ()
-                        }
-                        for (let i = 0; i < 7; i++) {
-                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px - 1, py, pz)
-                            Thread.sleep(5)
+            lines = Scoreboard.getLines()
+            for (let i = 0;i < lines.length;i++) {
+                if (lines[i].toString().includes("F6") || lines[i].toString().includes("M6")) {
+                    if (Config.f6Class == 0) { // Tank
+                        let atCoords = (x,y,z) => Math.floor(Player.getX()) == x && Math.floor(Player.getY()) == y && Math.floor(Player.getZ()) == z
+                        if (atCoords(-9,69,6)) {
                             px = Player.getX()
-                        }
-                    }).start()
-                }
-            } else if (Config.f6Class == 1) { // Healer
-                let atCoords = (x,y,z) => Math.floor(Player.getX()) == x && Math.floor(Player.getY()) == y && Math.floor(Player.getZ()) == z
-                if (atCoords(-9,69,6)) {
-                    px = Player.getX()
-                    py = Player.getY()+0.5
-                    pz = Player.getZ()
-                    zleft = 30
-                    yleft = 8
-                    new Thread(() => {
-                        for (let i = 0; i < zleft; i++) {
-                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
-                            Thread.sleep(5)
+                            py = Player.getY()+1.5
                             pz = Player.getZ()
+                            zleft = 31
+                            // -15 70 37
+                            new Thread(() => {
+                                for (let i = 0; i < zleft; i++) {
+                                    Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
+                                    Thread.sleep(5)
+                                    pz = Player.getZ()
+                                }
+                                for (let i = 0; i < 7; i++) {
+                                    Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px - 1, py, pz)
+                                    Thread.sleep(5)
+                                    px = Player.getX()
+                                }
+                            }).start()
                         }
-                        for (let i = 0; i < yleft; i++) {
-                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py + 1, pz)
-                            Thread.sleep(5)
-                            py = Player.getY()
-                        }
-                        for (let i = 0; i < 6; i++) {
-                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px - 1, py, pz)
-                            Thread.sleep(5)
+                    } else if (Config.f6Class == 1) { // Healer
+                        let atCoords = (x,y,z) => Math.floor(Player.getX()) == x && Math.floor(Player.getY()) == y && Math.floor(Player.getZ()) == z
+                        if (atCoords(-9,69,6)) {
                             px = Player.getX()
-                        }
-                    }).start()
-                }
-            } else if (Config.f6Class == 2) { // Mage
-                let atCoords = (x,y,z) => Math.floor(Player.getX()) == x && Math.floor(Player.getY()) == y && Math.floor(Player.getZ()) == z
-                if (atCoords(-9,69,6)) {
-                    px = Player.getX()
-                    py = Player.getY()+0.5
-                    pz = Player.getZ()
-                    zleft = 33
-                    new Thread(() => {
-                        for (let i = 0; i < zleft; i++) {
-                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
-                            Thread.sleep(5)
+                            py = Player.getY()+0.5
                             pz = Player.getZ()
+                            zleft = 30
+                            yleft = 8
+                            new Thread(() => {
+                                for (let i = 0; i < zleft; i++) {
+                                    Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
+                                    Thread.sleep(5)
+                                    pz = Player.getZ()
+                                }
+                                for (let i = 0; i < yleft; i++) {
+                                    Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py + 1, pz)
+                                    Thread.sleep(5)
+                                    py = Player.getY()
+                                }
+                                for (let i = 0; i < 6; i++) {
+                                    Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px - 1, py, pz)
+                                    Thread.sleep(5)
+                                    px = Player.getX()
+                                }
+                            }).start()
                         }
-                        for (let i = 0; i < 2; i++) {
-                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px - 1, py, pz)
-                            Thread.sleep(5)
+                    } else if (Config.f6Class == 2) { // Mage
+                        let atCoords = (x,y,z) => Math.floor(Player.getX()) == x && Math.floor(Player.getY()) == y && Math.floor(Player.getZ()) == z
+                        if (atCoords(-9,69,6)) {
                             px = Player.getX()
-                        }
-                    }).start()
-                }
-            } else if (Config.f6Class == 3) { // Archer
-                let atCoords = (x,y,z) => Math.floor(Player.getX()) == x && Math.floor(Player.getY()) == y && Math.floor(Player.getZ()) == z
-                if (atCoords(-9,69,6)) {
-                    px = Player.getX()
-                    py = Player.getY()+0.5
-                    pz = Player.getZ()
-                    zleft = 48
-                    // -18 69 54
-                    new Thread(() => {
-                        for (let i = 0; i < zleft; i++) {
-                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
-                            Thread.sleep(6)
+                            py = Player.getY()+0.5
                             pz = Player.getZ()
+                            zleft = 33
+                            new Thread(() => {
+                                for (let i = 0; i < zleft; i++) {
+                                    Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
+                                    Thread.sleep(5)
+                                    pz = Player.getZ()
+                                }
+                                for (let i = 0; i < 2; i++) {
+                                    Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px - 1, py, pz)
+                                    Thread.sleep(5)
+                                    px = Player.getX()
+                                }
+                            }).start()
                         }
-                        for (let i = 0; i < 9; i++) {
-                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px + 1, py, pz)
-                            Thread.sleep(6)
+                    } else if (Config.f6Class == 3) { // Archer
+                        let atCoords = (x,y,z) => Math.floor(Player.getX()) == x && Math.floor(Player.getY()) == y && Math.floor(Player.getZ()) == z
+                        if (atCoords(-9,69,6)) {
                             px = Player.getX()
-                        }
-                    }).start()
-                }
-            } else if (Config.f6Class == 4) { // Bers
-                let atCoords = (x,y,z) => Math.floor(Player.getX()) == x && Math.floor(Player.getY()) == y && Math.floor(Player.getZ()) == z
-                if (atCoords(-9,69,6)) {
-                    px = Player.getX()
-                    py = Player.getY()+1
-                    pz = Player.getZ()
-                    zleft = 48
-                    // -18 69 54
-                    new Thread(() => {
-                        for (let i = 0; i < zleft; i++) {
-                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
-                            Thread.sleep(6)
+                            py = Player.getY()+0.5
                             pz = Player.getZ()
+                            zleft = 48
+                            // -18 69 54
+                            new Thread(() => {
+                                for (let i = 0; i < zleft; i++) {
+                                    Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
+                                    Thread.sleep(6)
+                                    pz = Player.getZ()
+                                }
+                                for (let i = 0; i < 9; i++) {
+                                    Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px + 1, py, pz)
+                                    Thread.sleep(6)
+                                    px = Player.getX()
+                                }
+                            }).start()
                         }
-                        for (let i = 0; i < 9; i++) {
-                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px - 1, py, pz)
-                            Thread.sleep(6)
+                    } else if (Config.f6Class == 4) { // Bers
+                        let atCoords = (x,y,z) => Math.floor(Player.getX()) == x && Math.floor(Player.getY()) == y && Math.floor(Player.getZ()) == z
+                        if (atCoords(-9,69,6)) {
                             px = Player.getX()
+                            py = Player.getY()+1
+                            pz = Player.getZ()
+                            zleft = 48
+                            // -18 69 54
+                            new Thread(() => {
+                                for (let i = 0; i < zleft; i++) {
+                                    Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
+                                    Thread.sleep(6)
+                                    pz = Player.getZ()
+                                }
+                                for (let i = 0; i < 9; i++) {
+                                    Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px - 1, py, pz)
+                                    Thread.sleep(6)
+                                    px = Player.getX()
+                                }
+                            }).start()
                         }
-                    }).start()
+                    }
                 }
             }
         }

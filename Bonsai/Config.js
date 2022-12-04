@@ -12,40 +12,12 @@ import {
 } from 'Vigilance';
 
 @Vigilant('Bonsai', 'Proest Mod', {
-    // SORTING OF STUFF
-    //#region 
+    // SORTING
     getCategoryComparator: () => (a, b) => {
         const categories = ['Dungeons','General','Etherwarp','Swarm Counter', 'Message Hider','Terminal Caller','Clipping'];
 
         return categories.indexOf(a.name) - categories.indexOf(b.name);
     },
-
-    getPropertyComparator: () => (a, b) => {
-        const names = ["Don't Render Falling Blocks",'Auto Terminals','Auto Term Delay','Click Type','Relic Caller','Relic','Auto Warp','Terminal Counter','Auto Kick','Auto Black Cat'];
-
-        return names.indexOf(a.attributesExt.name) - names.indexOf(b.attributesExt.name);
-    },
-
-    getSubcategoryComparator: () => (a, b) => {
-        const subcategories = ['Render','Auto Terms', 'M7','Warp','Terminal Counter','Auto Kick','Black Cat'];
-
-        return subcategories.indexOf(a.getValue()[0].attributesExt.subcategory) -
-            subcategories.indexOf(b.getValue()[0].attributesExt.subcategory);
-    },
-
-    getPropertyComparator: () => (a, b) => {
-        const names = ['Message Hider','Blocked Name'];
-
-        return names.indexOf(a.attributesExt.name) - names.indexOf(b.attributesExt.name);
-    },
-
-    getSubcategoryComparator: () => (a, b) => {
-        const subcategories = ['§4One', '§3Two','§bThree','§dFour'];
-
-        return subcategories.indexOf(a.getValue()[0].attributesExt.subcategory) -
-            subcategories.indexOf(b.getValue()[0].attributesExt.subcategory);
-    },
-    //#endregion
 })
 class Config {
     // CONSTRUCTOR BLAHBLAH
@@ -106,6 +78,13 @@ class Config {
 
     // DUNGEONS
 
+    @SwitchProperty({
+        name: "§bAuto Ice Fill",
+        description: "Automatically completes the ice fill puzzle",
+        category: "Dungeons",
+        subcategory: "Auto Puzzles"
+    })
+    autoIceFill = true
 
     @SwitchProperty({
         name: "Don't Render Falling Blocks",
@@ -114,6 +93,14 @@ class Config {
         subcategory: "Render"
     })
     fallingBlock = false
+
+    @SwitchProperty({
+        name: "Don't Render Armor Stands in Dragon Phase",
+        description: "Stops armorstands from rendering in p5 of m7",
+        category: "Dungeons",
+        subcategory: "Render"
+    })
+    armorStandRender = false
 
     // TERMINALS
     //#region 
@@ -205,6 +192,15 @@ class Config {
     songsleep = 200;
 
     // AUTO
+
+    @SwitchProperty({
+        name: "Auto Clip F4",
+        description: "Automatically clips when entered f4 bossfight",
+        category: "Clipping",
+        subcategory: "Auto"
+    })
+    f4clip = true
+
     @SwitchProperty({
         name: "Auto Clip F5",
         description: "Automatically clips when entered f5 bossfight",

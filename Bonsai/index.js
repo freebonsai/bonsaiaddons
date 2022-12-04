@@ -29,5 +29,8 @@ import "./features/autobuyarrow"
 import "./features/autoclip"
 import "./features/fallingblocks"
 import "./features/magepad2nd"
+import "./features/icefillfirstfloor"
+import "./features/icefillsecondfloor"
+import "./features/icefillthirdfloor"
 
 import "./utils/firsttime"
