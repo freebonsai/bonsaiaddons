@@ -1,3 +1,4 @@
+import Config from "../Config";
 import { prefix } from "../utils/prefix"
 
 let lastclick = new Date().getTime()-2000
@@ -8,14 +9,16 @@ register("tick", () => {
         let n = inv.getName();
         new Thread(() => {
             if (n == "Ophelia" || n == "Weaponsmith") {
-                Thread.sleep(100)
-                item = inv.getStackInSlot(53).getLore()
-                if (!item.includes("§5§o§aYour quiver is full!")) {
-                    if (new Date().getTime() - lastclick > 1000) {
-                        new Message(prefix +" &bFilled arrows").setChatLineId(24305).chat();
-                        clicked = true
-                        inv.click(53,false,"MIDDLE")
-                        lastclick = new Date().getTime()
+                if (Config.autoFlint)  {
+                    Thread.sleep(100)
+                    item = inv.getStackInSlot(53).getLore()
+                    if (!item.includes("§5§o§aYour quiver is full!")) {
+                        if (new Date().getTime() - lastclick > 1000) {
+                            new Message(prefix +" &bFilled arrows").setChatLineId(24305).chat();
+                            clicked = true
+                            inv.click(53,false,"MIDDLE")
+                            lastclick = new Date().getTime()
+                        }
                     }
                 }
             }

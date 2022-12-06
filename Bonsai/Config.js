@@ -41,6 +41,8 @@ class Config {
         // RELIC
         this.addDependency("Relic", "Relic Caller")
 
+        this.addDependency("Edrag Slot", "Auto Edrag")
+
         // SWARM COUNTER
         this.addDependency("Show Percent", "Swarm Counter")
         this.addDependency("Swarm Counter Size", "Swarm Counter")
@@ -173,6 +175,15 @@ class Config {
     startswith = true;
     //#endregion
     
+
+    @SwitchProperty({
+        name: "Auto Flint",
+        description: "Automatically presses the button to fill your quiver with flint arrows",
+        category: "General",
+        subcategory: "Arrows"
+    })
+    autoFlint = false
+
     @SwitchProperty({
         name: "Song Singer",
         description: "Sings the song at ./data/song.js when /singasong is executed",
@@ -343,6 +354,24 @@ class Config {
         requires: 'Relic Caller',
     })
     relicType = 0;
+
+    @SwitchProperty({
+        name: "Auto Edrag",
+        description: "Automatically selects edrag after relics placed",
+        category: "Dungeons",
+        subcategory: "M7"
+    })
+    autoEdrag = false
+
+    @SliderProperty({
+        name: "Edrag Slot",
+        description: "Edrag slot",
+        category: "Dungeons",
+        subcategory: "M7",
+        min: 0,
+        max: 20
+    })
+    edragSlot = 0;
 
     @SwitchProperty({
         name: "Mage Pad 2nd",

@@ -58,3 +58,10 @@ register("command", (x,y,z) => {
 register("command", (x,y,z) => {
   Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(x,y,z)
 }).setName("tpbo")
+
+register("command", (x,y,z) => {
+  px = Math.floor(Player.getX())
+  py = Math.floor(Player.getY())
+  pz = Math.floor(Player.getZ())
+  ChatLib.chat(`${px}, ${py}, ${pz}`)
+}).setName("getcoords")

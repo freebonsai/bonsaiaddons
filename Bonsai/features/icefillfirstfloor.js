@@ -98,7 +98,7 @@ function movefirst() {
                     gonext = true
                     //console.log("packed")
                 } else {
-                    Thread.sleep(25)
+                    Thread.sleep(5)
                     //console.log("not packed")
                 }
             }
@@ -109,30 +109,40 @@ function movefirst() {
         x = Player.getX()
         y = Player.getY()
         z = Player.getZ()
-        Thread.sleep(300)
+        while (!gonext) {
+            px = Math.floor(Player.getX())
+            py = Math.floor(Player.getY())
+            pz = Math.floor(Player.getZ())
+            let BlockBlock = new BlockPos(px,py-1,pz)
+            b = World.getBlockStateAt(BlockBlock)
+            if (b == "minecraft:packed_ice") {
+                gonext = true
+                //console.log("packed")
+            } else {
+                Thread.sleep(5)
+                //console.log("not packed")
+            }
+        }
+        gonext = false
         if (rotation == "east") {
-            Thread.sleep(100)
             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(x+0.5,y+0.5,z)
             Thread.sleep(100)
             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(x+1,y+1,z)
             Thread.sleep(150)
             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(x+2,y+1,z)
         } else if (rotation == "west") {
-            Thread.sleep(100)
             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(x-0.5,y+0.5,z)
             Thread.sleep(100)
             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(x-1,y+1,z)
             Thread.sleep(150)
             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(x-2,y+1,z)
         } else if (rotation == "south") {
-            Thread.sleep(100)
             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(x,y+0.5,z+0.5)
             Thread.sleep(100)
             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(x,y+1,z+1)
             Thread.sleep(150)
             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(x,y+1,z+2)
         } else if (rotation == "north") {
-            Thread.sleep(100)
             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(x,y+0.5,z-0.5)
             Thread.sleep(100)
             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(x,y+1,z-1)
@@ -317,3 +327,36 @@ function checkfirst3() {
         }
     }
 }
+
+var GL11 = Java.type("org.lwjgl.opengl.GL11"); //using var so it goes to global scope
+
+var GlStateManager = Java.type("net.minecraft.client.renderer.GlStateManager");
+
+
+register("renderWorld", () => {
+    if (firstmoves.length > 0) {
+        px = Math.floor(Player.getX())
+        py = Math.floor(Player.getY())
+        pz = Math.floor(Player.getZ())
+        GL11.glBlendFunc(770, 771);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glLineWidth(10);
+        //GL11.glDisable(GL11.GL_DEPTH_TEST);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        GlStateManager.func_179094_E();
+        
+        Tessellator.begin(GL11.GL_LINE_STRIP).colorize(255, 255, 255, 1);
+        Tessellator.pos(firstblockx+0.5,firstblocky+0.1,firstblockz+0.5);
+        Tessellator.pos(firstmoves[0].x+0.5,firstmoves[0].y+0.1,firstmoves[0].z+0.5);
+        for (let i = 1; i < firstmoves.length; i++) {
+            Tessellator.pos(firstmoves[i-1].x+0.5,firstmoves[i-1].y+0.1,firstmoves[i-1].z+0.5);
+            Tessellator.pos(firstmoves[i].x+0.5,firstmoves[i].y+0.1,firstmoves[i].z+0.5);
+        }
+        Tessellator.draw();
+        //console.log("draw")
+        GlStateManager.func_179121_F();
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        //phasGL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glDisable(GL11.GL_BLEND);
+    }
+})

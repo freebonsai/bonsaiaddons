@@ -1,10 +1,12 @@
 {
-    "latestVersion": "0.10",
+    "latestVersion": "1.0.0",
     "changelog": [
-        "probably fixed a ton of bugs since last release",
-        "added auto ice fill (send me pattern and which direction ice fill was in if it fails i.e. North/South)",
-        "added no render armor stands in p5",
-        "will come more updates once i finish auto ice fill (its effort)"
+        "OMG 1.0!!!",
+        "uhh ice fill release (i added some rendering stuff so you can see where its trying to go, if that is wrong send me a screenshot and rotation!)",
+        "some m7 stuff i think like:",
+        "auto edrag p5",
+        "more ghostblocks for auto gb necron",
+        "added setting for auto buy flint arrows in ophelia"
     ],
     "author": "freebonsai"
 }

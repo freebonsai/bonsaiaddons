@@ -1,5 +1,5 @@
 import Config from "../Config"
-import { secondfloor1,secondfloor2,secondfloor3,secondfloor4 } from "../utils/icefillconfigurations"
+import { secondfloor1,secondfloor2,secondfloor3,secondfloor4,secondfloor5 } from "../utils/icefillconfigurations"
 
 
 hasicefill = false
@@ -90,34 +90,51 @@ function scansecond() {
         checksecond4()
         console.log("checked second 4")
     }
+    if (secondmoves.length < 1) {
+        checksecond5()
+        console.log("checked second 5")
+    }
 }
 
 gonext = false
 function movesecond() {
     new Thread(() => {
         for (let i = 0; i < secondmoves.length; i++) {
-            // while (!gonext) {
-            //     px = Math.floor(Player.getX())
-            //     py = Math.floor(Player.getY())
-            //     pz = Math.floor(Player.getZ())
-            //     let BlockBlock = new BlockPos(px,py-1,pz)
-            //     b = World.getBlockStateAt(BlockBlock)
-            //     if (b == "minecraft:packed_ice") {
-            //         gonext = true
-            //         //console.log("packed")
-            //     } else {
-            //         Thread.sleep(25)
-            //         //console.log("not packed")
-            //     }
-            // }
+            while (!gonext) {
+                px = Math.floor(Player.getX())
+                py = Math.floor(Player.getY())
+                pz = Math.floor(Player.getZ())
+                let BlockBlock = new BlockPos(px,py-1,pz)
+                b = World.getBlockStateAt(BlockBlock)
+                if (b == "minecraft:packed_ice") {
+                    gonext = true
+                    //console.log("packed")
+                } else {
+                    Thread.sleep(5)
+                    //console.log("not packed")
+                }
+            }
             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(secondmoves[i].x+0.5,secondmoves[i].y,secondmoves[i].z+0.5)
             gonext = false
-            Thread.sleep(250)
+            // Thread.sleep(250)
         }
         x = Player.getX()
         y = Player.getY()
         z = Player.getZ()
-        Thread.sleep(200)
+        while (!gonext) {
+            px = Math.floor(Player.getX())
+            py = Math.floor(Player.getY())
+            pz = Math.floor(Player.getZ())
+            let BlockBlock = new BlockPos(px,py-1,pz)
+            b = World.getBlockStateAt(BlockBlock)
+            if (b == "minecraft:packed_ice") {
+                gonext = true
+                //console.log("packed")
+            } else {
+                Thread.sleep(5)
+                //console.log("not packed")
+            }
+        }
         if (rotation == "east") {
             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(x+0.5,y+0.5,z)
             Thread.sleep(100)
@@ -298,10 +315,10 @@ function checksecond3() {
         }
     } else if (rotation == "north") {
         for (let i = 0; i < secondfloor3.length; i++) {
-            let testblock = new BlockPos(firstblockx+secondfloor3[i].z,firstblocky+secondfloor3[i].y,firstblockz+(secondfloor3[i].x * (-1)))
+            let testblock = new BlockPos(firstblockx+secondfloor3[i].z,firstblocky+secondfloor3[i].y,firstblockz+(-secondfloor3[i].x))
             bstate2 = World.getBlockStateAt(testblock)
             if (bstate2 == "minecraft:air") {
-                secondmoves.push({"x":firstblockx+(secondfloor3[i].z),"y":firstblocky+secondfloor3[i].y,"z":firstblockz+(secondfloor1[i].x * (-1))})
+                secondmoves.push({"x":firstblockx+(secondfloor3[i].z),"y":firstblocky+secondfloor3[i].y,"z":firstblockz+(-secondfloor3[i].x)})
             } else {
                 secondmoves = []
                 console.log("not second 3")
@@ -363,3 +380,90 @@ function checksecond4() {
         }
     }
 }
+
+function checksecond5() {
+    if (rotation == "east") {
+        for (let i = 0; i < secondfloor5.length; i++) {
+            let testblock = new BlockPos(firstblockx+secondfloor5[i].x,firstblocky+secondfloor5[i].y,firstblockz+secondfloor5[i].z)
+            bstate2 = World.getBlockStateAt(testblock)
+            if (bstate2 == "minecraft:air") {
+                secondmoves.push({"x":firstblockx+(secondfloor5[i].x),"y":firstblocky+secondfloor5[i].y,"z":firstblockz+secondfloor5[i].z})
+            } else {
+                secondmoves = []
+                console.log("not second 5")
+                return
+            }
+        }
+    } else if (rotation == "west") {
+        for (let i = 0; i < secondfloor5.length; i++) {
+            let testblock = new BlockPos(firstblockx+(-secondfloor5[i].x),firstblocky+secondfloor5[i].y,firstblockz+(-secondfloor5[i].z))
+            bstate2 = World.getBlockStateAt(testblock)
+            console.log(bstate2, testblock)
+            if (bstate2 == "minecraft:air") {
+                secondmoves.push({"x":firstblockx+(-secondfloor5[i].x),"y":firstblocky+secondfloor5[i].y,"z":firstblockz+(-secondfloor5[i].z)})
+            } else {
+                secondmoves = []
+                console.log("not second 5")
+                return
+            }
+        }
+    } else if (rotation == "south") {
+        for (let i = 0; i < secondfloor5.length; i++) {
+            let testblock = new BlockPos(firstblockx+secondfloor5[i].z * (-1),firstblocky+secondfloor5[i].y,firstblockz+secondfloor5[i].x)
+            bstate2 = World.getBlockStateAt(testblock)
+            if (bstate2 == "minecraft:air") {
+                secondmoves.push({"x":firstblockx+(secondfloor5[i].z * (-1)),"y":firstblocky+secondfloor5[i].y,"z":firstblockz+(secondfloor5[i].x)})
+            } else {
+                secondmoves = []
+                console.log("not second 5")
+                return
+            }
+        }
+    } else if (rotation == "north") {
+        for (let i = 0; i < secondfloor5.length; i++) {
+            let testblock = new BlockPos(firstblockx+secondfloor5[i].z,firstblocky+secondfloor5[i].y,firstblockz+(secondfloor5[i].x * (-1)))
+            bstate2 = World.getBlockStateAt(testblock)
+            if (bstate2 == "minecraft:air") {
+                secondmoves.push({"x":firstblockx+(secondfloor5[i].z),"y":firstblocky+secondfloor5[i].y,"z":firstblockz+(secondfloor5[i].x * (-1))})
+            } else {
+                secondmoves = []
+                console.log("not second 5")
+                return
+            }
+        }
+    }
+}
+
+
+var GL11 = Java.type("org.lwjgl.opengl.GL11"); //using var so it goes to global scope
+
+var GlStateManager = Java.type("net.minecraft.client.renderer.GlStateManager");
+
+
+register("renderWorld", () => {
+    if (secondmoves.length > 0) {
+        px = Math.floor(Player.getX())
+        py = Math.floor(Player.getY())
+        pz = Math.floor(Player.getZ())
+        GL11.glBlendFunc(770, 771);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glLineWidth(10);
+        //GL11.glDisable(GL11.GL_DEPTH_TEST);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        GlStateManager.func_179094_E();
+        
+        Tessellator.begin(GL11.GL_LINE_STRIP).colorize(255, 255, 255, 1);
+        Tessellator.pos(firstblockx+0.5,firstblocky+0.1,firstblockz+0.5);
+        Tessellator.pos(secondmoves[0].x+0.5,secondmoves[0].y+0.1,secondmoves[0].z+0.5);
+        for (let i = 1; i < secondmoves.length; i++) {
+            Tessellator.pos(secondmoves[i-1].x+0.5,secondmoves[i-1].y+0.1,secondmoves[i-1].z+0.5);
+            Tessellator.pos(secondmoves[i].x+0.5,secondmoves[i].y+0.1,secondmoves[i].z+0.5);
+        }
+        Tessellator.draw();
+        //console.log("draw")
+        GlStateManager.func_179121_F();
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        //phasGL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glDisable(GL11.GL_BLEND);
+    }
+})
