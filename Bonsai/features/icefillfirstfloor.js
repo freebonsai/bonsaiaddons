@@ -1,5 +1,6 @@
 import Config from "../Config"
 import { firstfloor1, firstfloor2, firstfloor3 } from "../utils/icefillconfigurations"
+import { prefix } from "../utils/prefix"
 
 hasicefill = false
 hasscanned = false
@@ -12,8 +13,16 @@ firstmoves = []
 register("worldLoad", () => {
     hasicefill = false
     hasscanned = false
+    stopped = false
+    firstmoves = []
     //console.log("worldload")
 })
+
+register("command", () => {
+    stopped = !stopped
+   //console.log(stopped)
+    firstmoves = []
+}).setName("stopfirst")
 
 register("step", () => {
     if (!hasicefill) {
@@ -34,7 +43,7 @@ register("step", () => {
             }
         }
     }
-}).setFps(5)
+}).setFps(4)
 
 function checkRotation() {
     px = Math.floor(Player.getX())
@@ -44,44 +53,51 @@ function checkRotation() {
     b = World.getBlockStateAt(BlockBlock)
     if (b.toString().includes("minecraft:stone_brick_stairs")) {
         rotation = "east"
-        console.log("east")
+       //console.log("east")
         return
     }
     BlockBlock = new BlockPos(Math.floor(px)-4,Math.floor(py),Math.floor(pz))
     b = World.getBlockStateAt(BlockBlock)
     if (b.toString().includes("minecraft:stone_brick_stairs")) {
         rotation = "west"
-        console.log("west")
+       //console.log("west")
         return
     }
     BlockBlock = new BlockPos(Math.floor(px),Math.floor(py),Math.floor(pz)+4)
     b = World.getBlockStateAt(BlockBlock)
     if (b.toString().includes("minecraft:stone_brick_stairs")) {
         rotation = "south"
-        console.log("south")
+       //console.log("south")
         return
     }
     BlockBlock = new BlockPos(Math.floor(px),Math.floor(py),Math.floor(pz)-4)
     b = World.getBlockStateAt(BlockBlock)
     if (b.toString().includes("minecraft:stone_brick_stairs")) {
         rotation = "north"
-        console.log("north")
+       //console.log("north")
         return
     }
 }
 
 function scanfirst() {
+    startTime = new Date().getTime()
     if (firstmoves.length < 1) {
         checkfirst1()
     }
     if (firstmoves.length < 1) {
         checkfirst2()
-        console.log("checkfirst2")
+       //console.log("checkfirst2")
     }
     if (firstmoves.length < 1) {
         checkfirst3()
-        console.log("checkfirst3")
+       //console.log("checkfirst3")
     }
+    if (firstmoves.length > 0) {
+        endTime = new Date().getTime()
+        ChatLib.chat(`${prefix} &bScan time for first floor: ${endTime-startTime}ms`)
+    }
+    
+    
 }
 
 gonext = false
@@ -100,6 +116,9 @@ function movefirst() {
                 } else {
                     Thread.sleep(5)
                     //console.log("not packed")
+                }
+                if (stopped) {
+                    return
                 }
             }
             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(firstmoves[i].x+0.5,firstmoves[i].y,firstmoves[i].z+0.5)
@@ -163,7 +182,7 @@ function checkfirst1() {
                 firstmoves.push({"x":firstblockx+firstfloor1[i].x,"y":firstblocky+firstfloor1[i].y,"z":firstblockz+firstfloor1[i].z})
             } else {
                 firstmoves = []
-                console.log("not first 1")
+               //console.log("not first 1")
                 return
             }
         }
@@ -175,7 +194,7 @@ function checkfirst1() {
                 firstmoves.push({"x":firstblockx+(-firstfloor1[i].x),"y":firstblocky+firstfloor1[i].y,"z":firstblockz+(-firstfloor1[i].z)})
             } else {
                 firstmoves = []
-                console.log("not first 1")
+               //console.log("not first 1")
                 return
             }
         }
@@ -188,7 +207,7 @@ function checkfirst1() {
                 firstmoves.push({"x":firstblockx+(firstfloor1[i].z),"y":firstblocky+firstfloor1[i].y,"z":firstblockz+(firstfloor1[i].x)})
             } else {
                 firstmoves = []
-                console.log("not first 1")
+               //console.log("not first 1")
                 return
             }
         }
@@ -200,7 +219,7 @@ function checkfirst1() {
                 firstmoves.push({"x":firstblockx+(firstfloor1[i].z),"y":firstblocky+firstfloor1[i].y,"z":firstblockz+(-firstfloor1[i].x)})
             } else {
                 firstmoves = []
-                console.log("not first 1")
+               //console.log("not first 1")
                 return
             }
         }
@@ -212,12 +231,12 @@ function checkfirst2() {
         for (let i = 0; i < firstfloor2.length; i++) {
             let testblock = new BlockPos(firstblockx+(firstfloor2[i].x),firstblocky+firstfloor2[i].y,firstblockz+(firstfloor2[i].z))
             bstate2 = World.getBlockStateAt(testblock)
-            console.log(bstate2, testblock)
+           //console.log(bstate2, testblock)
             if (bstate2 == "minecraft:air") {
                 firstmoves.push({"x":firstblockx+(firstfloor2[i].x),"y":firstblocky+firstfloor2[i].y,"z":firstblockz+(firstfloor2[i].z)})
             } else {
                 firstmoves = []
-                console.log("not first 2")
+               //console.log("not first 2")
                 return
             }
         }
@@ -230,7 +249,7 @@ function checkfirst2() {
                 firstmoves.push({"x":firstblockx+(-firstfloor2[i].x),"y":firstblocky+firstfloor2[i].y,"z":firstblockz+(-firstfloor2[i].z)})
             } else {
                 firstmoves = []
-                console.log("not first 2")
+               //console.log("not first 2")
                 return
             }
         }
@@ -243,8 +262,8 @@ function checkfirst2() {
                 firstmoves.push({"x":firstblockx+(firstfloor2[i].z),"y":firstblocky+firstfloor2[i].y,"z":firstblockz+(firstfloor2[i].x)})
             } else {
                 firstmoves = []
-                console.log("not first 2")
-                console.log(bstate2,testblock)
+               //console.log("not first 2")
+               //console.log(bstate2,testblock)
                 return
             }
         }
@@ -253,13 +272,13 @@ function checkfirst2() {
         for (let i = 0; i < firstfloor2.length; i++) {
             let testblock = new BlockPos(firstblockx+(firstfloor2[i].z),firstblocky+firstfloor2[i].y,firstblockz+(-firstfloor2[i].x))
             bstate2 = World.getBlockStateAt(testblock)
-            console.log(testblock)
+           //console.log(testblock)
             if (bstate2 == "minecraft:air") {
                 firstmoves.push({"x":firstblockx+(firstfloor2[i].z),"y":firstblocky+firstfloor2[i].y,"z":firstblockz+(-firstfloor2[i].x)})
                 //console.log((-firstfloor2[i].z),firstfloor2[i].y,(-firstfloor2[i].x), "i" + i)
             } else {
                 firstmoves = []
-                console.log("not first 2")
+               //console.log("not first 2")
                 return
             }
         }
@@ -276,7 +295,7 @@ function checkfirst3() {
                 firstmoves.push({"x":firstblockx+(firstfloor3[i].x),"y":firstblocky+firstfloor3[i].y,"z":firstblockz+(-firstfloor3[i].z)})
             } else {
                 firstmoves = []
-                console.log("not first 2")
+               //console.log("not first 2")
                 return
             }
         }
@@ -289,7 +308,7 @@ function checkfirst3() {
                 firstmoves.push({"x":firstblockx+(-firstfloor3[i].x),"y":firstblocky+firstfloor3[i].y,"z":firstblockz+firstfloor3[i].z})
             } else {
                 firstmoves = []
-                console.log("not first 2")
+               //console.log("not first 2")
                 return
             }
         }
@@ -302,8 +321,8 @@ function checkfirst3() {
                 firstmoves.push({"x":firstblockx+(firstfloor3[i].z),"y":firstblocky+firstfloor3[i].y,"z":firstblockz+(firstfloor3[i].x)})
             } else {
                 firstmoves = []
-                console.log("not first 2")
-                console.log(bstate2,testblock)
+               //console.log("not first 2")
+               //console.log(bstate2,testblock)
                 return
             }
         }
@@ -321,7 +340,7 @@ function checkfirst3() {
                 //console.log((-firstfloor3[i].z),firstfloor3[i].y,(-firstfloor2[i].x), "i" + i)
             } else {
                 firstmoves = []
-                console.log("not first 2")
+               //console.log("not first 2")
                 return
             }
         }

@@ -1,6 +1,6 @@
 import Config from "../Config"
-import { secondfloor1,secondfloor2,secondfloor3,secondfloor4,secondfloor5 } from "../utils/icefillconfigurations"
-
+import { secondfloor1,secondfloor2,secondfloor3,secondfloor4,secondfloor5,secondfloor6 } from "../utils/icefillconfigurations"
+import { prefix } from "../utils/prefix"
 
 hasicefill = false
 hasscanned = false
@@ -13,8 +13,16 @@ secondmoves = []
 register("worldLoad", () => {
     hasicefill = false
     hasscanned = false
+    stopped = false
+    secondmoves = []
     //console.log("worldload")
 })
+
+register("command", () => {
+    stopped = !stopped
+   //console.log(stopped)
+    secondmoves = []
+}).setName("stopsecond")
 
 register("step", () => {
     if (!hasicefill) {
@@ -47,52 +55,61 @@ function checkRotation() {
     b = World.getBlockStateAt(BlockBlock)
     if (b.toString().includes("minecraft:stone_brick_stairs")) {
         rotation = "east"
-        console.log("east")
+       //console.log("east")
         return
     }
     BlockBlock = new BlockPos(Math.floor(px)-6,Math.floor(py),Math.floor(pz))
     b = World.getBlockStateAt(BlockBlock)
     if (b.toString().includes("minecraft:stone_brick_stairs")) {
         rotation = "west"
-        console.log("west")
+       //console.log("west")
         return
     }
     BlockBlock = new BlockPos(Math.floor(px),Math.floor(py),Math.floor(pz)+6)
     b = World.getBlockStateAt(BlockBlock)
     if (b.toString().includes("minecraft:stone_brick_stairs")) {
         rotation = "south"
-        console.log("south")
+       //console.log("south")
         return
     }
     BlockBlock = new BlockPos(Math.floor(px),Math.floor(py),Math.floor(pz)-6)
     b = World.getBlockStateAt(BlockBlock)
     if (b.toString().includes("minecraft:stone_brick_stairs")) {
         rotation = "north"
-        console.log("north")
+       //console.log("north")
         return
     }
 }
 
 function scansecond() {
+    startTime = new Date().getTime()
     if (secondmoves.length < 1) {
         checksecond1()
-        console.log("checked second 1")
+       //console.log("checked second 1")
     }
     if (secondmoves.length < 1) {
         checksecond2()
-        console.log("checked second 2")
+       //console.log("checked second 2")
     }
     if (secondmoves.length < 1) {
         checksecond3()
-        console.log("checked second 3")
+       //console.log("checked second 3")
     }
     if (secondmoves.length < 1) {
         checksecond4()
-        console.log("checked second 4")
+       //console.log("checked second 4")
     }
     if (secondmoves.length < 1) {
         checksecond5()
-        console.log("checked second 5")
+       //console.log("checked second 5")
+    }
+    if (secondmoves.length < 1) {
+        checksecond6()
+       //console.log("checked second 6")
+    }
+    if (secondmoves.length > 0) {
+        endTime = new Date().getTime()
+        ChatLib.chat(`${prefix} &bScan time for second floor: ${endTime-startTime}ms`)
     }
 }
 
@@ -113,10 +130,13 @@ function movesecond() {
                     Thread.sleep(5)
                     //console.log("not packed")
                 }
+                if (stopped) {
+                    return
+                }
             }
             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(secondmoves[i].x+0.5,secondmoves[i].y,secondmoves[i].z+0.5)
             gonext = false
-            // Thread.sleep(250)
+            //Thread.sleep(300)
         }
         x = Player.getX()
         y = Player.getY()
@@ -174,7 +194,7 @@ function checksecond1() {
                 secondmoves.push({"x":firstblockx+secondfloor1[i].x,"y":firstblocky+secondfloor1[i].y,"z":firstblockz+secondfloor1[i].z})
             } else {
                 secondmoves = []
-                console.log("not second 1")
+               //console.log("not second 1")
                 return
             }
         }
@@ -186,7 +206,7 @@ function checksecond1() {
                 secondmoves.push({"x":firstblockx+(secondfloor1[i].x * (-1)),"y":firstblocky+secondfloor1[i].y,"z":firstblockz+(secondfloor1[i].z * (-1))})
             } else {
                 secondmoves = []
-                console.log("not second 1")
+               //console.log("not second 1")
                 return
             }
         }
@@ -199,7 +219,7 @@ function checksecond1() {
                 secondmoves.push({"x":firstblockx+(secondfloor1[i].z),"y":firstblocky+secondfloor1[i].y,"z":firstblockz+(secondfloor1[i].x)})
             } else {
                 secondmoves = []
-                console.log("not second 1")
+               //console.log("not second 1")
                 return
             }
         }
@@ -211,7 +231,7 @@ function checksecond1() {
                 secondmoves.push({"x":firstblockx+(secondfloor1[i].z),"y":firstblocky+secondfloor1[i].y,"z":firstblockz+(secondfloor1[i].x * (-1))})
             } else {
                 secondmoves = []
-                console.log("not second 1")
+               //console.log("not second 1")
                 return
             }
         }
@@ -227,7 +247,7 @@ function checksecond2() {
                 secondmoves.push({"x":firstblockx+(secondfloor2[i].x),"y":firstblocky+secondfloor2[i].y,"z":firstblockz+secondfloor2[i].z})
             } else {
                 secondmoves = []
-                console.log("not second 2")
+               //console.log("not second 2")
                 return
             }
         }
@@ -240,7 +260,7 @@ function checksecond2() {
                 secondmoves.push({"x":firstblockx+(secondfloor2[i].x * (-1)),"y":firstblocky+secondfloor2[i].y,"z":firstblockz+secondfloor2[i].z})
             } else {
                 secondmoves = []
-                console.log("not second 2")
+               //console.log("not second 2")
                 return
             }
         }
@@ -254,7 +274,7 @@ function checksecond2() {
                 secondmoves.push({"x":firstblockx+(secondfloor2[i].z),"y":firstblocky+secondfloor2[i].y,"z":firstblockz+(secondfloor2[i].x)})
             } else {
                 secondmoves = []
-                console.log("not second 2")
+               //console.log("not second 2")
                 return
             }
         }
@@ -268,7 +288,7 @@ function checksecond2() {
                 secondmoves.push({"x":firstblockx+(secondfloor2[i].z),"y":firstblocky+secondfloor2[i].y,"z":firstblockz+(secondfloor2[i].x * (-1))})
             } else {
                 secondmoves = []
-                console.log("not second 2")
+               //console.log("not second 2")
                 return
             }
         }
@@ -284,7 +304,7 @@ function checksecond3() {
                 secondmoves.push({"x":firstblockx+(secondfloor3[i].x),"y":firstblocky+secondfloor3[i].y,"z":firstblockz+secondfloor3[i].z})
             } else {
                 secondmoves = []
-                console.log("not second 3")
+               //console.log("not second 3")
                 return
             }
         }
@@ -297,7 +317,7 @@ function checksecond3() {
                 secondmoves.push({"x":firstblockx+(secondfloor3[i].x * (-1)),"y":firstblocky+secondfloor3[i].y,"z":firstblockz+secondfloor3[i].z})
             } else {
                 secondmoves = []
-                console.log("not second 3")
+               //console.log("not second 3")
                 return
             }
         }
@@ -309,7 +329,7 @@ function checksecond3() {
                 secondmoves.push({"x":firstblockx+(secondfloor3[i].z * (-1)),"y":firstblocky+secondfloor3[i].y,"z":firstblockz+(secondfloor3[i].x)})
             } else {
                 secondmoves = []
-                console.log("not second 3")
+               //console.log("not second 3")
                 return
             }
         }
@@ -321,7 +341,7 @@ function checksecond3() {
                 secondmoves.push({"x":firstblockx+(secondfloor3[i].z),"y":firstblocky+secondfloor3[i].y,"z":firstblockz+(-secondfloor3[i].x)})
             } else {
                 secondmoves = []
-                console.log("not second 3")
+               //console.log("not second 3")
                 return
             }
         }
@@ -337,7 +357,7 @@ function checksecond4() {
                 secondmoves.push({"x":firstblockx+(secondfloor4[i].x),"y":firstblocky+secondfloor4[i].y,"z":firstblockz+secondfloor4[i].z})
             } else {
                 secondmoves = []
-                console.log("not second 4")
+               //console.log("not second 4")
                 return
             }
         }
@@ -350,7 +370,7 @@ function checksecond4() {
                 secondmoves.push({"x":firstblockx+(secondfloor4[i].x * (-1)),"y":firstblocky+secondfloor4[i].y,"z":firstblockz+secondfloor4[i].z})
             } else {
                 secondmoves = []
-                console.log("not second 4")
+               //console.log("not second 4")
                 return
             }
         }
@@ -362,7 +382,7 @@ function checksecond4() {
                 secondmoves.push({"x":firstblockx+(secondfloor4[i].z * (-1)),"y":firstblocky+secondfloor4[i].y,"z":firstblockz+(secondfloor4[i].x)})
             } else {
                 secondmoves = []
-                console.log("not second 4")
+               //console.log("not second 4")
                 return
             }
         }
@@ -374,7 +394,7 @@ function checksecond4() {
                 secondmoves.push({"x":firstblockx+(secondfloor4[i].z),"y":firstblocky+secondfloor4[i].y,"z":firstblockz+(secondfloor4[i].x * (-1))})
             } else {
                 secondmoves = []
-                console.log("not second 4")
+               //console.log("not second 4")
                 return
             }
         }
@@ -390,7 +410,7 @@ function checksecond5() {
                 secondmoves.push({"x":firstblockx+(secondfloor5[i].x),"y":firstblocky+secondfloor5[i].y,"z":firstblockz+secondfloor5[i].z})
             } else {
                 secondmoves = []
-                console.log("not second 5")
+               //console.log("not second 5")
                 return
             }
         }
@@ -398,12 +418,12 @@ function checksecond5() {
         for (let i = 0; i < secondfloor5.length; i++) {
             let testblock = new BlockPos(firstblockx+(-secondfloor5[i].x),firstblocky+secondfloor5[i].y,firstblockz+(-secondfloor5[i].z))
             bstate2 = World.getBlockStateAt(testblock)
-            console.log(bstate2, testblock)
+           //console.log(bstate2, testblock)
             if (bstate2 == "minecraft:air") {
                 secondmoves.push({"x":firstblockx+(-secondfloor5[i].x),"y":firstblocky+secondfloor5[i].y,"z":firstblockz+(-secondfloor5[i].z)})
             } else {
                 secondmoves = []
-                console.log("not second 5")
+               //console.log("not second 5")
                 return
             }
         }
@@ -415,7 +435,7 @@ function checksecond5() {
                 secondmoves.push({"x":firstblockx+(secondfloor5[i].z * (-1)),"y":firstblocky+secondfloor5[i].y,"z":firstblockz+(secondfloor5[i].x)})
             } else {
                 secondmoves = []
-                console.log("not second 5")
+               //console.log("not second 5")
                 return
             }
         }
@@ -427,13 +447,65 @@ function checksecond5() {
                 secondmoves.push({"x":firstblockx+(secondfloor5[i].z),"y":firstblocky+secondfloor5[i].y,"z":firstblockz+(secondfloor5[i].x * (-1))})
             } else {
                 secondmoves = []
-                console.log("not second 5")
+               //console.log("not second 5")
                 return
             }
         }
     }
 }
 
+function checksecond6() {
+    if (rotation == "east") {
+        for (let i = 0; i < secondfloor6.length; i++) {
+            let testblock = new BlockPos(firstblockx+secondfloor6[i].x,firstblocky+secondfloor6[i].y,firstblockz+secondfloor6[i].z)
+            bstate2 = World.getBlockStateAt(testblock)
+            if (bstate2 == "minecraft:air") {
+                secondmoves.push({"x":firstblockx+(secondfloor6[i].x),"y":firstblocky+secondfloor6[i].y,"z":firstblockz+secondfloor6[i].z})
+            } else {
+                secondmoves = []
+               //console.log("not second 6")
+                return
+            }
+        }
+    } else if (rotation == "west") {
+        for (let i = 0; i < secondfloor6.length; i++) {
+            let testblock = new BlockPos(firstblockx+(-secondfloor6[i].x),firstblocky+secondfloor6[i].y,firstblockz+(-secondfloor6[i].z))
+            bstate2 = World.getBlockStateAt(testblock)
+           //console.log(bstate2, testblock)
+            if (bstate2 == "minecraft:air") {
+                secondmoves.push({"x":firstblockx+(-secondfloor6[i].x),"y":firstblocky+secondfloor6[i].y,"z":firstblockz+(-secondfloor6[i].z)})
+            } else {
+                secondmoves = []
+               //console.log("not second 6")
+                return
+            }
+        }
+    } else if (rotation == "south") {
+        for (let i = 0; i < secondfloor6.length; i++) {
+            let testblock = new BlockPos(firstblockx+secondfloor6[i].z * (-1),firstblocky+secondfloor6[i].y,firstblockz+secondfloor6[i].x)
+            bstate2 = World.getBlockStateAt(testblock)
+            if (bstate2 == "minecraft:air") {
+                secondmoves.push({"x":firstblockx+(secondfloor6[i].z * (-1)),"y":firstblocky+secondfloor6[i].y,"z":firstblockz+(secondfloor6[i].x)})
+            } else {
+                secondmoves = []
+               //console.log("not second 6")
+                return
+            }
+        }
+    } else if (rotation == "north") {
+        for (let i = 0; i < secondfloor6.length; i++) {
+            let testblock = new BlockPos(firstblockx+secondfloor6[i].z,firstblocky+secondfloor6[i].y,firstblockz+(secondfloor6[i].x * (-1)))
+            bstate2 = World.getBlockStateAt(testblock)
+            if (bstate2 == "minecraft:air") {
+                secondmoves.push({"x":firstblockx+(secondfloor6[i].z),"y":firstblocky+secondfloor6[i].y,"z":firstblockz+(secondfloor6[i].x * (-1))})
+            } else {
+                secondmoves = []
+               //console.log("not second 6")
+                return
+            }
+        }
+    }
+}
 
 var GL11 = Java.type("org.lwjgl.opengl.GL11"); //using var so it goes to global scope
 

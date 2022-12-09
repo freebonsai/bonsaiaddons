@@ -363,6 +363,14 @@ class Config {
     })
     autoEdrag = false
 
+    @SwitchProperty({
+        name: "Auto Ghostblock Necron",
+        description: "Automatically ghostblocks the necron platform when he's about to die",
+        category: "Dungeons",
+        subcategory: "M7"
+    })
+    gbNecron = false
+
     @SliderProperty({
         name: "Edrag Slot",
         description: "Edrag slot",

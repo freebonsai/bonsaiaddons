@@ -65,6 +65,7 @@ register("tick", () => {
 const rightClick = Client.getMinecraft().getClass().getDeclaredMethod("func_147121_ag")
 rightClick.setAccessible(true)
 clicked = false
+hasclipped = false
 // F7
 // 64 238 49
 register("tick", () => {
@@ -72,7 +73,7 @@ register("tick", () => {
         if (Dungeon.inDungeon) {
             let atCoords = (x,y,z) => Math.floor(Player.getX()) == x && Math.floor(Player.getY()) == y && Math.floor(Player.getZ()) == z
             if (atCoords(73,221,14)) {
-                if (Config.clipSide == 0) { // RIGHT
+                if (Config.clipSide == 0 && !hasclipped) { // RIGHT
                     px = Player.getX()
                     py = Player.getY()
                     pz = Player.getZ()
@@ -84,7 +85,7 @@ register("tick", () => {
                     new Thread(() => {
                         for (let i = 0; i < 35; i++) {
                             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px + (xleft/35), py + (yleft/35), pz + (zleft/35))
-                            Thread.sleep(6)
+                            Thread.sleep(7)
                             px = Player.getX()
                             py = Player.getY()
                             pz = Player.getZ()
@@ -93,6 +94,8 @@ register("tick", () => {
                         rightClick.invoke(Client.getMinecraft())
                         clicked = true
                     }).start()
+                    hasclipped = true
+                    console.log("hello")
                 } else if (Config.clipSide == 1) { // LEFT
                     px = Player.getX()
                     py = Player.getY()
@@ -153,6 +156,10 @@ register("tick", () => {
             }
         }
     }
+})
+
+register("worldLoad", () => {
+    hasclipped = false
 })
 
 // AFTER CRYSTAL PICK UP

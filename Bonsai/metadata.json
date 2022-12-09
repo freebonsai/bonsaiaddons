@@ -1,7 +1,7 @@
 {
     "name": "Bonsai",
     "description": "Proest Module (/bo)",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "author": "freebonsai",
     "entry": "index.js",
     "requires": [

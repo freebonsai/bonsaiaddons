@@ -1,12 +1,8 @@
 {
-    "latestVersion": "1.0.0",
+    "latestVersion": "1.0.1",
     "changelog": [
-        "OMG 1.0!!!",
-        "uhh ice fill release (i added some rendering stuff so you can see where its trying to go, if that is wrong send me a screenshot and rotation!)",
-        "some m7 stuff i think like:",
-        "auto edrag p5",
-        "more ghostblocks for auto gb necron",
-        "added setting for auto buy flint arrows in ophelia"
+        "some new settings for m7 also maybe fix right crystal idk",
+        "ice fill improvements"
     ],
     "author": "freebonsai"
 }

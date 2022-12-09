@@ -1,6 +1,6 @@
 import Config from "../Config"
 import { thirdfloor1, thirdfloor2, thirdfloor3, thirdfloor4, thirdfloor5 } from "../utils/icefillconfigurations"
-
+import { prefix } from "../utils/prefix"
 
 hasicefill = false
 hasscanned = false
@@ -14,14 +14,15 @@ register("worldLoad", () => {
     hasicefill = false
     hasscanned = false
     stopped = false
+    thirdmoves = []
     //console.log("worldload")
 })
 
 register("command", () => {
     stopped = !stopped
-    console.log(stopped)
+   //console.log(stopped)
     thirdmoves = []
-}).setName("stopicefill")
+}).setName("stopthird")
 
 register("step", () => {
     if (!hasicefill) {
@@ -52,54 +53,62 @@ function checkRotation() {
     b = World.getBlockStateAt(BlockBlock)
     if (b.toString().includes("minecraft:stone_brick_stairs")) {
         rotation = "east"
-        console.log("east")
+       //console.log("east")
         return
     }
     BlockBlock = new BlockPos(Math.floor(px)-8,Math.floor(py),Math.floor(pz))
     b = World.getBlockStateAt(BlockBlock)
     if (b.toString().includes("minecraft:stone_brick_stairs")) {
         rotation = "west"
-        console.log("west")
+       //console.log("west")
         return
     }
     BlockBlock = new BlockPos(Math.floor(px),Math.floor(py),Math.floor(pz)+8)
     b = World.getBlockStateAt(BlockBlock)
     if (b.toString().includes("minecraft:stone_brick_stairs")) {
         rotation = "south"
-        console.log("south")
+       //console.log("south")
         return
     }
     BlockBlock = new BlockPos(Math.floor(px),Math.floor(py),Math.floor(pz)-8)
     b = World.getBlockStateAt(BlockBlock)
     if (b.toString().includes("minecraft:stone_brick_stairs")) {
         rotation = "north"
-        console.log("north")
+       //console.log("north")
         return
     }
 }
 
 function scanthird() {
+    startTime = new Date().getTime()
     if (thirdmoves.length < 1) {
         checkthird1()
-        console.log("checked third 1")
+       //console.log("checked third 1")
     }
     if (thirdmoves.length < 1) {
         checkthird2()
-        console.log("checked third 2")
+       //console.log("checked third 2")
     }
     if (thirdmoves.length < 1) {
         checkthird3()
-        console.log("checked third 3")
+       //console.log("checked third 3")
     }
     if (thirdmoves.length < 1) {
         checkthird4()
-        console.log("checked third 4")
+       //console.log("checked third 4")
     }
     if (thirdmoves.length < 1) {
         checkthird5()
-        console.log("checked third 5")
+       //console.log("checked third 5")
+    }
+    if (thirdmoves.length > 0) {
+        endTime = new Date().getTime()
+        ChatLib.chat(`${prefix} &bScan time for third floor: ${endTime-startTime}ms`)
     }
 }
+
+const rightClick = Client.getMinecraft().getClass().getDeclaredMethod("func_147121_ag")
+rightClick.setAccessible(true)
 
 gonext = false
 stopped = false
@@ -124,6 +133,76 @@ function movethird() {
             gonext = false
             //Thread.sleep(300)
         }
+        while (!gonext) {
+            px = Math.floor(Player.getX())
+            py = Math.floor(Player.getY())
+            pz = Math.floor(Player.getZ())
+            let BlockBlock = new BlockPos(px,py-1,pz)
+            b = World.getBlockStateAt(BlockBlock)
+            if (b == "minecraft:packed_ice") {
+                gonext = true
+                //console.log("packed")
+            }
+            if (stopped) {
+                return
+            }
+        }
+        Player.getPlayer().field_70125_A = -35
+        chest = false
+        if (rotation == "east") {
+            Player.getPlayer().field_70177_z = -90
+            while (!chest) {
+                lookingat = Player.lookingAt().type
+                if (lookingat == "BlockType{name=minecraft:chest}") {
+                    chest = true
+                } else {
+                    World.getWorld().func_175698_g(new BlockPos(Math.floor(Player.getX())+1,Math.floor(Player.getY())+2,Math.floor(Player.getZ())).toMCBlock())
+                    Thread.sleep(15)
+                }
+            }
+            Thread.sleep(15)
+            rightClick.invoke(Client.getMinecraft())
+        } else if (rotation == "west") {
+            Player.getPlayer().field_70177_z = 90
+            World.getWorld().func_175698_g(new BlockPos(Math.floor(Player.getX())-1,Math.floor(Player.getY())+2,Math.floor(Player.getZ())).toMCBlock())
+            while (!chest) {
+                lookingat = Player.lookingAt().type
+                if (lookingat == "BlockType{name=minecraft:chest}") {
+                    chest = true
+                } else {
+                    World.getWorld().func_175698_g(new BlockPos(Math.floor(Player.getX())-1,Math.floor(Player.getY())+2,Math.floor(Player.getZ())).toMCBlock())
+                    Thread.sleep(15)
+                }
+            }
+            Thread.sleep(15)
+            rightClick.invoke(Client.getMinecraft())
+        } else if (rotation == "south") {
+            Player.getPlayer().field_70177_z = 0
+            while (!chest) {
+                lookingat = Player.lookingAt().type
+                if (lookingat == "BlockType{name=minecraft:chest}") {
+                    chest = true
+                } else {
+                    World.getWorld().func_175698_g(new BlockPos(Math.floor(Player.getX()),Math.floor(Player.getY())+2,Math.floor(Player.getZ()+1)).toMCBlock())
+                    Thread.sleep(15)
+                }
+            }
+            Thread.sleep(15)
+            rightClick.invoke(Client.getMinecraft())
+        } else if (rotation == "north") {
+            Player.getPlayer().field_70177_z = 180
+            while (!chest) {
+                lookingat = Player.lookingAt().type
+                if (lookingat == "BlockType{name=minecraft:chest}") {
+                    chest = true
+                } else {
+                    World.getWorld().func_175698_g(new BlockPos(Math.floor(Player.getX()),Math.floor(Player.getY())+2,Math.floor(Player.getZ())-1).toMCBlock())
+                    Thread.sleep(15)
+                }
+            }
+            Thread.sleep(15)
+            rightClick.invoke(Client.getMinecraft())
+        }
     }).start()
 }
 
@@ -138,7 +217,7 @@ function checkthird1() {
                 thirdmoves.push({"x":firstblockx+thirdfloor1[i].x,"y":firstblocky+thirdfloor1[i].y,"z":firstblockz+thirdfloor1[i].z})
             } else {
                 thirdmoves = []
-                console.log("not first 1")
+               //console.log("not first 1")
                 return
             }
         }
@@ -150,7 +229,7 @@ function checkthird1() {
                 thirdmoves.push({"x":firstblockx+(-thirdfloor1[i].x),"y":firstblocky+thirdfloor1[i].y,"z":firstblockz+(-thirdfloor1[i].z)})
             } else {
                 thirdmoves = []
-                console.log("not first 1")
+               //console.log("not first 1")
                 return
             }
         }
@@ -163,7 +242,7 @@ function checkthird1() {
                 thirdmoves.push({"x":firstblockx+(-thirdfloor1[i].z),"y":firstblocky+thirdfloor1[i].y,"z":firstblockz+(thirdfloor1[i].x)})
             } else {
                 thirdmoves = []
-                console.log("not first 1")
+               //console.log("not first 1")
                 return
             }
         }
@@ -175,7 +254,7 @@ function checkthird1() {
                 thirdmoves.push({"x":firstblockx+(thirdfloor1[i].z),"y":firstblocky+thirdfloor1[i].y,"z":firstblockz+(-thirdfloor1[i].x)})
             } else {
                 thirdmoves = []
-                console.log("not first 1")
+               //console.log("not first 1")
                 return
             }
         }
@@ -187,37 +266,38 @@ function checkthird2() {
         for (let i = 0; i < thirdfloor2.length; i++) {
             let testblock = new BlockPos(firstblockx+thirdfloor2[i].x,firstblocky+thirdfloor2[i].y,firstblockz+thirdfloor2[i].z)
             bstate2 = World.getBlockStateAt(testblock)
+            console.log(bstate2,testblock)
             if (bstate2 == "minecraft:air") {
                 thirdmoves.push({"x":firstblockx+(thirdfloor2[i].x),"y":firstblocky+thirdfloor2[i].y,"z":firstblockz+thirdfloor2[i].z})
             } else {
                 thirdmoves = []
-                console.log("not first 2")
+                console.log("not third 2")
                 return
             }
         }
     } else if (rotation == "west") {
         for (let i = 0; i < thirdfloor2.length; i++) {
-            let testblock = new BlockPos(firstblockx+(-thirdfloor2[i].x),firstblocky+thirdfloor2[i].y,firstblockz+(thirdfloor2[i].z))
+            let testblock = new BlockPos(firstblockx+(-thirdfloor2[i].x),firstblocky+thirdfloor2[i].y,firstblockz+(-thirdfloor2[i].z))
             bstate2 = World.getBlockStateAt(testblock)
-            console.log(bstate2, testblock)
+           //console.log(bstate2, testblock)
             if (bstate2 == "minecraft:air") {
-                thirdmoves.push({"x":firstblockx+(-thirdfloor2[i].x),"y":firstblocky+thirdfloor2[i].y,"z":firstblockz+thirdfloor2[i].z})
+                thirdmoves.push({"x":firstblockx+(-thirdfloor2[i].x),"y":firstblocky+thirdfloor2[i].y,"z":firstblockz+(-thirdfloor2[i].z)})
             } else {
                 thirdmoves = []
-                console.log("not first 2")
+               //console.log("not first 2")
                 return
             }
         }
     } else if (rotation == "south") {
         for (let i = 0; i < thirdfloor2.length; i++) {
-            let testblock = new BlockPos(firstblockx+(-thirdfloor2[i].z),firstblocky+thirdfloor2[i].y,firstblockz+(-thirdfloor2[i].x))
+            let testblock = new BlockPos(firstblockx+(-thirdfloor2[i].z),firstblocky+thirdfloor2[i].y,firstblockz+(thirdfloor2[i].x))
             bstate2 = World.getBlockStateAt(testblock)
             console.log(bstate2, testblock)
             if (bstate2 == "minecraft:air") {
                 thirdmoves.push({"x":firstblockx+(-thirdfloor2[i].z),"y":firstblocky+thirdfloor2[i].y,"z":firstblockz+(thirdfloor2[i].x)})
             } else {
                 thirdmoves = []
-                console.log("not first 2")
+               //console.log("not first 2")
                 return
             }
         }
@@ -229,7 +309,7 @@ function checkthird2() {
                 thirdmoves.push({"x":firstblockx+(thirdfloor2[i].z),"y":firstblocky+thirdfloor2[i].y,"z":firstblockz+(-thirdfloor2[i].x)})
             } else {
                 thirdmoves = []
-                console.log("not first 2")
+               //console.log("not first 2")
                 return
             }
         }
@@ -245,7 +325,7 @@ function checkthird3() {
                 thirdmoves.push({"x":firstblockx+(thirdfloor3[i].x),"y":firstblocky+thirdfloor3[i].y,"z":firstblockz+thirdfloor3[i].z})
             } else {
                 thirdmoves = []
-                console.log("not first 2")
+               //console.log("not first 2")
                 return
             }
         }
@@ -253,25 +333,25 @@ function checkthird3() {
         for (let i = 0; i < thirdfloor3.length; i++) {
             let testblock = new BlockPos(firstblockx+(thirdfloor3[i].x * (-1)),firstblocky+thirdfloor3[i].y,firstblockz+(thirdfloor3[i].z))
             bstate2 = World.getBlockStateAt(testblock)
-            console.log(bstate2, testblock)
+           //console.log(bstate2, testblock)
             if (bstate2 == "minecraft:air") {
                 thirdmoves.push({"x":firstblockx+(thirdfloor3[i].x * (-1)),"y":firstblocky+thirdfloor3[i].y,"z":firstblockz+thirdfloor3[i].z})
             } else {
                 thirdmoves = []
-                console.log("not first 2")
+               //console.log("not first 2")
                 return
             }
         }
     } else if (rotation == "south") {
         for (let i = 0; i < thirdfloor3.length; i++) {
-            let testblock = new BlockPos(firstblockx+(thirdfloor3[i].z * (-1)),firstblocky+thirdfloor3[i].y,firstblockz+(thirdfloor3[i].x * (-1)))
+            let testblock = new BlockPos(firstblockx+(-thirdfloor3[i].z),firstblocky+thirdfloor3[i].y,firstblockz+(thirdfloor3[i].x))
             bstate2 = World.getBlockStateAt(testblock)
             console.log(bstate2, testblock)
             if (bstate2 == "minecraft:air") {
                 thirdmoves.push({"x":firstblockx+(thirdfloor3[i].z * (-1)),"y":firstblocky+thirdfloor3[i].y,"z":firstblockz+(thirdfloor3[i].x)})
             } else {
                 thirdmoves = []
-                console.log("not first 2")
+                console.log("not third 3")
                 return
             }
         }
@@ -283,7 +363,7 @@ function checkthird3() {
                 thirdmoves.push({"x":firstblockx+(thirdfloor3[i].z),"y":firstblocky+thirdfloor3[i].y,"z":firstblockz+(-thirdfloor3[i].x)})
             } else {
                 thirdmoves = []
-                console.log("not first 2")
+               //console.log("not first 2")
                 return
             }
         }
@@ -299,7 +379,7 @@ function checkthird4() {
                 thirdmoves.push({"x":firstblockx+(thirdfloor4[i].x),"y":firstblocky+thirdfloor4[i].y,"z":firstblockz+thirdfloor4[i].z})
             } else {
                 thirdmoves = []
-                console.log("not third 4")
+               //console.log("not third 4")
                 return
             }
         }
@@ -307,12 +387,12 @@ function checkthird4() {
         for (let i = 0; i < thirdfloor4.length; i++) {
             let testblock = new BlockPos(firstblockx+(-thirdfloor4[i].x),firstblocky+thirdfloor4[i].y,firstblockz+(thirdfloor4[i].z))
             bstate2 = World.getBlockStateAt(testblock)
-            console.log(bstate2, testblock)
+           //console.log(bstate2, testblock)
             if (bstate2 == "minecraft:air") {
                 thirdmoves.push({"x":firstblockx+(-thirdfloor4[i].x),"y":firstblocky+thirdfloor4[i].y,"z":firstblockz+thirdfloor4[i].z})
             } else {
                 thirdmoves = []
-                console.log("not third 4")
+               //console.log("not third 4")
                 return
             }
         }
@@ -320,12 +400,12 @@ function checkthird4() {
         for (let i = 0; i < thirdfloor4.length; i++) {
             let testblock = new BlockPos(firstblockx+(-thirdfloor4[i].z),firstblocky+thirdfloor4[i].y,firstblockz+(-thirdfloor4[i].x))
             bstate2 = World.getBlockStateAt(testblock)
-            console.log(bstate2, testblock)
+           //console.log(bstate2, testblock)
             if (bstate2 == "minecraft:air") {
                 thirdmoves.push({"x":firstblockx+(-thirdfloor4[i].z),"y":firstblocky+thirdfloor4[i].y,"z":firstblockz+(-thirdfloor4[i].x)})
             } else {
                 thirdmoves = []
-                console.log("not third 4")
+               //console.log("not third 4")
                 return
             }
         }
@@ -333,12 +413,12 @@ function checkthird4() {
         for (let i = 0; i < thirdfloor4.length; i++) {
             let testblock = new BlockPos(firstblockx+thirdfloor4[i].z,firstblocky+thirdfloor4[i].y,firstblockz+(-thirdfloor4[i].x))
             bstate2 = World.getBlockStateAt(testblock)
-            console.log(testblock)
+           //console.log(testblock)
             if (bstate2 == "minecraft:air") {
                 thirdmoves.push({"x":firstblockx+(thirdfloor4[i].z),"y":firstblocky+thirdfloor4[i].y,"z":firstblockz+(-thirdfloor4[i].x)})
             } else {
                 thirdmoves = []
-                console.log("not third 4")
+               //console.log("not third 4")
                 return
             }
         }
@@ -354,7 +434,7 @@ function checkthird5() {
                 thirdmoves.push({"x":firstblockx+(thirdfloor5[i].x),"y":firstblocky+thirdfloor5[i].y,"z":firstblockz+thirdfloor5[i].z})
             } else {
                 thirdmoves = []
-                console.log("not third 5")
+               //console.log("not third 5")
                 return
             }
         }
@@ -362,12 +442,12 @@ function checkthird5() {
         for (let i = 0; i < thirdfloor5.length; i++) {
             let testblock = new BlockPos(firstblockx+(-thirdfloor5[i].x),firstblocky+thirdfloor5[i].y,firstblockz+(thirdfloor5[i].z))
             bstate2 = World.getBlockStateAt(testblock)
-            console.log(bstate2, testblock)
+           //console.log(bstate2, testblock)
             if (bstate2 == "minecraft:air") {
                 thirdmoves.push({"x":firstblockx+(-thirdfloor5[i].x),"y":firstblocky+thirdfloor5[i].y,"z":firstblockz+thirdfloor5[i].z})
             } else {
                 thirdmoves = []
-                console.log("not third 5")
+               //console.log("not third 5")
                 return
             }
         }
@@ -375,12 +455,12 @@ function checkthird5() {
         for (let i = 0; i < thirdfloor5.length; i++) {
             let testblock = new BlockPos(firstblockx+(-thirdfloor5[i].z),firstblocky+thirdfloor5[i].y,firstblockz+(-thirdfloor5[i].x))
             bstate2 = World.getBlockStateAt(testblock)
-            console.log(bstate2, testblock)
+           //console.log(bstate2, testblock)
             if (bstate2 == "minecraft:air") {
                 thirdmoves.push({"x":firstblockx+(-thirdfloor5[i].z),"y":firstblocky+thirdfloor5[i].y,"z":firstblockz+(-thirdfloor5[i].x)})
             } else {
                 thirdmoves = []
-                console.log("not third 5")
+               //console.log("not third 5")
                 return
             }
         }
@@ -388,12 +468,12 @@ function checkthird5() {
         for (let i = 0; i < thirdfloor5.length; i++) {
             let testblock = new BlockPos(firstblockx+thirdfloor5[i].z,firstblocky+thirdfloor5[i].y,firstblockz+(-thirdfloor5[i].x))
             bstate2 = World.getBlockStateAt(testblock)
-            console.log(testblock)
+           //console.log(testblock)
             if (bstate2 == "minecraft:air") {
                 thirdmoves.push({"x":firstblockx+(thirdfloor5[i].z),"y":firstblocky+thirdfloor5[i].y,"z":firstblockz+(-thirdfloor5[i].x)})
             } else {
                 thirdmoves = []
-                console.log("not third 5")
+               //console.log("not third 5")
                 return
             }
         }

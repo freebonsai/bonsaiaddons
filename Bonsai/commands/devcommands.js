@@ -65,3 +65,11 @@ register("command", (x,y,z) => {
   pz = Math.floor(Player.getZ())
   ChatLib.chat(`${px}, ${py}, ${pz}`)
 }).setName("getcoords")
+
+register("command", () => {
+  lookingat = Player.lookingAt().type
+  console.log(lookingat)
+  if (lookingat == "BlockType{name=minecraft:iron_bars}") {
+    console.log("iron bar")
+  }
+}).setName("lookingat")

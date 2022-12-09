@@ -144,10 +144,12 @@ register("chat", () => {
         } else if (Config.relicType == 4) {
           ChatLib.command("pc blue")
         }
+        //inp5 = true
+      }
+      if (Config.gbNecron) {
         for (let i=0;i<blocks.length;i++) {
           Client.getMinecraft().func_71410_x().field_71441_e.func_175698_g(blocks[i].toMCBlock())
         }
-        //inp5 = true
       }
     }
   }
@@ -159,14 +161,13 @@ register("command", () => {
   }
 }).setName("testnecrongb")
 
-register("command", () => {
-  pos = new BlockPos(75,64,45)
-  pos2 = new BlockPos(75,64,46)
-  type = World.getBlockStateAt(pos2)
-  Client.getMinecraft().func_71410_x().field_71441_e.func_175656_a(pos.toMCBlock(), type)
-  type2 = World.getBlockStateAt(pos2).class.getName()
-  console.log(type2)
-}).setName("testblockstate")
+
+var Blocks = Java.type("net.minecraft.init.Blocks");
+const glass = Blocks.field_150359_w.func_176223_P();
+register("command", (x,y,z) => {
+  pos = new BlockPos(x*1,y*1,z*1) 
+  World.getWorld().func_175656_a(pos.toMCBlock(), glass)
+}).setName("settoglass")
 
 
 
@@ -196,7 +197,7 @@ register("chat", () => {
       inv.click(Config.edragSlot+10)
     }).start()
   }
-}).setChatCriteria("[BOSS] Wither King: We will decide it all, here, now.")
+}).setChatCriteria("[BOSS] Wither King: You.. again?")
 
 register("chat", () => {
   inp5 = false
