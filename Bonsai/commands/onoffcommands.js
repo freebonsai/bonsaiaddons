@@ -14,6 +14,15 @@ register("command", (arg) => {
     } else if (arg == "down") {
         Config.clipSide = 2
         ChatLib.chat(`${prefix} &bSet f7 clip to down!`)
+    } else if (arg == "conveyor") {
+        Config.clipSide = 3
+        ChatLib.chat(`${prefix} &bSet f7 clip to conveyor!`)
+    } else if (arg == "off") {
+        Config.f7clip = false
+        ChatLib.chat(`${prefix} &bTurned f7 clip off!`)
+    } else if (arg == "on") {
+        Config.f7clip = true
+        ChatLib.chat(`${prefix} &bTurned f7 clip on!`)
     } else {
         ChatLib.chat(`${prefix} &bIncorrect usage! &c/f7clip (toggle|right|left|down)`)
     }

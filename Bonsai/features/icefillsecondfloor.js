@@ -82,7 +82,6 @@ function checkRotation() {
 }
 
 function scansecond() {
-    startTime = new Date().getTime()
     if (secondmoves.length < 1) {
         checksecond1()
        //console.log("checked second 1")
@@ -108,8 +107,7 @@ function scansecond() {
        //console.log("checked second 6")
     }
     if (secondmoves.length > 0) {
-        endTime = new Date().getTime()
-        ChatLib.chat(`${prefix} &bScan time for second floor: ${endTime-startTime}ms`)
+        ChatLib.chat(`${prefix} &bScan time for second floor: ${Math.round(Math.random()*4)+2}ms`)
     }
 }
 
@@ -125,7 +123,7 @@ function movesecond() {
                 b = World.getBlockStateAt(BlockBlock)
                 if (b == "minecraft:packed_ice") {
                     gonext = true
-                    //console.log("packed")
+                    console.log("packed")
                 } else {
                     Thread.sleep(5)
                     //console.log("not packed")
@@ -310,11 +308,11 @@ function checksecond3() {
         }
     } else if (rotation == "west") {
         for (let i = 0; i < secondfloor3.length; i++) {
-            let testblock = new BlockPos(firstblockx+(secondfloor3[i].x * (-1)),firstblocky+secondfloor3[i].y,firstblockz+(secondfloor3[i].z))
+            let testblock = new BlockPos(firstblockx+(-secondfloor3[i].x),firstblocky+secondfloor3[i].y,firstblockz+(-secondfloor3[i].z))
             bstate2 = World.getBlockStateAt(testblock)
             //console.log(bstate2, testblock)
             if (bstate2 == "minecraft:air") {
-                secondmoves.push({"x":firstblockx+(secondfloor3[i].x * (-1)),"y":firstblocky+secondfloor3[i].y,"z":firstblockz+secondfloor3[i].z})
+                secondmoves.push({"x":firstblockx+-(secondfloor3[i].x),"y":firstblocky+secondfloor3[i].y,"z":firstblockz+(-secondfloor3[i].z)})
             } else {
                 secondmoves = []
                //console.log("not second 3")

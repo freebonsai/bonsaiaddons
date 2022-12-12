@@ -1,8 +1,9 @@
 {
-    "latestVersion": "1.0.1",
+    "latestVersion": "1.1",
     "changelog": [
-        "some new settings for m7 also maybe fix right crystal idk",
-        "ice fill improvements"
+        "conveyor clip",
+        "prob fixed a lot of ice fill still some issues most likely",
+        "maybe added some more stuff and probably gonna add some auto babyproofing for antikb some time in the future"
     ],
     "author": "freebonsai"
 }

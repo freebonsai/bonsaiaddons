@@ -1,5 +1,7 @@
 // DEV COMMANDS
 
+import { prefix } from "../utils/prefix"
+
 // SWITCH ENCHANT FOR SWARM COUNTER COMMAND
 register("command", (...args) => {
   if (Player.getName() == 'freebonsai') {
@@ -73,3 +75,26 @@ register("command", () => {
     console.log("iron bar")
   }
 }).setName("lookingat")
+
+register("command", (...args) => {
+  if (args.length == 6) {
+    ChatLib.chat(`${prefix} &bx: &a${args[0]-args[3]} &by: &a${args[1]-args[4]} &bz: &a${args[2]-args[5]}`)
+  } else {
+    ChatLib.chat(`${prefix} &bImproper arguments! &c/getdistance x1 y1 z1 x2 y2 z2`)
+  }
+}).setName("getdistance")
+
+register("command", (...args) => {
+  if (args.length == 6) {
+    ChatLib.chat(`${prefix} &bx: &a${args[0]-args[3]} &by: &a${args[1]-args[4]} &bz: &a${args[2]-args[5]}`)
+  } else {
+    ChatLib.chat(`${prefix} &bImproper arguments! &c/getnewcoord x y z dx dy dz`)
+  }
+}).setName("getnewcoords")
+
+var Blocks = Java.type("net.minecraft.init.Blocks");
+const glass = Blocks.field_150359_w.func_176223_P();
+register("command", (x,y,z) => {
+  pos = new BlockPos(x*1,y*1,z*1) 
+  World.getWorld().func_175656_a(pos.toMCBlock(), glass)
+}).setName("settoglass")

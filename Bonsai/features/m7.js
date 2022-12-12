@@ -128,6 +128,7 @@ const blocks = [
 ]
 
 inp5 = false
+over = true
 register("chat", () => {
   lines = Scoreboard.getLines()
   for (let i = 0;i < lines.length;i++) {
@@ -162,15 +163,10 @@ register("command", () => {
 }).setName("testnecrongb")
 
 
-var Blocks = Java.type("net.minecraft.init.Blocks");
-const glass = Blocks.field_150359_w.func_176223_P();
-register("command", (x,y,z) => {
-  pos = new BlockPos(x*1,y*1,z*1) 
-  World.getWorld().func_175656_a(pos.toMCBlock(), glass)
-}).setName("settoglass")
 
 
-
+entities = []
+names = []
 
 register("renderEntity", (entity,pos,ticks,event) => {
   if (inp5 && Config.armorStandRender) {
@@ -180,15 +176,35 @@ register("renderEntity", (entity,pos,ticks,event) => {
     }
     //console.log(entity.getName())
   }
+  if (over && Config.playerRender) {
+    if (names.includes(entity.getName())) {
+      entity.getEntity().func_70106_y()
+      //console.log("killed")
+    }
+  }
 })
+
+register("command", () => {
+  tabnames = TabList.getNames()
+  names = []
+  for (let i = 1; i < 20; i+=4) {
+    tobepushed = tabnames[i].removeFormatting()
+    match = tobepushed.match(/^\[(\d+)\] (?:\[\w+\] )*(\w+) [♲Ⓑ ]*\((\w+)(?: (\w+))*\)$/)
+    let [_, sbLevel, player, clazz, level] = match
+    names.push(player)
+  }
+  console.log(names)
+}).setName("listplayers")
 
 register("worldLoad", () => {
   inp5 = false
+  over = false
+  names = []
 })
 
 register("chat", () => {
   inp5 = true
-  console.log("in p5!!")
+  //console.log("in p5!!")
   if (Config.autoEdrag) {
     new Thread(() => {
       ChatLib.command("pets")
@@ -201,7 +217,18 @@ register("chat", () => {
 
 register("chat", () => {
   inp5 = false
-  console.log("over")
+  tabnames = TabList.getNames()
+  names = []
+  for (let i = 1; i < 20; i+=4) {
+    tobepushed = tabnames[i].removeFormatting()
+    if (tobepushed) {
+      match = tobepushed.match(/^\[(\d+)\] (?:\[\w+\] )*(\w+) [♲Ⓑ ]*\((\w+)(?: (\w+))*\)$/)
+      let [_, sbLevel, player, clazz, level] = match
+      if (Player.getName() != player) names.push(player)
+    }
+  }
+  console.log(names)
+  over = true
 }).setChatCriteria("[BOSS] Wither King: Incredible. You did what I couldn't do myself.")
 
 register("command", () => {

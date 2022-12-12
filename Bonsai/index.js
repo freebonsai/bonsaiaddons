@@ -32,6 +32,7 @@ import "./features/magepad2nd"
 import "./features/icefillfirstfloor"
 import "./features/icefillsecondfloor"
 import "./features/icefillthirdfloor"
-//import "./features/tessellator"
+import "./features/tradesmenu"
 
 import "./utils/firsttime"
+import "./utils/memorycheck"

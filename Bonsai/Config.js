@@ -104,6 +104,14 @@ class Config {
     })
     armorStandRender = false
 
+    @SwitchProperty({
+        name: "Don't Render Players When Chests",
+        description: "Stops players from rendering after dungeon is over",
+        category: "Dungeons",
+        subcategory: "Render"
+    })
+    playerRender = false
+
     // TERMINALS
     //#region 
     @SwitchProperty({
@@ -251,7 +259,7 @@ class Config {
         description: 'Which crystal will be clipped to',
         category: 'Clipping',
         subcategory: 'Auto',
-        options: ['Right','Left','Down'],
+        options: ['Right','Left','Down','Conveyor'],
         requires: 'Auto Clip F7'
     })
     clipSide = 0;

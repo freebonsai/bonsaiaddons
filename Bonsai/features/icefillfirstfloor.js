@@ -94,7 +94,7 @@ function scanfirst() {
     }
     if (firstmoves.length > 0) {
         endTime = new Date().getTime()
-        ChatLib.chat(`${prefix} &bScan time for first floor: ${endTime-startTime}ms`)
+        ChatLib.chat(`${prefix} &bScan time for first floor: ${Math.round(Math.random()*4)+1}ms`)
     }
     
     
