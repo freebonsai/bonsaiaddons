@@ -1,3 +1,4 @@
+/// <reference types="../../CTAutocomplete" />
 import Config from "../Config"
 const blocks = [
   new BlockPos(50,64,76),
@@ -206,12 +207,12 @@ register("chat", () => {
   inp5 = true
   //console.log("in p5!!")
   if (Config.autoEdrag) {
-    new Thread(() => {
-      ChatLib.command("pets")
-      Thread.sleep(300)
+    ChatLib.command("pets")
+    Thread.sleep(300)
+    setTimeout(() => {
       let inv = Player.getContainer();
-      inv.click(Config.edragSlot+10)
-    }).start()
+      inv.click(Config.edragSlot+10,false,"MIDDLE")
+    }, 300)
   }
 }).setChatCriteria("[BOSS] Wither King: You.. again?")
 

@@ -1,3 +1,4 @@
+/// <reference types="../../CTAutocomplete" />
 import Config from "../Config"
 
 const colorReplacements = {
@@ -26,24 +27,37 @@ const sv = 20
 
 let inTerm = false
 let q = []
+going = false
 function clickQueue() {
-  let inv = Player.getContainer();
-  new Thread(() => {
-    for (let i = q.length-1; i >= 0; i--) {
-      if (Config.autoClickType == 0) {
-        inv.click(q[i],false,"LEFT")
-      } else if (Config.autoClickType == 1) {
-        inv.click(q[i],false,"MIDDLE")
-      } else if (Config.autoClickType == 2) {
-        inv.click(q[i],true,"LEFT")
-      }
-      s = Math.floor(Math.random() * sv) + Config.autoTermDelay-(sv/2)
-      if (s < 0) s = 10
-      Thread.sleep(s)
-    }
-    q = []
-  }).start()
+  going = true
 }
+
+counter = 0
+register("step", () => {
+  if (!going) return
+  inv = Player.getContainer();
+  if (Config.autoClickType == 0) {
+    try {
+      inv.click(q[counter],false,"LEFT")
+    } catch (error) {}
+  } else if (Config.autoClickType == 1) {
+    try {
+      inv.click(q[counter],false,"MIDDLE")
+    } catch (error) {}
+  } else if (Config.autoClickType == 2) {
+    try {
+      inv.click(q[counter],true,"LEFT")
+    } catch (error) {}
+  }
+  console.log(q[counter])
+  counter++
+  if (counter >= q.length) {
+    counter = 0
+    going = false
+    q = []
+    inTerm = false
+  }
+}).setFps(1000/Config.autoTermDelay)
 
 register('tick', () => {
   if (Config.autoTerms && !inTerm) {
@@ -75,33 +89,41 @@ register('tick', () => {
     if (n == "Click in order!") {
       if (Config.numbers) {
         inTerm = true
-        tobesolved = correctSlots = sortStackSize(filterPanesWithMeta(getInvItemsTo(35), 14))
-        for (let i = 0; i < tobesolved.length; i++) {
-            q.push(tobesolved[i])
-        }
-        clickQueue()
+        setTimeout(() => {
+          tobesolved = correctSlots = sortStackSize(filterPanesWithMeta(getInvItemsTo(35), 14))
+          for (let i = 0; i < tobesolved.length; i++) {
+              q.push(tobesolved[i])
+          }
+          clickQueue()
+        },100)
       }
     }
     if (n.startsWith("What starts with:")) {
       if (Config.startswith) {
         inTerm = true
-        let letter = n.match(/What starts with: '(\w+)'?/)[1].toLowerCase()
-        tobesolved = getInvItemsTo(45).filter(a => inv.getStackInSlot(a).getName().removeFormatting().toLowerCase().startsWith(letter)).filter(a => !isEnchanted(a))
-        for (let i = 0; i < tobesolved.length; i++) {
-          q.push(tobesolved[i])
-        }
-        clickQueue()
+        setTimeout(() => {
+          let letter = n.match(/What starts with: '(\w+)'?/)[1].toLowerCase()
+          tobesolved = getInvItemsTo(45).filter(a => inv.getStackInSlot(a).getName().removeFormatting().toLowerCase().startsWith(letter)).filter(a => !isEnchanted(a))
+          for (let i = 0; i < tobesolved.length; i++) {
+            q.push(tobesolved[i])
+            //console.log(tobesolved[i])
+          }
+          clickQueue()
+        },100)
       }
     }
     if (n.startsWith("Select all the")) {
       if (Config.selectallthe) {
         inTerm = true
-        let color = n.match(/Select all the (.+) items!/)[1].toLowerCase()
-        tobesolved = getInvItemsTo(45).filter(a => fixColor(inv.getStackInSlot(a).getName().removeFormatting().toLowerCase()).startsWith(color)).filter(a => !isEnchanted(a))
-        for (let i = 0; i < tobesolved.length; i++) {
-          q.push(tobesolved)
-        }
-        clickQueue()
+        setTimeout(() => {
+          let color = n.match(/Select all the (.+) items!/)[1].toLowerCase()
+          tobesolved = getInvItemsTo(45).filter(a => fixColor(inv.getStackInSlot(a).getName().removeFormatting().toLowerCase()).startsWith(color)).filter(a => !isEnchanted(a))
+          for (let i = 0; i < tobesolved.length; i++) {
+            q.push(tobesolved[i])
+            //console.log(tobesolved[i])
+          }
+          clickQueue()
+        },100)
       }
     }
   }

@@ -1,46 +1,27 @@
 import Config from "../Config"
 import toRadians from "../utils/toradians"
-register("command", (d,yaw,del) => {
-  if (yaw && del) {
-    new Thread(() => {
-      Thread.sleep(del)
-      for (let i=0;i<d*10;i++) {
-        px = Player.getX()
-        py = Player.getY()
-        pz = Player.getZ()
-        newx = -Math.sin(toRadians(yaw))*d
-        newz = Math.cos(toRadians(yaw))*d
-        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px+newx/d/10,py,pz+newz/d/10)
-        Thread.sleep(Config.funiinfdelay/10)
-      }
-    }).start()
-  } else {
-    new Thread(() => {
-      for (let i=0;i<d;i++) {
-        px = Player.getX()
-        py = Player.getY()
-        pz = Player.getZ()
-        ya = Player.getYaw()
-        newx = -Math.sin(toRadians(ya))*d
-        newz = Math.cos(toRadians(ya))*d
-        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px+newx/d,py,pz+newz/d)
-        Thread.sleep(Config.funiinfdelay)
-      }
-    }).start()
-  }
+
+going = false
+dist = 0
+register("command", (d) => {
+  going = true
+  dist = d
 }).setName("funiclip")
 
-register("command", (d,s) => {
-  new Thread(() => {
-    for (let i=0;i<d*10;i++) {
-      px = Player.getX()
-      py = Player.getY()
-      pz = Player.getZ()
-      yaw = Player.getYaw()
-      newx = -Math.sin(toRadians(yaw))*d
-      newz = Math.cos(toRadians(yaw))*d
-      Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px+newx/d/10,py,pz+newz/d/10)
-      Thread.sleep(s/10)
-    }
-  }).start()
-}).setName("funiclipbo")
+counter = 0
+register("step", () => {
+  if (!going) return
+  px = Player.getX()
+  py = Player.getY()
+  pz = Player.getZ()
+  ya = Player.getYaw()
+  newx = -Math.sin(toRadians(ya))
+  newz = Math.cos(toRadians(ya))
+  Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px+newx,py,pz+newz)
+  counter++
+  if (counter >= dist) {
+    going = false
+    dist = 0
+    counter = 0
+  }
+}).setFps(1000/Config.funiinfdelay)

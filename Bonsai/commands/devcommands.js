@@ -92,9 +92,14 @@ register("command", (...args) => {
   }
 }).setName("getnewcoords")
 
-var Blocks = Java.type("net.minecraft.init.Blocks");
-const glass = Blocks.field_150359_w.func_176223_P();
+const glass = new BlockType("glass").getDefaultState()
 register("command", (x,y,z) => {
   pos = new BlockPos(x*1,y*1,z*1) 
   World.getWorld().func_175656_a(pos.toMCBlock(), glass)
 }).setName("settoglass")
+
+register("command", (x,y,z,block) => {
+  pos = new BlockPos(x*1,y*1,z*1)
+  b = new BlockType(block).getDefaultState()
+  World.getWorld().func_175656_a(pos.toMCBlock(), b)
+}).setName("setblockto")

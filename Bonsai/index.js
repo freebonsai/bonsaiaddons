@@ -33,6 +33,7 @@ import "./features/icefillfirstfloor"
 import "./features/icefillsecondfloor"
 import "./features/icefillthirdfloor"
 import "./features/tradesmenu"
+import "./features/tpmaze"
 
 import "./utils/firsttime"
 import "./utils/memorycheck"

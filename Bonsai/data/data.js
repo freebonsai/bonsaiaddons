@@ -10,5 +10,6 @@ export const data = new PogObject("Bonsai", {
         "y": 100
     },
     "bl": [],
-    "firstTime": true
+    "firstTime": true,
+    "dev": false
 }, "data/data.json")

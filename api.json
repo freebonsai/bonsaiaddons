@@ -1,9 +1,8 @@
 {
-    "latestVersion": "1.1",
+    "latestVersion": "1.2",
     "changelog": [
-        "conveyor clip",
-        "prob fixed a lot of ice fill still some issues most likely",
-        "maybe added some more stuff and probably gonna add some auto babyproofing for antikb some time in the future"
+        "made ice fill detect packed ice from path location instead of player location (should fail less)",
+        "might've added other stuff honestly cant remember"
     ],
     "author": "freebonsai"
 }

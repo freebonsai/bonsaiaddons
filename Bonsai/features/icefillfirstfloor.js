@@ -1,6 +1,8 @@
+/// <reference types="../../CTAutocomplete" />
 import Config from "../Config"
 import { firstfloor1, firstfloor2, firstfloor3 } from "../utils/icefillconfigurations"
 import { prefix } from "../utils/prefix"
+import { data } from "../data/data"
 
 hasicefill = false
 hasscanned = false
@@ -42,6 +44,9 @@ register("step", () => {
                 }
             }
         }
+    }
+    if (!data.dev) {
+        iDisplay.clearLines()
     }
 }).setFps(4)
 
@@ -100,22 +105,27 @@ function scanfirst() {
     
 }
 
+var iDisplay = new Display();
+iDisplay.setRenderLoc(200, 100)
+iDisplay.setAlign("center")
+
 gonext = false
 function movefirst() {
+    if (data.dev) iDisplay.setLine(0, `&bIce fill`)
     new Thread(() => {
         for (let i = 0; i < firstmoves.length; i++) {
+            if (data.dev) iDisplay.setLine(1, `${i}/${firstmoves.length}`)
             while (!gonext) {
-                px = Math.floor(Player.getX())
-                py = Math.floor(Player.getY())
-                pz = Math.floor(Player.getZ())
-                let BlockBlock = new BlockPos(px,py-1,pz)
+                let BlockBlock
+                if (i == 0) {
+                    BlockBlock = new BlockPos(firstblockx,firstblocky-1,firstblockz)
+                } else {
+                    BlockBlock = new BlockPos(firstmoves[i-1].x,firstmoves[i-1].y-1,firstmoves[i-1].z)
+                    //console.log(BlockBlock)
+                }
                 b = World.getBlockStateAt(BlockBlock)
                 if (b == "minecraft:packed_ice") {
                     gonext = true
-                    //console.log("packed")
-                } else {
-                    Thread.sleep(5)
-                    //console.log("not packed")
                 }
                 if (stopped) {
                     return
@@ -125,6 +135,7 @@ function movefirst() {
             gonext = false
             //Thread.sleep(300)
         }
+        if (data.dev) iDisplay.setLine(1, `${firstmoves.length}/${firstmoves.length}`)
         x = Player.getX()
         y = Player.getY()
         z = Player.getZ()
@@ -168,7 +179,7 @@ function movefirst() {
             Thread.sleep(150)
             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(x,y+1,z-2)
         }
-        
+        iDisplay.clearLines()
     }).start()
 }
 
@@ -348,10 +359,26 @@ function checkfirst3() {
 }
 
 var GL11 = Java.type("org.lwjgl.opengl.GL11"); //using var so it goes to global scope
-
 var GlStateManager = Java.type("net.minecraft.client.renderer.GlStateManager");
 
 
+c = 0.15
+direction = "up"
+register("step", () => {
+    if (direction == "up") {
+        if (c <= 0.85) {
+            c += 0.0025
+        } else {
+            direction = "down"
+        }
+    } else {
+        if (c >= 0.15) {
+            c -= 0.0025
+        } else {
+            direction = "up"
+        }
+    }
+}).setFps(60)
 register("renderWorld", () => {
     if (firstmoves.length > 0) {
         px = Math.floor(Player.getX())
@@ -364,7 +391,8 @@ register("renderWorld", () => {
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GlStateManager.func_179094_E();
         
-        Tessellator.begin(GL11.GL_LINE_STRIP).colorize(255, 255, 255, 1);
+        Tessellator.begin(GL11.GL_LINE_STRIP).colorize(c, c, c, 1);
+        
         Tessellator.pos(firstblockx+0.5,firstblocky+0.1,firstblockz+0.5);
         Tessellator.pos(firstmoves[0].x+0.5,firstmoves[0].y+0.1,firstmoves[0].z+0.5);
         for (let i = 1; i < firstmoves.length; i++) {

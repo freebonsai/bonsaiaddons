@@ -1,4 +1,3 @@
-
 register("command", (d,o) => {
     ya = Player.getYaw()
     px = Player.getX()
