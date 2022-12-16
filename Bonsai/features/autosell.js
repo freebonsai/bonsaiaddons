@@ -9,6 +9,7 @@ sellable = [
 q = []
 register("tick", () => {
     if (intrades) return
+    if (!settings.General[4]) return
     let inv = Player.getContainer();
     let n = inv.getName();
     // console.log(n)

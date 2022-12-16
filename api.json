@@ -1,9 +1,10 @@
 {
-    "latestVersion": "2.0",
+    "latestVersion": "2.0.1",
     "changelog": [
         "holy shit new gui (old one still kinda useful but idk",
         "made ice fill even proer",
-        "auto sell for like ice and health pots (use floppa's aswell)"
+        "auto sell for like ice and health pots (use floppa's aswell)",
+        "fixed stupid issue gui should work"
     ],
     "author": "freebonsai"
 }

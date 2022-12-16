@@ -3,6 +3,10 @@ import { data } from "../data/data"
 import { prefix } from "../utils/prefix"
 import PogObject from "../../PogData/index"
 
+if (!FileLib.exists("Bonsai", "settings/settings.json")) {
+  FileLib.write("./Bonsai/settings","settings.json","")
+}
+
 export const settings = new PogObject("Bonsai", {
   "Dungeons": [false,false,false,false,false,false,false,false,false,0],
   "General": [false,false,false,false,false],
