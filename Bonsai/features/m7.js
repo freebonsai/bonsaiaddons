@@ -1,5 +1,6 @@
 /// <reference types="../../CTAutocomplete" />
 import Config from "../Config"
+import { settings } from "../commands/gui"
 const blocks = [
   new BlockPos(50,64,76),
   new BlockPos(50,63,76),
@@ -134,21 +135,21 @@ register("chat", () => {
   lines = Scoreboard.getLines()
   for (let i = 0;i < lines.length;i++) {
     if (lines[i].toString().includes("M7")) {
-      if (Config.relicCaller) {
-        if (Config.relicType == 0) {
+      if (settings.Dungeons[9]) {
+        if (settings.Dungeons[10] == 0) {
           ChatLib.command("pc green")
-        } else if (Config.relicType == 1) {
+        } else if (settings.Dungeons[10] == 1) {
           ChatLib.command("pc red")
-        } else if (Config.relicType == 2) {
+        } else if (settings.Dungeons[10] == 2) {
           ChatLib.command("pc purple")
-        } else if (Config.relicType == 3) {
+        } else if (settings.Dungeons[10] == 3) {
           ChatLib.command("pc orange")
-        } else if (Config.relicType == 4) {
+        } else if (settings.Dungeons[10] == 4) {
           ChatLib.command("pc blue")
         }
         //inp5 = true
       }
-      if (Config.gbNecron) {
+      if (settings.Dungeons[6]) {
         for (let i=0;i<blocks.length;i++) {
           Client.getMinecraft().func_71410_x().field_71441_e.func_175698_g(blocks[i].toMCBlock())
         }
@@ -170,14 +171,14 @@ entities = []
 names = []
 
 register("renderEntity", (entity,pos,ticks,event) => {
-  if (inp5 && Config.armorStandRender) {
+  if (inp5 && settings.Render[1]) {
     if (entity.getName() == "Armor Stand") {
       entity.getEntity().func_70106_y()
       //console.log("killed")
     }
     //console.log(entity.getName())
   }
-  if (over && Config.playerRender) {
+  if (over && settings.Render[2]) {
     if (names.includes(entity.getName())) {
       entity.getEntity().func_70106_y()
       //console.log("killed")
@@ -205,10 +206,8 @@ register("worldLoad", () => {
 
 register("chat", () => {
   inp5 = true
-  //console.log("in p5!!")
-  if (Config.autoEdrag) {
+  if (settings.Dungeons[5]) {
     ChatLib.command("pets")
-    Thread.sleep(300)
     setTimeout(() => {
       let inv = Player.getContainer();
       inv.click(Config.edragSlot+10,false,"MIDDLE")
@@ -228,16 +227,10 @@ register("chat", () => {
       if (Player.getName() != player) names.push(player)
     }
   }
-  console.log(names)
+  //console.log(names)
   over = true
 }).setChatCriteria("[BOSS] Wither King: Incredible. You did what I couldn't do myself.")
 
 register("command", () => {
   inp5 = !inp5
 }).setName("toggleinp5")
-
-
-
-
-
-

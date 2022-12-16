@@ -1,5 +1,6 @@
 import Config from "../Config"
 import { data } from "../data/data"
+import { settings } from "../commands/gui"
 
 const EntityMob = Java.type("net.minecraft.entity.monster.EntityMob").class;
 
@@ -16,7 +17,7 @@ swarmname = "Swarm "
 // SWARM COUNTER MAIN FUNCTION
 register("tick", () => {
   cDisplay.setRenderLoc(data.swarmCounter.x, data.swarmCounter.y)
-  if (Config.SwarmCounter) {
+  if (settings.General[2]) {
     try {
       Player.getHeldItem().getLore().map(lore => {
         if(lore.includes(swarmname)){

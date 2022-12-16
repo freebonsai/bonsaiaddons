@@ -37,90 +37,9 @@ class Config {
             "&5&lEtherwarp helper!\n" +
             "&6PLEASE DON'T PUT VALUES TOO HIGH THEY WILL LAG YOUR GAME SO BAD"
         )
-
-        // RELIC
-        this.addDependency("Relic", "Relic Caller")
-
-        this.addDependency("Edrag Slot", "Auto Edrag")
-
-        // SWARM COUNTER
-        this.addDependency("Show Percent", "Swarm Counter")
-        this.addDependency("Swarm Counter Size", "Swarm Counter")
-        this.addDependency("Move Swarm Counter", "Swarm Counter")
-
-        // MESSAGE HIDER
-        this.addDependency("Blocked Name", "Message Hider")
-
-        // TERMINALS
-        this.addDependency("Auto Term Delay", "Auto Terminals")
-        this.addDependency("Click Type", "Auto Terminals")
-
-        // TYPE OF TERMS
-        this.addDependency("Correct the Panes", "Auto Terminals")
-        this.addDependency("Numbers", "Auto Terminals")
-        this.addDependency("Same Color", "Auto Terminals")
-        this.addDependency("Select of Same", "Auto Terminals")
-        this.addDependency("Starts With", "Auto Terminals")
-
-        // WARP
-        this.addDependency("Warped Name", "Auto Warp")
-        this.addDependency("Warp Delay", "Auto Warp")
-
-
-        //Auto Clip
-        this.addDependency("Crystal", "Auto Clip F7")
-
-        // ETHERWARP
-        this.addDependency("Etherwarp FOV", "Etherwarp Helper")
-        this.addDependency("Etherwarp Distance", "Etherwarp Helper")
-        this.addDependency("Etherwarp Block", "Etherwarp Helper")
-        this.addDependency("Etherwarp Auto Click", "Etherwarp Helper")
     }
     //#endregion
 
-    // DUNGEONS
-
-    @SwitchProperty({
-        name: "§bAuto Ice Fill",
-        description: "Automatically completes the ice fill puzzle",
-        category: "Dungeons",
-        subcategory: "Auto Puzzles"
-    })
-    autoIceFill = true
-
-    @SwitchProperty({
-        name: "Don't Render Falling Blocks",
-        description: "Stops falling blocks from rendering",
-        category: "Dungeons",
-        subcategory: "Render"
-    })
-    fallingBlock = false
-
-    @SwitchProperty({
-        name: "Don't Render Armor Stands in Dragon Phase",
-        description: "Stops armorstands from rendering in p5 of m7",
-        category: "Dungeons",
-        subcategory: "Render"
-    })
-    armorStandRender = false
-
-    @SwitchProperty({
-        name: "Don't Render Players When Chests",
-        description: "Stops players from rendering after dungeon is over",
-        category: "Dungeons",
-        subcategory: "Render"
-    })
-    playerRender = false
-
-    // TERMINALS
-    //#region 
-    @SwitchProperty({
-        name: "Auto Terminals",
-        description: "Automatically completes terminals",
-        category: "Dungeons",
-        subcategory: "Auto Terms"
-    })
-    autoTerms = false
 
     @SliderProperty({
         name: "Auto Term Delay",
@@ -184,22 +103,6 @@ class Config {
     //#endregion
     
 
-    @SwitchProperty({
-        name: "Auto Flint",
-        description: "Automatically presses the button to fill your quiver with flint arrows",
-        category: "General",
-        subcategory: "Arrows"
-    })
-    autoFlint = false
-
-    @SwitchProperty({
-        name: "Song Singer",
-        description: "Sings the song at ./data/song.js when /singasong is executed",
-        category: "General",
-        subcategory: "Song"
-    })
-    singasong = true
-
     @SliderProperty({
         name: "Song Delay",
         description: "Delay between song singer",
@@ -209,32 +112,6 @@ class Config {
         max: 1000
     })
     songsleep = 200;
-
-    // AUTO
-
-    @SwitchProperty({
-        name: "Auto Clip F4",
-        description: "Automatically clips when entered f4 bossfight",
-        category: "Clipping",
-        subcategory: "Auto"
-    })
-    f4clip = true
-
-    @SwitchProperty({
-        name: "Auto Clip F5",
-        description: "Automatically clips when entered f5 bossfight",
-        category: "Clipping",
-        subcategory: "Auto"
-    })
-    f5clip = true
-
-    @SwitchProperty({
-        name: "Auto Clip F6",
-        description: "Automatically clips when entered f6 bossfight",
-        category: "Clipping",
-        subcategory: "Auto"
-    })
-    f6clip = true
 
     @SelectorProperty({
         name: 'F6 Class',
@@ -264,15 +141,6 @@ class Config {
     })
     clipSide = 0;
 
-    // 3D CLIP
-
-    @SwitchProperty({
-        name: "3D Clip Infinite",
-        description: "Toggle whether dclipbo should use the infinite feature or not",
-        category: "Clipping",
-        subcategory: "3d"
-    })
-    dclipinf = true
 
     @SliderProperty({
         name: "Infinite Sleep",
@@ -297,88 +165,7 @@ class Config {
     })
     funiinfdelay = 100;
 
-    @SwitchProperty({
-        name: "Etherwarp Helper",
-        description: "Automatically etherwarps on your selected block when you left click within fov of it",
-        category: "Etherwarp",
-        subcategory: "Etherwarp"
-    })
-    etherHelper = false
-
-    @SliderProperty({
-        name: "Etherwarp FOV",
-        description: "The FOV the etherwarp helper searches within",
-        category: "Etherwarp",
-        subcategory: "Etherwarp",
-        min: 2,
-        max: 20
-    })
-    etherFOV = 5;
-
-    @SliderProperty({
-        name: "Etherwarp Distance",
-        description: "The distance the etherwarp helper searches within (It starts at 10 blocks for slightly better performance)",
-        category: "Etherwarp",
-        subcategory: "Etherwarp",
-        min: 10,
-        max: 50
-    })
-    etherDist = 30;
-
-    @TextProperty({
-        name: 'Etherwarp Block',
-        description: 'Which block etherwarp helper searches for\nNeeds to be in the format minecraft:(block)',
-        category: 'Etherwarp',
-        subcategory: 'Etherwarp',
-        placeholder: 'Put a block!',
-        triggerActionOnInitialization: false,
-    })
-    textInput = 'minecraft:diamond_block';
-
-    @SwitchProperty({
-        name: "Etherwarp Auto Click",
-        description: "Automatically right clicks after rotating you",
-        category: "Etherwarp",
-        subcategory: "Etherwarp"
-    })
-    etherClick = false
-
-    // M7
-    //#region 
-    @SwitchProperty({
-        name: "Relic Caller",
-        description: "Automatically calls a relic when Necron dies in M7",
-        category: "Dungeons",
-        subcategory: "M7"
-    })
-    relicCaller = false
-
-    @SelectorProperty({
-        name: 'Relic',
-        description: 'Which relic will be auto called',
-        category: 'Dungeons',
-        subcategory: 'M7',
-        options: ['§aGreen', '§cRed', '§5Purple','§6Orange','§bBlue'],
-        requires: 'Relic Caller',
-    })
-    relicType = 0;
-
-    @SwitchProperty({
-        name: "Auto Edrag",
-        description: "Automatically selects edrag after relics placed",
-        category: "Dungeons",
-        subcategory: "M7"
-    })
-    autoEdrag = false
-
-    @SwitchProperty({
-        name: "Auto Ghostblock Necron",
-        description: "Automatically ghostblocks the necron platform when he's about to die",
-        category: "Dungeons",
-        subcategory: "M7"
-    })
-    gbNecron = false
-
+    
     @SliderProperty({
         name: "Edrag Slot",
         description: "Edrag slot",
@@ -389,22 +176,7 @@ class Config {
     })
     edragSlot = 0;
 
-    @SwitchProperty({
-        name: "Mage Pad 2nd",
-        description: "Automatically says mage pad 2nd at storm phase in m7",
-        category: "Dungeons",
-        subcategory: "M7"
-    })
-    magepad2nd = false
 
-    // WARP
-    @SwitchProperty({
-        name: "Auto Warp",
-        description: "Automatically warps players back to your dungeon when they disconnect",
-        category: "Dungeons",
-        subcategory: "Warp"
-    })
-    autoWarp = false
 
     @TextProperty({
         name: 'Warped Name',
@@ -425,44 +197,14 @@ class Config {
         max: 3000
     })
     warpDelay = 1000;
-    //#endregion
 
-    @SwitchProperty({
-        name: "Terminal Counter",
-        description: "Counts how many terms and devices everyone in your team does.",
-        category: "Dungeons",
-        subcategory: "Terminal Counter"
-    })
-    terminalCounter = true
-
-    @SwitchProperty({
-        name: "Auto Kick",
-        description: "Automatically kicks certain players when they join from pf. /blacklist help for more info",
-        category: "Dungeons",
-        subcategory: "Auto Kick"
-    })
-    autoKick = false
-
-    @SwitchProperty({
-        name: "Auto Black Cat",
-        description: "Automatically selects black cat pet at start of terminals in f7",
-        category: "Dungeons",
-        subcategory: "Black Cat"
-    })
-    blackCat = false
     
     // SWARM COUNTER
     //#region 
     swarmCounterMove = new Gui()
 
     // TOGGLE DISPLAY
-    @SwitchProperty({
-        name: "Swarm Counter",
-        description: "Turns on the Swarm Counter.",
-        category: "Swarm Counter",
-        subcategory: "Swarm Counter"
-    })
-    SwarmCounter = false
+   
 
     // SHOW PERCENT
     @SwitchProperty({
@@ -508,13 +250,6 @@ class Config {
     })
     ignHide = '';
 
-    @SwitchProperty({
-        name: "Message Hider",
-        description: "Hides all messages from someone",
-        category: "Message Hider",
-        subcategory: "Smeshnik"
-    })
-    messageHider = false
     //#endregion
 
     // TERMINAL CALLER

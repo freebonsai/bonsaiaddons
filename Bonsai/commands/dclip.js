@@ -1,13 +1,17 @@
 import Config from "../Config"
 import toRadians from "../utils/toradians"
+import { settings } from "../commands/gui"
 
 dist = 0
 going = false
 register("command", (d) => {
-  if (Config.dclipinf) {
+  if (settings.Clip[0]) {
     going = true
     dist = d
   } else {
+    px = Player.getX()
+    py = Player.getY()
+    pz = Player.getZ()
     ya = Player.getYaw()
     pi = Player.getPitch()
     newx = -Math.sin(toRadians(ya)) * Math.cos(toRadians(pi)) * d

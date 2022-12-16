@@ -3,6 +3,7 @@ import Config from "../Config"
 import { thirdfloor1, thirdfloor2, thirdfloor3, thirdfloor4, thirdfloor5 } from "../utils/icefillconfigurations"
 import { prefix } from "../utils/prefix"
 import { data } from "../data/data"
+import { settings } from "../commands/gui"
 
 hasicefill = false
 hasscanned = false
@@ -17,6 +18,7 @@ register("worldLoad", () => {
     hasscanned = false
     stopped = false
     thirdmoves = []
+    chest = false
 })
 
 register("command", () => {
@@ -26,7 +28,7 @@ register("command", () => {
 
 register("step", () => {
     if (!hasicefill) {
-        if (Config.autoIceFill) {
+        if (settings.Dungeons[1]) {
             px = Math.floor(Player.getX())
             py = Math.floor(Player.getY())
             pz = Math.floor(Player.getZ())
@@ -119,7 +121,6 @@ function movethird() {
                     BlockBlock = new BlockPos(firstblockx,firstblocky-1,firstblockz)
                 } else {
                     BlockBlock = new BlockPos(thirdmoves[i-1].x,thirdmoves[i-1].y-1,thirdmoves[i-1].z)
-                    //console.log(BlockBlock)
                 }
                 b = World.getBlockStateAt(BlockBlock)
                 if (b == "minecraft:packed_ice") {
@@ -260,12 +261,10 @@ function checkthird2() {
         for (let i = 0; i < thirdfloor2.length; i++) {
             let testblock = new BlockPos(firstblockx+thirdfloor2[i].x,firstblocky+thirdfloor2[i].y,firstblockz+thirdfloor2[i].z)
             bstate2 = World.getBlockStateAt(testblock)
-            console.log(bstate2,testblock)
             if (bstate2 == "minecraft:air") {
                 thirdmoves.push({"x":firstblockx+(thirdfloor2[i].x),"y":firstblocky+thirdfloor2[i].y,"z":firstblockz+thirdfloor2[i].z})
             } else {
                 thirdmoves = []
-                console.log("not third 2")
                 return
             }
         }

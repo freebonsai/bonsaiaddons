@@ -2,6 +2,7 @@ import Config from "../Config"
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
 import { data } from "../data/data"
 import { prefix } from "../utils/prefix"
+import { settings } from "../commands/gui"
 
 var tDisplay = new Display();
 var mtDisplay = new Display();
@@ -265,7 +266,7 @@ lastclick = new Date().getTime()
 lastpet = ""
 petsopen = false
 register("chat", () =>{
-  if (Config.blackCat) {
+  if (settings.Dungeons[3]) {
     ChatLib.command("pets")
     new Thread(() => {
       Thread.sleep(400)
@@ -275,7 +276,7 @@ register("chat", () =>{
 }).setChatCriteria("[BOSS] Storm: I should have known that I stood no chance.")
 
 register("chat", () => {
-  if (Config.blackCat) {
+  if (settings.Dungeons[3]) {
     if (inPhase == 4) {
       ChatLib.command("pets")
       new Thread(() => {

@@ -1,10 +1,9 @@
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
 import Config from "../Config"
-
-// F4
+import { settings } from "../commands/gui"
 
 register("tick", () => {
-    if (Config.f4clip)  {
+    if (settings.Clip[1])  {
         if (Dungeon.inDungeon) {
             lines = Scoreboard.getLines()
             for (let i = 0;i < lines.length;i++) {
@@ -38,7 +37,7 @@ register("tick", () => {
 
 // F5
 register("tick", () => {
-    if (Config.f5clip)  {
+    if (settings.Clip[2])  {
         if (Dungeon.inDungeon) {
             lines = Scoreboard.getLines()
             for (let i = 0;i < lines.length;i++) {
@@ -68,11 +67,11 @@ clicked = false
 hasclipped = false
 // F7
 register("tick", () => {
-    if (Config.f7clip && !hasclipped)  {
+    if (settings.Clip[4] && !hasclipped)  {
         if (Dungeon.inDungeon) {
             let atCoords = (x,y,z) => Math.floor(Player.getX()) == x && Math.floor(Player.getY()) == y && Math.floor(Player.getZ()) == z
             if (atCoords(73,221,14)) {
-                if (Config.clipSide == 0 && !hasclipped) { // RIGHT
+                if (settings.Clip[5] == 1 && !hasclipped) { // RIGHT
                     px = Player.getX()
                     py = Player.getY()
                     pz = Player.getZ()
@@ -95,7 +94,7 @@ register("tick", () => {
                     }).start()
                     hasclipped = true
                     console.log("hello")
-                } else if (Config.clipSide == 1) { // LEFT
+                } else if (settings.Clip[5] == 0 && !hasclipped) { // LEFT
                     px = Player.getX()
                     py = Player.getY()
                     pz = Player.getZ()
@@ -117,7 +116,7 @@ register("tick", () => {
                         clicked = true
                     }).start()
                     hasclipped = true
-                } else if (Config.clipSide == 2) { // DOWN
+                } else if (settings.Clip[5] == 2 && !hasclipped) { // DOWN
                     px = Player.getX()
                     py = Player.getY()
                     pz = Player.getZ()
@@ -150,7 +149,7 @@ register("tick", () => {
                         console.log(endtime-starttime)
                     }).start()
                     hasclipped = true
-                } else if (Config.clipSide == 3) { // CONVEYOR
+                } else if (settings.Clip[5] == 3 && !hasclipped) { // CONVEYOR
                     px = Player.getX()
                     py = Player.getY()
                     pz = Player.getZ()
@@ -159,7 +158,7 @@ register("tick", () => {
                     Thread.sleep(80)
                     new Thread(() => {
                         for (let i = 0; i < 56; i++) {
-                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
+                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py + 0.05, pz + 1)
                             Thread.sleep(6)
                             px = Player.getX()
                             py = Player.getY()
@@ -237,7 +236,7 @@ register("chat", (name) => {
 
 // F6
 register("tick", () => {
-    if (Config.f6clip)  {
+    if (settings.Clip[3])  {
         if (Dungeon.inDungeon) {
             lines = Scoreboard.getLines()
             for (let i = 0;i < lines.length;i++) {
@@ -363,7 +362,7 @@ register("tick", () => {
 // 0 6
 // 0 6
 register("chat", () => {
-    if (Config.f6clip)  {
+    if (settings.Clip[3])  {
         if (Config.f6class == 0) {
             new Thread(() => {
                 Player.getPlayer().field_70177_z = -90
@@ -397,7 +396,7 @@ register("chat", () => {
 }).setChatCriteria("[BOSS] Sadan: ENOUGH!")
 
 register("chat", () => {
-    if (Config.f6clip)  {
+    if (settings.Clip[3])  {
         if (Config.f6class == 0) {
             new Thread(() => {
                 Player.getPlayer().field_70177_z = 0

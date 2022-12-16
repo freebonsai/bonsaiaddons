@@ -1,5 +1,6 @@
 import Config from "../Config";
 import { prefix } from "../utils/prefix"
+import { settings } from "../commands/gui"
 
 let lastclick = new Date().getTime()-2000
 let clicked = false
@@ -9,7 +10,7 @@ register("tick", () => {
         let n = inv.getName();
         new Thread(() => {
             if (n == "Ophelia" || n == "Weaponsmith") {
-                if (Config.autoFlint)  {
+                if (settings.General[0])  {
                     Thread.sleep(100)
                     item = inv.getStackInSlot(53).getLore()
                     if (!item.includes("§5§o§aYour quiver is full!")) {

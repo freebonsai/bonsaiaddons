@@ -1,6 +1,7 @@
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
 import { prefix } from "../utils/prefix"
 import Config from "../Config"
+import { settings } from "../commands/gui"
 
 // Counter
 //#region 
@@ -94,7 +95,7 @@ register("chat", (name,time) => {
 
 
 register("chat", () => {
-    if (Config.terminalCounter) {
+    if (settings.Dungeons[8]) {
       ChatLib.chat(`${prefix} &6${name1} &bdid &a${tcount1} &bterms and &a${dcount1} &bdevices`)
       addtolog(name1,tcount1,dcount1)
       if (name2.length >= 2) {

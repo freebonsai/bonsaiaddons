@@ -1,5 +1,6 @@
 /// <reference types="../../CTAutocomplete" />
 import Config from "../Config"
+import { settings } from "../commands/gui"
 
 const colorReplacements = {
     "light gray": "silver",
@@ -60,7 +61,7 @@ register("step", () => {
 }).setFps(1000/Config.autoTermDelay)
 
 register('tick', () => {
-  if (Config.autoTerms && !inTerm) {
+  if (settings.Dungeons[2] && !inTerm) {
     let inv = Player.getContainer();
     let n = inv.getName();
     // "Correct all the panes!"

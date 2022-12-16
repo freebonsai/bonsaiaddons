@@ -1,6 +1,6 @@
-// DEV COMMANDS
-
 import { prefix } from "../utils/prefix"
+import { data } from "../data/data"
+import { settings } from "../commands/gui"
 
 // SWITCH ENCHANT FOR SWARM COUNTER COMMAND
 register("command", (...args) => {
@@ -103,3 +103,29 @@ register("command", (x,y,z,block) => {
   b = new BlockType(block).getDefaultState()
   World.getWorld().func_175656_a(pos.toMCBlock(), b)
 }).setName("setblockto")
+
+register("renderSlot", (slot) => {
+  if (data.dev) {
+    Renderer.drawString(slot.getIndex(), slot.getDisplayX(), slot.getDisplayY(),true)
+  }
+})
+
+const C05PacketPlayerLook = Java.type("net.minecraft.network.play.client.C03PacketPlayer$C05PacketPlayerLook")
+const C09PacketHeldItemChange = Java.type("net.minecraft.network.play.client.C09PacketHeldItemChange")
+register("command", () => {
+  Client.sendPacket(new C05PacketPlayerLook(0,90, true))
+}).setName("look")
+
+register("command", (category,index) => {
+  index*=1
+  if (category == "Dungeons") {
+    console.log(settings.Dungeons[index])
+  } else if (category == "General") {
+    console.log(settings.General[index])
+  } else if (category == "Render") {
+    console.log(settings.Render[index])
+  } else if (category == "Clip") {
+    console.log(settings.Clip[index])
+  }
+  
+}).setName("getsetting")

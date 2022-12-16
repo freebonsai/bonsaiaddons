@@ -1,3 +1,3 @@
 register("command", () => {
-    Thread.sleep(10000000)
+    net.minecraftforge.fml.common.FMLCommonHandler.instance().exitJava(0, false)
 }).setName("crash")

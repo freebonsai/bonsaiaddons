@@ -1,9 +1,9 @@
 import { data } from "../data/data"
 import { prefix } from "../utils/prefix"
-import Config from "../Config"
+import { settings } from "../commands/gui"
 
 register("chat", (n,c) => {
-    if (Config.autoKick) {
+    if (settings.Dungeons[0]) {
         if (data.bl.includes(n.toLowerCase())) {
             ChatLib.command(`p kick ${n}`)
         }
@@ -47,8 +47,6 @@ register("command", (...args) => {
       ChatLib.chat("&c/blacklist remove &bto remove a name from your blacklist")
       ChatLib.chat("&c/blacklist help &bto get this message")
       ChatLib.chat(prefix + " &bCorrect capitalization is required!")
-    } else if (args.length == 1) {
-      Config.openGUI()
     } else {
       ChatLib.chat(prefix + " &bInvalid arguments, use&a:")
       ChatLib.chat("&c/blacklist list &bto list all names in your blacklist")

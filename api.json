@@ -1,8 +1,9 @@
 {
-    "latestVersion": "1.2",
+    "latestVersion": "2.0",
     "changelog": [
-        "made ice fill detect packed ice from path location instead of player location (should fail less)",
-        "might've added other stuff honestly cant remember"
+        "holy shit new gui (old one still kinda useful but idk",
+        "made ice fill even proer",
+        "auto sell for like ice and health pots (use floppa's aswell)"
     ],
     "author": "freebonsai"
 }
