@@ -35,6 +35,7 @@ import "./features/icefillthirdfloor"
 import "./features/tradesmenu"
 import "./features/tpmaze"
 import "./features/autosell"
+import "./features/autorogue"
 
 import "./utils/firsttime"
 import "./utils/memorycheck"
