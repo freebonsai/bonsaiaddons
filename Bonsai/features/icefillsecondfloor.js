@@ -203,10 +203,10 @@ function checksecond1() {
         }
     } else if (rotation == "south") {
         for (let i = 0; i < secondfloor1.length; i++) {
-            let testblock = new BlockPos(firstblockx+secondfloor1[i].z,firstblocky+secondfloor1[i].y,firstblockz+secondfloor1[i].x)
+            let testblock = new BlockPos(firstblockx+(-secondfloor1[i].z),firstblocky+secondfloor1[i].y,firstblockz+secondfloor1[i].x)
             bstate = World.getBlockStateAt(testblock)
             if (bstate == "minecraft:air") {
-                secondmoves.push({"x":firstblockx+(secondfloor1[i].z),"y":firstblocky+secondfloor1[i].y,"z":firstblockz+(secondfloor1[i].x)})
+                secondmoves.push({"x":firstblockx+(-secondfloor1[i].z),"y":firstblocky+secondfloor1[i].y,"z":firstblockz+(secondfloor1[i].x)})
             } else {
                 secondmoves = []
                 return
@@ -253,10 +253,10 @@ function checksecond2() {
 
     } else if (rotation == "south") {
         for (let i = 0; i < secondfloor2.length; i++) {
-            let testblock = new BlockPos(firstblockx+(secondfloor2[i].z),firstblocky+secondfloor2[i].y,firstblockz+(secondfloor2[i].x))
+            let testblock = new BlockPos(firstblockx+(-secondfloor2[i].z),firstblocky+secondfloor2[i].y,firstblockz+(secondfloor2[i].x))
             bstate2 = World.getBlockStateAt(testblock)
             if (bstate2 == "minecraft:air") {
-                secondmoves.push({"x":firstblockx+(secondfloor2[i].z),"y":firstblocky+secondfloor2[i].y,"z":firstblockz+(secondfloor2[i].x)})
+                secondmoves.push({"x":firstblockx+(-secondfloor2[i].z),"y":firstblocky+secondfloor2[i].y,"z":firstblockz+(secondfloor2[i].x)})
             } else {
                 secondmoves = []
                 return

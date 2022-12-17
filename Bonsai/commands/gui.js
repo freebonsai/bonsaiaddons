@@ -8,7 +8,7 @@ if (!FileLib.exists("Bonsai", "settings/settings.json")) {
 }
 
 export const settings = new PogObject("Bonsai", {
-  "Dungeons": [false,false,false,false,false,false,false,false,false,0],
+  "Dungeons": [false,false,false,false,false,false,false,false,false,1],
   "General": [false,false,false,false,false],
   "Render": [false,false,false],
   "Clip": [false,false,false,false,false,0]
