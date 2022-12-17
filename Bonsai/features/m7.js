@@ -210,7 +210,7 @@ register("chat", () => {
     ChatLib.command("pets")
     setTimeout(() => {
       let inv = Player.getContainer();
-      inv.click(Config.edragSlot+10,false,"MIDDLE")
+      inv.click(Config.edragSlot,false,"MIDDLE")
     }, 300)
   }
 }).setChatCriteria("[BOSS] Wither King: You.. again?")

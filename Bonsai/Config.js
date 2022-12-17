@@ -168,11 +168,11 @@ class Config {
     
     @SliderProperty({
         name: "Edrag Slot",
-        description: "Edrag slot",
+        description: "Edrag slot (/bo dev then go in /pets to see slots)",
         category: "Dungeons",
         subcategory: "M7",
         min: 0,
-        max: 20
+        max: 43
     })
     edragSlot = 0;
 

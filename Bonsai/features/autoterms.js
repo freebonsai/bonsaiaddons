@@ -32,24 +32,31 @@ going = false
 function clickQueue() {
   going = true
 }
-
+const C0EPacketClickWindow = Java.type("net.minecraft.network.play.client.C0EPacketClickWindow")
+windowId = null
 counter = 0
 register("step", () => {
   if (!going) return
-  inv = Player.getContainer();
-  if (Config.autoClickType == 0) {
-    try {
-      inv.click(q[counter],false,"LEFT")
-    } catch (error) {}
-  } else if (Config.autoClickType == 1) {
-    try {
-      inv.click(q[counter],false,"MIDDLE")
-    } catch (error) {}
-  } else if (Config.autoClickType == 2) {
-    try {
-      inv.click(q[counter],true,"LEFT")
-    } catch (error) {}
-  }
+  inv = Player.getContainer()
+  let wi = inv.getWindowId()
+  if (windowId == null) windowId = wi
+  try {
+    Client.sendPacket(new C0EPacketClickWindow(windowId, q[counter], 0, 0, null, 0))
+  } catch (error) {}
+  windowId++
+  // if (Config.autoClickType == 0) {
+  //   try {
+  //     inv.click(q[counter],false,"LEFT")
+  //   } catch (error) {}
+  // } else if (Config.autoClickType == 1) {
+  //   try {
+  //     inv.click(q[counter],false,"MIDDLE")
+  //   } catch (error) {}
+  // } else if (Config.autoClickType == 2) {
+  //   try {
+  //     inv.click(q[counter],true,"LEFT")
+  //   } catch (error) {}
+  // }
   console.log(q[counter])
   counter++
   if (counter >= q.length) {
@@ -69,9 +76,7 @@ register('tick', () => {
       if (Config.panes) {
         inTerm = true
         tobesolved = filterPanesWithMeta(getInvItemsTo(45), 14)
-        for (let i = 0; i < tobesolved.length; i++) {
-          q.push(tobesolved[i])
-        }
+        q = tobesolved
         clickQueue()
       }
     }

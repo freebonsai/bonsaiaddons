@@ -8,13 +8,15 @@ if (!FileLib.exists("Bonsai", "settings/settings.json")) {
 }
 
 export const settings = new PogObject("Bonsai", {
-  "Dungeons": [false,false,false,false,false,false,false,false,false,1],
+  "Dungeons": [false,false,false,false,false,false,false,false,false,0],
   "General": [false,false,false,false,false],
   "Render": [false,false,false],
   "Clip": [false,false,false,false,false,0]
 }, "settings/settings.json")
 
 mainGui = new Gui()
+
+if (settings.Dungeons[10] == undefined) settings.Dungeons[10] = 0
 
 register("command", (...args) => {
   if (args[0] == "dev") {
