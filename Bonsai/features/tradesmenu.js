@@ -16,7 +16,6 @@ function opentradesmenu() {
             inv = Player.getContainer();
             n = inv.getName();
             Thread.sleep(2)
-            //console.log(n)
         }
         inv.click(22,false,"MIDDLE")
     }).start()

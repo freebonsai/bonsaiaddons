@@ -3,20 +3,58 @@ import { data } from "../data/data"
 import { prefix } from "../utils/prefix"
 import PogObject from "../../PogData/index"
 
-if (!FileLib.exists("Bonsai", "settings/settings.json")) {
-  FileLib.write("./Bonsai/settings","settings.json","")
+if (!FileLib.exists("Bonsai","settings.json")) {
+  FileLib.write("Bonsai","settings.json",
+    `{
+      "Dungeons": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          0
+      ],
+      "General": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+      ],
+      "Render": [
+          false,
+          false,
+          false,
+          false
+      ],
+      "Clip": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          0
+      ]
+    }`
+  )
 }
 
 export const settings = new PogObject("Bonsai", {
   "Dungeons": [false,false,false,false,false,false,false,false,false,0],
   "General": [false,false,false,false,false,false],
-  "Render": [false,false,false],
+  "Render": [false,false,false,false],
   "Clip": [false,false,false,false,false,0]
-}, "settings/settings.json")
+}, "settings.json")
 
 mainGui = new Gui()
 
-if (settings.Dungeons[10] == undefined) settings.Dungeons[10] = 0
+if (settings.Dungeons[9] == undefined) settings.Dungeons[9] = 0
 
 register("command", (...args) => {
   if (args[0] == "dev") {
@@ -37,7 +75,7 @@ register("command", (...args) => {
   } else {
     mainGui.open()
   }
-}).setName("bonsai").setAliases("bo", "bonsaiaddons");
+}).setTabCompletions("help","dev","options").setName("bo")
 
 register("tick", () => {
   if (Config.presetgui.isOpen()) {
@@ -50,11 +88,16 @@ guikey.registerKeyPress(() => {
   mainGui.open()
 })
 
+reloadkey = new KeyBind("Reload CT", Keyboard.KEY_NONE, "Bonsai")
+reloadkey.registerKeyPress(() => {
+  ChatTriggers.reloadCT()
+})
+
 dLoc = {"x":100,"y":30}
 gLoc = {"x":270,"y":30}
 rLoc = {"x":440,"y":30}
 clipLoc = {"x":610,"y":30}
-reloadLoc = {"x":850,"y":500}
+reloadLoc = {"x":850,"y":450}
 buttonwidth = 100
 buttonheight = 15
 dungeonStrings = [
@@ -83,7 +126,8 @@ renderStrings = [
   "Render",
   "Falling Blocks",
   "Armor Stands p5",
-  "Players"
+  "Players",
+  "Sign Hider"
 ]
 clipStrings = [
   "Clip",
@@ -94,10 +138,6 @@ clipStrings = [
   "Auto F7",
 ]
 
-topcolor = Renderer.DARK_RED
-oncolor = Renderer.GREEN
-offcolor = Renderer.color(45,45,45,255)
-image = new Image("christmas","https://png.pngtree.com/png-vector/20201123/ourmid/pngtree-3d-sign-of-merry-christmas-lantern-png-image_2462919.png")
 cliplocations = [
   "Left",
   "Right",
@@ -111,6 +151,9 @@ relics = [
   "&6Orange",
   "&bBlue"
 ]
+topcolor = Renderer.DARK_RED
+oncolor = Renderer.GREEN
+offcolor = Renderer.color(45,45,45,255)
 register("renderOverlay", () => {
   if (!mainGui.isOpen()) return
   Renderer.drawRect(topcolor, dLoc.x, dLoc.y-2, buttonwidth, buttonheight+2)

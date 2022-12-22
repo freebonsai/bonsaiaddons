@@ -20,6 +20,10 @@ register("worldLoad", () => {
     firstmoves = []
 })
 
+register("worldUnload", () => {
+    stopped = true
+})
+
 register("command", () => {
     stopped = !stopped
     firstmoves = []
@@ -79,8 +83,9 @@ function checkRotation() {
     }
 }
 
+const System = Java.type("java.lang.System")
 function scanfirst() {
-    startTime = new Date().getTime()
+    startTime = System.nanoTime()
     if (firstmoves.length < 1) {
         checkfirst1()
     }
@@ -90,12 +95,14 @@ function scanfirst() {
     if (firstmoves.length < 1) {
         checkfirst3()
     }
-    if (firstmoves.length > 0) {
-        endTime = new Date().getTime()
-        ChatLib.chat(`${prefix} &bScan time for first floor: ${Math.round(Math.random()*4)+1}ms`)
+    endTime = System.nanoTime()
+    if ((endTime-startTime)/1000000 < 0.1) {
+        ChatLib.chat(`${prefix} &bScan time for first floor: &a${(endTime-startTime)/1000000}ms`)
+    } else if ((endTime-startTime)/1000000 < 0.18) {
+        ChatLib.chat(`${prefix} &bScan time for first floor: &e${(endTime-startTime)/1000000}ms`)
+    } else {
+        ChatLib.chat(`${prefix} &bScan time for first floor: &c${(endTime-startTime)/1000000}ms`)
     }
-    
-    
 }
 
 var iDisplay = new Display();

@@ -1,7 +1,8 @@
 {
-    "latestVersion": "2.1",
+    "latestVersion": "2.2",
     "changelog": [
-        "added auto rogue"
+        "fixed a lot of gui stuff i think",
+        "added other stuff (sign hider maybe auto rogue i dont remember)"
     ],
     "author": "freebonsai"
 }

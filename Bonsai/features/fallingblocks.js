@@ -1,8 +1,2 @@
 import { settings } from "../commands/gui"
-register("renderEntity", (x) => {
-    if (settings.Render[0]) {
-        if (x.getName() == "Falling Block") {
-            x.getEntity().func_70106_y()
-        }
-    }
-})
+register("renderEntity", (entity) => {if (settings.Render[0] && entity.getName() == "Falling Block") {entity.getEntity().func_70106_y()}})

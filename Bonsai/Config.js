@@ -28,7 +28,7 @@ class Config {
             "&5&lBonsai's very pro mod"
         )
         this.setCategoryDescription("Terminal Caller", 
-            "&5&lCalls terms!\n"
+            "&5&lCalls terms!"
         )
         this.setCategoryDescription("Clipping", 
             "&5&lDifferent features for clipping!"
@@ -123,24 +123,6 @@ class Config {
     })
     f6Class = 0;
 
-    @SwitchProperty({
-        name: "Auto Clip F7",
-        description: "Automatically clips to crystal when entered f7 bossfight",
-        category: "Clipping",
-        subcategory: "Auto"
-    })
-    f7clip = false
-
-    @SelectorProperty({
-        name: 'Crystal',
-        description: 'Which crystal will be clipped to',
-        category: 'Clipping',
-        subcategory: 'Auto',
-        options: ['Right','Left','Down','Conveyor'],
-        requires: 'Auto Clip F7'
-    })
-    clipSide = 0;
-
 
     @SliderProperty({
         name: "Infinite Sleep",
@@ -197,46 +179,6 @@ class Config {
         max: 3000
     })
     warpDelay = 1000;
-
-    
-    // SWARM COUNTER
-    //#region 
-    swarmCounterMove = new Gui()
-
-    // TOGGLE DISPLAY
-   
-
-    // SHOW PERCENT
-    @SwitchProperty({
-        name: "Show Percent",
-        description: "Shows the percent buff swarm adds to your damage",
-        category: "Swarm Counter",
-        subcategory: "Swarm Counter"
-    })
-    SwarmCounterPercent = true
-
-    @SliderProperty({
-        name: "Swarm Counter Size",
-        description: "The size of the swarm counter",
-        category: "Swarm Counter",
-        subcategory: "Swarm Counter",
-        min: 0,
-        max: 200
-    })
-    SwarmCounterScale = 100;
-
-    // MOVE DISPLAY
-    @ButtonProperty({
-        name: "Move Swarm Counter",
-        description: "Move the swarm counter on your screen",
-        category: "Swarm Counter",
-        subcategory: "Swarm Counter",
-        placeholder: "Move!",
-    })
-    MoveSwarmCounter() {
-        this.swarmCounterMove.open()
-    };
-    //#endregion
 
     // MESSAGE HIDER
     //#region 

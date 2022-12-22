@@ -17,17 +17,15 @@ register("command", (...args) => {
   
 // SIMULATE CHAT MESSAGE COMMAND
 register("command", (...args) => {
-  if (Player.getName() == 'freebonsai') {
-    let msg = ""
-    for (let i=0;i<args.length;i++) {
-      if (args.length > i+1) {
-        msg += args[i] + " "
-      } else {
-        msg += args[i]
-      }
+  let msg = ""
+  for (let i=0;i<args.length;i++) {
+    if (args.length > i+1) {
+      msg += args[i] + " "
+    } else {
+      msg += args[i]
     }
-    ChatLib.simulateChat(msg)
   }
+  ChatLib.simulateChat(msg)
 }).setName("bosim")
 
 register("command", (x,y,z) => {

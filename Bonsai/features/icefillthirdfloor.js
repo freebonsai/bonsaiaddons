@@ -21,6 +21,10 @@ register("worldLoad", () => {
     chest = false
 })
 
+register("worldUnload", () => {
+    stopped = true
+})
+
 register("command", () => {
     stopped = !stopped
     thirdmoves = []
@@ -80,7 +84,9 @@ function checkRotation() {
     }
 }
 
+const System = Java.type("java.lang.System")
 function scanthird() {
+    startTime = System.nanoTime()
     if (thirdmoves.length < 1) {
         checkthird1()
     }
@@ -96,8 +102,13 @@ function scanthird() {
     if (thirdmoves.length < 1) {
         checkthird5()
     }
-    if (thirdmoves.length > 0) {
-        ChatLib.chat(`${prefix} &bScan time for third floor: ${Math.round(Math.random()*4)+4}ms`)
+    endTime = System.nanoTime()
+    if ((endTime-startTime)/1000000 < 0.2) {
+        ChatLib.chat(`${prefix} &bScan time for third floor: &a${(endTime-startTime)/1000000}ms`)
+    } else if ((endTime-startTime)/1000000 < 0.5) {
+        ChatLib.chat(`${prefix} &bScan time for third floor: &e${(endTime-startTime)/1000000}ms`)
+    } else {
+        ChatLib.chat(`${prefix} &bScan time for third floor: &c${(endTime-startTime)/1000000}ms`)
     }
 }
 

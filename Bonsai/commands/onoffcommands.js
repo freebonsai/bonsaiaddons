@@ -24,6 +24,6 @@ register("command", (arg) => {
         Config.f7clip = true
         ChatLib.chat(`${prefix} &bTurned f7 clip on!`)
     } else {
-        ChatLib.chat(`${prefix} &bIncorrect usage! &c/f7clip (toggle|right|left|down)`)
+        ChatLib.chat(`${prefix} &bIncorrect usage! &c/f7clip (on | off | right | left | down | conveyor)`)
     }
 }).setName("f7clip")

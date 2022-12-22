@@ -21,6 +21,10 @@ register("worldLoad", () => {
     gonext = false
 })
 
+register("worldUnload", () => {
+    stopped = true
+})
+
 register("command", () => {
     stopped = !stopped
     secondmoves = []
@@ -80,7 +84,9 @@ function checkRotation() {
     }
 }
 
+const System = Java.type("java.lang.System")
 function scansecond() {
+    startTime = System.nanoTime()
     if (secondmoves.length < 1) {
         checksecond1()
     }
@@ -99,8 +105,13 @@ function scansecond() {
     if (secondmoves.length < 1) {
         checksecond6()
     }
-    if (secondmoves.length > 0) {
-        ChatLib.chat(`${prefix} &bScan time for second floor: ${Math.round(Math.random()*4)+2}ms`)
+    endTime = System.nanoTime()
+    if ((endTime-startTime)/1000000 < 0.1) {
+        ChatLib.chat(`${prefix} &bScan time for second floor: &a${(endTime-startTime)/1000000}ms`)
+    } else if ((endTime-startTime)/1000000 < 0.25) {
+        ChatLib.chat(`${prefix} &bScan time for second floor: &e${(endTime-startTime)/1000000}ms`)
+    } else {
+        ChatLib.chat(`${prefix} &bScan time for second floor: &c${(endTime-startTime)/1000000}ms`)
     }
 }
 

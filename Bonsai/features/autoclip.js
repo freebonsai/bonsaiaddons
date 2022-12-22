@@ -73,20 +73,18 @@ register("tick", () => {
             if (atCoords(73,221,14)) {
                 if (settings.Clip[5] == 1 && !hasclipped) { // RIGHT
                     px = Player.getX()
-                    py = Player.getY()
+                    py = Player.getY()+1.5
                     pz = Player.getZ()
-                    Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py + 1.5, pz)
-                    py = Player.getY()
                     xleft = -9
                     yleft = 17
                     zleft = 35.5
                     new Thread(() => {
                         for (let i = 0; i < 35; i++) {
                             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px + (xleft/35), py + (yleft/35), pz + (zleft/35))
-                            Thread.sleep(7)
-                            px = Player.getX()
-                            py = Player.getY()
-                            pz = Player.getZ()
+                            Thread.sleep(6)
+                            px += (xleft/35)
+                            py += (yleft/35)
+                            pz += (zleft/35)
                         }
                         Thread.sleep(10)
                         rightClick.invoke(Client.getMinecraft())
@@ -96,10 +94,8 @@ register("tick", () => {
                     console.log("hello")
                 } else if (settings.Clip[5] == 0 && !hasclipped) { // LEFT
                     px = Player.getX()
-                    py = Player.getY()
+                    py = Player.getY()+1.5
                     pz = Player.getZ()
-                    Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py + 1.5, pz)
-                    py = Player.getY()
                     xleft = 9
                     yleft = 17
                     zleft = 35.5
@@ -107,9 +103,9 @@ register("tick", () => {
                         for (let i = 0; i < 35; i++) {
                             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px + (xleft/35), py + (yleft/35), pz + (zleft/35))
                             Thread.sleep(6)
-                            px = Player.getX()
-                            py = Player.getY()
-                            pz = Player.getZ()
+                            px += (xleft/35)
+                            py += (yleft/35)
+                            pz += (zleft/35)
                         }
                         Thread.sleep(10)
                         rightClick.invoke(Client.getMinecraft())
@@ -117,53 +113,52 @@ register("tick", () => {
                     }).start()
                     hasclipped = true
                 } else if (settings.Clip[5] == 2 && !hasclipped) { // DOWN
-                    px = Player.getX()
-                    py = Player.getY()
-                    pz = Player.getZ()
                     new Thread(() => {
                         starttime = new Date().getTime()
                         Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(73.5, 221, 19.5)
-                        Thread.sleep(80)
-                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(73.5, 221, 24.5)
-                        Thread.sleep(80)
-                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(73.5, 221, 28.5)
-                        Thread.sleep(80)
+                        Thread.sleep(65)
+                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(73.5, 221, 23.5)
+                        Thread.sleep(65)
+                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(73.5, 221, 31.5)
+                        Thread.sleep(65)
                         Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(73.5, 221, 32.5)
-                        Thread.sleep(80)
-                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(78.5, 219, 32.5)
-                        Thread.sleep(80)
-                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(78.5, 211, 32.5)
-                        Thread.sleep(80)
-                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(78.5, 204, 32.5)
-                        Thread.sleep(80)
-                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(81.5, 196, 35.5)
-                        Thread.sleep(80)
-                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(84.5, 189, 38.5)
-                        Thread.sleep(80)
-                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(87.5, 182, 40.5)
-                        Thread.sleep(80)
-                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(90.5, 176, 40.5)
-                        Thread.sleep(80)
-                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(93.5, 171, 40.5)
+                        Thread.sleep(65)
+                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(74.5, 215, 32.5)
+                        Thread.sleep(65)
+                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(74.5, 207, 32.5)
+                        Thread.sleep(65)
+                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(74.5, 199, 32.5)
+                        Thread.sleep(65)
+                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(74.5, 191, 32.5)
+                        Thread.sleep(65)
+                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(74.5, 183, 32.5)
+                        Thread.sleep(65)
+                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(74.5, 175, 32.5)
+                        Thread.sleep(65)
+                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(74.5, 167, 32.5)
+                        Thread.sleep(65)
+                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(74.5, 159, 32.5)
+                        Thread.sleep(65)
+                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(74.5, 151, 32.5)
+                        Thread.sleep(35)
+                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(74.5, 147, 32.5)
                         endtime = new Date().getTime()
                         console.log(endtime-starttime)
                     }).start()
                     hasclipped = true
                 } else if (settings.Clip[5] == 3 && !hasclipped) { // CONVEYOR
                     px = Player.getX()
-                    py = Player.getY()
+                    py = Player.getY()+5
                     pz = Player.getZ()
-                    Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py + 5.5, pz)
-                    py = Player.getY()
                     Thread.sleep(80)
                     new Thread(() => {
-                        for (let i = 0; i < 56; i++) {
-                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py + 0.05, pz + 1)
+                        for (let i = 0; i < 62; i++) {
+                            Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
                             Thread.sleep(6)
-                            px = Player.getX()
-                            py = Player.getY()
-                            pz = Player.getZ()
+                            pz+=1
                         }
+                        Thread.sleep(10)
+                        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 0.8)
                         Player.getPlayer().field_70177_z = 180
                         Player.getPlayer().field_70125_A = 0
                     }).start()
@@ -176,19 +171,17 @@ register("tick", () => {
 
 register("command", () => {
     px = Player.getX()
-    py = Player.getY()
+    py = Player.getY()+5
     pz = Player.getZ()
-    Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py + 5.5, pz)
-    py = Player.getY()
     Thread.sleep(80)
     new Thread(() => {
-        for (let i = 0; i < 56; i++) {
+        for (let i = 0; i < 62; i++) {
             Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 1)
             Thread.sleep(6)
-            px = Player.getX()
-            py = Player.getY()
-            pz = Player.getZ()
+            pz+=1
         }
+        Thread.sleep(10)
+        Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px, py, pz + 0.8)
         Player.getPlayer().field_70177_z = 180
         Player.getPlayer().field_70125_A = 0
     }).start()
@@ -202,7 +195,7 @@ register("worldLoad", () => {
 register("chat", (name) => {
     if (clicked) {
         if (name == Player.getName()) {
-            if (Config.clipSide == 0) {
+            if (settings.Clip[5] == 1) {
                 xleft = -12
                 zleft = -10
                 new Thread(() => {

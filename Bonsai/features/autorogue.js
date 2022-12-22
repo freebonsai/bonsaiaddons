@@ -11,9 +11,9 @@ register("tick", () => {
         if (ChatLib.removeFormatting(Player.getInventory().getStackInSlot(i)?.getName()).includes("Rogue Sword")) {
             lastrogue = new Date().getTime()
             let previousItem = Player.getHeldItemIndex()
-            Client.getMinecraft().func_147114_u().func_147298_b().func_179290_a(new C09PacketHeldItemChange(i))
-            Client.getMinecraft().func_147114_u().func_147298_b().func_179290_a(new C08PacketPlayerBlockPlacement(Client.getMinecraft().field_71439_g.func_70694_bm()));
-            Client.getMinecraft().func_147114_u().func_147298_b().func_179290_a(new C09PacketHeldItemChange(previousItem))
+            Client.sendPacket(new C09PacketHeldItemChange(i))
+            Client.sendPacket(new C08PacketPlayerBlockPlacement(Client.getMinecraft().field_71439_g.func_70694_bm()))
+            Client.sendPacket(new C09PacketHeldItemChange(previousItem))
         }
     }
 })
