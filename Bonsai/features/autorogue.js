@@ -3,7 +3,7 @@ import { settings } from "../commands/gui"
 const C08PacketPlayerBlockPlacement = Java.type('net.minecraft.network.play.client.C08PacketPlayerBlockPlacement');
 const C09PacketHeldItemChange = Java.type('net.minecraft.network.play.client.C09PacketHeldItemChange')
 
-lastrogue = new Date().getTime()-30001
+lastrogue = new Date().getTime()-30000
 register("tick", () => {
     if (new Date().getTime() - lastrogue < 30000) return
     if (!settings.General[5]) return
@@ -16,4 +16,8 @@ register("tick", () => {
             Client.sendPacket(new C09PacketHeldItemChange(previousItem))
         }
     }
+})
+
+register("worldLoad", () => {
+    lastrogue = new Date().getTime()-29000
 })

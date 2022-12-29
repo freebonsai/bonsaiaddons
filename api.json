@@ -1,8 +1,8 @@
 {
-    "latestVersion": "2.2",
+    "latestVersion": "2.2.1",
     "changelog": [
-        "fixed a lot of gui stuff i think",
-        "added other stuff (sign hider maybe auto rogue i dont remember)"
+        "/veso and /veimo for unban times",
+        "maybe other stuff idek at this point"
     ],
     "author": "freebonsai"
 }

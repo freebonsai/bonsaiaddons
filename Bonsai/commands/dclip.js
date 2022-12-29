@@ -1,4 +1,3 @@
-import Config from "../Config"
 import toRadians from "../utils/toradians"
 import { settings } from "../commands/gui"
 
@@ -29,9 +28,9 @@ register("step", () => {
   pz = Player.getZ()
   ya = Player.getYaw()
   pi = Player.getPitch()
-  newx = -Math.sin(toRadians(ya)) * Math.cos(toRadians(pi))
+  newx = -Math.sin(toRadians(ya))
   newy = -Math.sin(toRadians(pi))
-  newz = Math.cos(toRadians(ya)) * Math.cos(toRadians(pi))
+  newz = Math.cos(toRadians(ya))
   Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px+newx, py+newy, pz+newz)
   counter++
   if (counter >= dist) {
@@ -39,4 +38,4 @@ register("step", () => {
     dist = 0
     counter = 0
   }
-}).setFps(1000/Config.infdelay)
+}).setFps(100)

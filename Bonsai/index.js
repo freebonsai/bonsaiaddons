@@ -36,6 +36,7 @@ import "./features/autosell"
 import "./features/autorogue"
 import "./features/signhider"
 import "./features/cheststuff"
+import "./features/bans"
 
 import "./utils/firsttime"
 import "./utils/memorycheck"

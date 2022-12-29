@@ -93,6 +93,11 @@ reloadkey.registerKeyPress(() => {
   ChatTriggers.reloadCT()
 })
 
+consolekey = new KeyBind("Open Console", Keyboard.KEY_NONE, "Bonsai")
+consolekey.registerKeyPress(() => {
+  ChatLib.command("ct console js", true)
+})
+
 dLoc = {"x":100,"y":30}
 gLoc = {"x":270,"y":30}
 rLoc = {"x":440,"y":30}

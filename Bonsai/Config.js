@@ -123,17 +123,6 @@ class Config {
     })
     f6Class = 0;
 
-
-    @SliderProperty({
-        name: "Infinite Sleep",
-        description: "Delay between every block infinite dclip moves",
-        category: "Clipping",
-        subcategory: "3d",
-        min: 5,
-        max: 40
-    })
-    infdelay = 10;
-
     // HCLIP
 
 
