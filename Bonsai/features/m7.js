@@ -135,16 +135,16 @@ register("chat", () => {
   lines = Scoreboard.getLines()
   for (let i = 0;i < lines.length;i++) {
     if (lines[i].toString().includes("M7")) {
-      if (settings.Dungeons[9]) {
-        if (settings.Dungeons[10] == 0) {
+      if (settings.Dungeons[11]) {
+        if (settings.Dungeons[12] == 0) {
           ChatLib.command("pc green")
-        } else if (settings.Dungeons[10] == 1) {
+        } else if (settings.Dungeons[12] == 1) {
           ChatLib.command("pc red")
-        } else if (settings.Dungeons[10] == 2) {
+        } else if (settings.Dungeons[12] == 2) {
           ChatLib.command("pc purple")
-        } else if (settings.Dungeons[10] == 3) {
+        } else if (settings.Dungeons[12] == 3) {
           ChatLib.command("pc orange")
-        } else if (settings.Dungeons[10] == 4) {
+        } else if (settings.Dungeons[12] == 4) {
           ChatLib.command("pc blue")
         }
         //inp5 = true

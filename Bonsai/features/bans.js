@@ -18,7 +18,7 @@ function dhm(t){
     d++
     h = 0
   }
-  return `${d} days, ${h} hours and ${m} minutes`
+  return `&6${d} &bdays, &e${h} &bhours and &a${m} &bminutes`
 }
 
 register("command", () => {
@@ -30,3 +30,17 @@ register("command", () => {
     timeuntil = 1673387321938 - new Date().getTime()
     ChatLib.chat(`${prefix} &bVesomaina is unbanned in ${dhm(timeuntil)}`)
 }).setName("veso")
+
+register("command", () => {
+  timeuntil = 1672443869615 - new Date().getTime()
+  ChatLib.chat(`${prefix} &bFlar3zyy is unbanned in ${dhm(timeuntil)}`)
+}).setName("flar3zyy")
+
+register("command", () => {
+  timeuntil = 1702571009615 - new Date().getTime()
+  ChatLib.chat(`${prefix} &bMatejt is unbanned in ${dhm(timeuntil)}`)
+}).setName("matej")
+
+
+
+1672274129615

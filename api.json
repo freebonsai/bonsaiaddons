@@ -1,8 +1,12 @@
 {
-    "latestVersion": "2.2.1",
+    "latestVersion": "2.3",
     "changelog": [
-        "/veso and /veimo for unban times",
-        "maybe other stuff idek at this point"
+        "added power blessing display",
+        "added dragon timer display (desperately needs testing pls)",
+        "added color picking to gui",
+        "added blur in gui",
+        "added descriptions to every module",
+        "added /tf7 (look at mort) which will party tocl, open mort, and enter f7"
     ],
     "author": "freebonsai"
 }

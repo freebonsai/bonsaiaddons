@@ -2,11 +2,14 @@ import Config from "../Config"
 import { data } from "../data/data"
 import { prefix } from "../utils/prefix"
 import PogObject from "../../PogData/index"
+import { dungeonStrings, generalStrings, renderStrings, clipStrings, cliplocations, relics, dungeonsDescriptions, generalDescriptions, renderDescriptions, clipDescriptions } from "../utils/guiStrings"
 
 if (!FileLib.exists("Bonsai","settings.json")) {
   FileLib.write("Bonsai","settings.json",
     `{
       "Dungeons": [
+          false,
+          false,
           false,
           false,
           false,
@@ -46,7 +49,7 @@ if (!FileLib.exists("Bonsai","settings.json")) {
 }
 
 export const settings = new PogObject("Bonsai", {
-  "Dungeons": [false,false,false,false,false,false,false,false,false,0],
+  "Dungeons": [false,false,false,false,false,false,false,false,false,false,false,0],
   "General": [false,false,false,false,false,false],
   "Render": [false,false,false,false],
   "Clip": [false,false,false,false,false,0]
@@ -98,69 +101,24 @@ consolekey.registerKeyPress(() => {
   ChatLib.command("ct console js", true)
 })
 
+const colors = new PogObject("Bonsai", {
+  "r":[170,45],
+  "g":[0,45],
+  "b":[0,45]
+}, "data/colors.json")
+
 dLoc = {"x":100,"y":30}
 gLoc = {"x":270,"y":30}
 rLoc = {"x":440,"y":30}
 clipLoc = {"x":610,"y":30}
-reloadLoc = {"x":850,"y":450}
+colorLoc = {"x":780,"y":45}
 buttonwidth = 100
 buttonheight = 15
-dungeonStrings = [
-  "Dungeons",
-  "Auto Kick",
-  "Auto Ice Fill",
-  "Auto Terminals",
-  "Auto Black Cat",
-  "Auto Warp",
-  "Auto Edrag",
-  "Auto GB",
-  "Mage Pad 2nd",
-  "Terminal Counter",
-  "Relic Caller"
-]
-generalStrings = [
-  "General",
-  "Auto Flint",
-  "Song Singer",
-  "Swarm Counter",
-  "Message Hider",
-  "Auto Sell",
-  "Auto Rogue"
-]
-renderStrings = [
-  "Render",
-  "Falling Blocks",
-  "Armor Stands p5",
-  "Players",
-  "Sign Hider"
-]
-clipStrings = [
-  "Clip",
-  "3D Infinite",
-  "Auto F4",
-  "Auto F5",
-  "Auto F6",
-  "Auto F7",
-]
-
-cliplocations = [
-  "Left",
-  "Right",
-  "Down",
-  "Conveyor"
-]
-relics = [
-  "&aGreen",
-  "&cRed",
-  "&5Purple",
-  "&6Orange",
-  "&bBlue"
-]
-topcolor = Renderer.DARK_RED
-oncolor = Renderer.GREEN
-offcolor = Renderer.color(45,45,45,255)
+const ResourceLocation = Java.type("net.minecraft.util.ResourceLocation")
 register("renderOverlay", () => {
-  if (!mainGui.isOpen()) return
+  if (!mainGui.isOpen()) {Client.getMinecraft().field_71460_t.func_181022_b();return}
+  topcolor = Renderer.color(colors.r[0],colors.g[0],colors.b[0],255)
+  offcolor = Renderer.color(colors.r[1],colors.g[1],colors.b[1],255)
   Renderer.drawRect(topcolor, dLoc.x, dLoc.y-2, buttonwidth, buttonheight+2)
   Renderer.drawString(`&7${dungeonStrings[0]}`,dLoc.x+27,dLoc.y+3,true)
   for (let i=1; i< dungeonStrings.length; i++) {
@@ -218,11 +176,75 @@ register("renderOverlay", () => {
     Renderer.drawString(cliplocations[settings.Clip[5]],clipLoc.x+(70-Renderer.getStringWidth(cliplocations[settings.Clip[5]]))/2+15,clipLoc.y+3+(6*buttonheight),true)
   }
   if (displayrelic) {
-    Renderer.drawRect(offcolor, dLoc.x, dLoc.y+(11*buttonheight), buttonwidth, buttonheight)
-    Renderer.drawString(relics[settings.Dungeons[10]],dLoc.x+(70-(Renderer.getStringWidth(relics[settings.Dungeons[10]])))/2+15,dLoc.y+3+(11*buttonheight),true)
+    Renderer.drawRect(offcolor, dLoc.x, dLoc.y+(buttonheight*dungeonStrings.length-2), buttonwidth, buttonheight)
+    Renderer.drawString(relics[settings.Dungeons[dungeonStrings.length-1]],dLoc.x+(70-(Renderer.getStringWidth(relics[settings.Dungeons[dungeonStrings.length-1]])))/2+15,dLoc.y+3+(buttonheight*dungeonStrings.length-2),true)
   }
-  Renderer.drawRect(offcolor, reloadLoc.x, reloadLoc.y, buttonwidth, buttonheight)
-  Renderer.drawString("Reload CT",reloadLoc.x+(70-(Renderer.getStringWidth("Reload CT")))/2+15,reloadLoc.y+3,true)
+  Renderer.drawRect(offcolor, 850, 450, buttonwidth, buttonheight)
+  Renderer.drawString("Reload CT",850+(70-(Renderer.getStringWidth("Reload CT")))/2+15,450+3,true)
+
+  mx = Client.getMouseX()
+  my = Client.getMouseY()
+  if (mx > dLoc.x && mx < dLoc.x+buttonwidth) {
+    toshow = Math.floor((my-45)/15)
+    if (toshow >= 0 && toshow <= 10) {
+      Renderer.drawRect(Renderer.BLACK, dLoc.x+buttonwidth, my-10, Renderer.getStringWidth(dungeonsDescriptions[toshow])+4, buttonheight)
+      Renderer.drawStringWithShadow(`&7${dungeonsDescriptions[toshow]}`,dLoc.x+buttonwidth+2,my-7)
+    } else if (toshow == 11 && displayrelic) {
+      Renderer.drawRect(Renderer.BLACK, dLoc.x+buttonwidth, my-10, Renderer.getStringWidth(dungeonsDescriptions[toshow])+4, buttonheight)
+      Renderer.drawStringWithShadow(`&7${dungeonsDescriptions[toshow]}`,dLoc.x+buttonwidth+2,my-7)
+    }
+  } else if (mx > gLoc.x && mx < gLoc.x+buttonwidth) {
+    toshow = Math.floor((my-45)/15)
+    if (toshow >= 0 && toshow <= 5) {
+      Renderer.drawRect(Renderer.BLACK, gLoc.x+buttonwidth, my-10, Renderer.getStringWidth(generalDescriptions[toshow])+4, buttonheight)
+      Renderer.drawStringWithShadow(`&7${generalDescriptions[toshow]}`,gLoc.x+buttonwidth+2,my-7)
+    }
+  } else if (mx > rLoc.x && mx < rLoc.x+buttonwidth) {
+    toshow = Math.floor((my-45)/15)
+    if (toshow >= 0 && toshow <= 3) {
+      Renderer.drawRect(Renderer.BLACK, rLoc.x+buttonwidth, my-10, Renderer.getStringWidth(renderDescriptions[toshow])+4, buttonheight)
+      Renderer.drawStringWithShadow(`&7${renderDescriptions[toshow]}`,rLoc.x+buttonwidth+2,my-7)
+    }
+  } else if (mx > clipLoc.x && mx < clipLoc.x+buttonwidth) {
+    toshow = Math.floor((my-45)/15)
+    if (toshow >= 0 && toshow <= 4) {
+      Renderer.drawRect(Renderer.BLACK, clipLoc.x-Renderer.getStringWidth(clipDescriptions[toshow])-4, my-10, Renderer.getStringWidth(clipDescriptions[toshow])+4, buttonheight)
+      Renderer.drawStringWithShadow(`&7${clipDescriptions[toshow]}`,clipLoc.x-Renderer.getStringWidth(clipDescriptions[toshow])-2,my-7)
+    } else if (toshow == 5 && displayf7settings) {
+      Renderer.drawRect(Renderer.BLACK, clipLoc.x-Renderer.getStringWidth(clipDescriptions[toshow])-4, my-10, Renderer.getStringWidth(clipDescriptions[toshow])+4, buttonheight)
+      Renderer.drawStringWithShadow(`&7${clipDescriptions[toshow]}`,clipLoc.x-Renderer.getStringWidth(clipDescriptions[toshow])-2,my-7)
+    }
+  }
+  Renderer.drawRect(topcolor, colorLoc.x, colorLoc.y-buttonheight-2, buttonwidth, buttonheight+2)
+  Renderer.drawString("&7Colors",colorLoc.x+(70-Renderer.getStringWidth("&7Colors"))/2+15,colorLoc.y+3-buttonheight,true)
+  for (let i = 0; i < 8; i++) {
+    Renderer.drawRect(offcolor, colorLoc.x, colorLoc.y+buttonheight*i, buttonwidth, buttonheight)
+  }
+
+  for (let i = 0; i < 2; i++) {
+    Renderer.drawLine(Renderer.RED,colorLoc.x+5, colorLoc.y+buttonheight*i*4+buttonheight/2+buttonheight, colorLoc.x+buttonwidth-5, colorLoc.y+buttonheight*i*4+buttonheight/2+buttonheight,5)
+  }
+  for (let i = 0; i < 2; i++) {
+    Renderer.drawLine(Renderer.GREEN,colorLoc.x+5, colorLoc.y+buttonheight*i*4+buttonheight/2+buttonheight*2, colorLoc.x+buttonwidth-5, colorLoc.y+buttonheight*i*4+buttonheight/2+buttonheight*2,5)
+  }
+  for (let i = 0; i < 2; i++) {
+    Renderer.drawLine(Renderer.BLUE,colorLoc.x+5, colorLoc.y+buttonheight*i*4+buttonheight/2+buttonheight*3, colorLoc.x+buttonwidth-5, colorLoc.y+buttonheight*i*4+buttonheight/2+buttonheight*3,5)
+  }
+
+  for (let i = 0; i < 2; i++) {
+    Renderer.drawCircle(Renderer.WHITE,colorLoc.x+5+(colors.r[i])/(255/(buttonwidth-10)),colorLoc.y+buttonheight*i*4+buttonheight/2+buttonheight,4,1024)
+  }
+  for (let i = 0; i < 2; i++) {
+    Renderer.drawCircle(Renderer.WHITE,colorLoc.x+5+(colors.g[i])/(255/(buttonwidth-10)),colorLoc.y+buttonheight*i*4+buttonheight/2+buttonheight*2,4,1024)
+  }
+  for (let i = 0; i < 2; i++) {
+    Renderer.drawCircle(Renderer.WHITE,colorLoc.x+5+(colors.b[i])/(255/(buttonwidth-10)),colorLoc.y+buttonheight*i*4+buttonheight/2+buttonheight*3,4,1024)
+  }
+  Renderer.drawString("Top Color",colorLoc.x+(70-Renderer.getStringWidth("Top Color"))/2+15,colorLoc.y+3,true)
+  Renderer.drawString("Button Color",colorLoc.x+(70-Renderer.getStringWidth("Button Color"))/2+15,colorLoc.y+3+(buttonheight*4),true)
+
+  Client.getMinecraft().field_71460_t.func_181022_b()
+  Client.getMinecraft().field_71460_t.func_175069_a(new ResourceLocation("shaders/post/blur.json"))
 })
 
 displayf7settings = false
@@ -232,7 +254,7 @@ register("clicked", (x,y,b,isdown) => {
     if (x > dLoc.x && x < dLoc.x+buttonwidth) {
       if (b == 0) {
         tochange = Math.floor((y-45)/15)
-        if (tochange == 10) {
+        if (tochange == dungeonStrings.length-1) {
           if (settings.Dungeons[tochange] == 4) {
             settings.Dungeons[tochange] = 0
           } else {
@@ -241,8 +263,14 @@ register("clicked", (x,y,b,isdown) => {
         } else {
           settings.Dungeons[tochange] = !settings.Dungeons[tochange]
         }
-      } else if (b == 1 && Math.floor((y-45)/15) == 9) {
+      } else if (b == 1 && Math.floor((y-45)/15) == dungeonStrings.length-2) {
         displayrelic = !displayrelic
+      } else if (b == 2 && Math.floor((y-45)/15) == 9) {
+        mainGui.close()
+        powerdisplaymove.open()
+      } else if (b == 2 && Math.floor((y-45)/15) == 10) {
+        mainGui.close()
+        dragonTimerMove.open()
       }
     } else if (x > gLoc.x && x < gLoc.x+buttonwidth) {
       if (b == 0) {
@@ -269,8 +297,8 @@ register("clicked", (x,y,b,isdown) => {
       } else if (b == 1 && Math.floor((y-45)/15) == 4) {
         displayf7settings = !displayf7settings
       }
-    } else if (x > reloadLoc.x && x < reloadLoc.x+buttonwidth) {
-      if (y > reloadLoc.y && y < reloadLoc.y+buttonheight) {
+    } else if (x > colorLoc.x && x < colorLoc.x+buttonwidth) {
+      if (y > colorLoc.y+buttonheight*8 && y < colorLoc.y+buttonheight*9) {
         if (b == 0) {
           mainGui.close()
           setTimeout(()=>{ChatTriggers.reloadCT()},50)
@@ -279,4 +307,62 @@ register("clicked", (x,y,b,isdown) => {
     }
     settings.save()
   }
+})
+
+register("dragged", (mdx,mdy,mx,my,b) => {
+  if (!mainGui.isOpen()) return
+  if (mx > colorLoc.x && mx < colorLoc.x+buttonwidth) {
+    tochange = Math.floor((my-45)/15)
+    if (tochange%4 == 1) {
+      colors.r[(tochange-1)/4]+=mdx*(255/(buttonwidth-10))
+    } else if (tochange%4 == 2) {
+      colors.g[(tochange-2)/4]+=mdx*(255/(buttonwidth-10))
+    } else if (tochange%4 == 3) {
+      colors.b[(tochange-3)/4]+=mdx*(255/(buttonwidth-10))
+    }
+  }
+  colors.save()
+})
+
+export const powerdisplaymove = new Gui()
+var pDisplay = new Display()
+register("tick", () => {
+  if (!powerdisplaymove.isOpen()) {
+    pDisplay.clearLines()
+    return
+  }
+  pDisplay.setRenderLoc(data.powerDisplay.x,data.powerDisplay.y)
+  pDisplay.setLine(0,`&cPower&r: &a19`)
+  pDisplay.setLine(1,`&cT&6i&am&1e&r: &a5`)
+  pDisplay.getLine(0).setScale(2)
+  pDisplay.getLine(1).setScale(2)
+})
+
+register("dragged", (mx, my, x, y) => {
+  if (!powerdisplaymove.isOpen()) return
+  data.powerDisplay.x = x
+  data.powerDisplay.y = y
+  data.save()
+})
+
+export const dragonTimerMove = new Gui()
+var dtDisplay = new Display()
+register("tick", () => {
+  if (!dragonTimerMove.isOpen()) {
+    dtDisplay.clearLines()
+    return
+  }
+  dtDisplay.setRenderLoc(data.dragonTimer.x,data.dragonTimer.y)
+  dtDisplay.setLine(0,`&6Orange spawning in&r: &c250ms`)
+  dtDisplay.setLine(1,`&4Red spawning in&r: &e1150ms`)
+  dtDisplay.setLine(2,`&aGreen spawning in&r: &e1930ms`)
+  dtDisplay.setLine(3,`&5Purple spawning in&r: &a2400ms`)
+  dtDisplay.setLine(4,`&bBlue spawning in&r: &a4300ms`)
+})
+
+register("dragged", (mx, my, x, y) => {
+  if (!dragonTimerMove.isOpen()) return
+  data.dragonTimer.x = x
+  data.dragonTimer.y = y
+  data.save()
 })
