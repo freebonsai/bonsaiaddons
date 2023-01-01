@@ -40,6 +40,25 @@ class Config {
     }
     //#endregion
 
+    @SliderProperty({
+        name: "Dragon Timer Scale",
+        description: "Scale of dragon timer",
+        category: "Dungeons",
+        subcategory: "Displays",
+        min: 1,
+        max: 300
+    })
+    dragonTimerScale = 150;
+
+    @SliderProperty({
+        name: "Power Display Scale",
+        description: "Scale of power blessing display",
+        category: "Dungeons",
+        subcategory: "Displays",
+        min: 1,
+        max: 300
+    })
+    powerDisplayScale = 150;
 
     @SliderProperty({
         name: "Auto Term Delay",

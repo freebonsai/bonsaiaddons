@@ -1,6 +1,7 @@
 import { settings } from "../commands/gui"
 import { data } from "../data/data"
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
+import Config from "../Config"
 orangetime = null
 redtime = null
 greentime = null
@@ -12,10 +13,7 @@ register("spawnParticle", (particle, type, event) => {
     match = stringparticle.match(/Entity(\w+)FX, Pos (?:(.+),(.+),(.+)), RGBA (.+), Age (.+)/)
     try {
         [_,typeofparticle,x,y,z,rgba,age] = match
-    } catch (error) {
-        console.log(error)
-        return
-    }
+    } catch (error) {return}
     x = x.replace('(','')
     z = z.replace(')','')
     x = Math.floor(x)
@@ -50,6 +48,7 @@ register("spawnParticle", (particle, type, event) => {
     // console.log(typeofparticle,x,y,z)
 })
 
+dragonspawntime = 5000
 dDisplay = new Display()
 atLine = 0
 register("step", () => {
@@ -58,39 +57,42 @@ register("step", () => {
     currentTime = new Date().getTime()
     dDisplay.setRenderLoc(data.dragonTimer.x, data.dragonTimer.y)
     if (orangetime !== null) {
-        if (currentTime - orangetime < 5000) {
-            orangein = 5000 - (currentTime-orangetime)
+        if (currentTime - orangetime < dragonspawntime) {
+            orangein = dragonspawntime - (currentTime-orangetime)
             dDisplay.setLine(atLine, `&6Orange spawning in&r: ${(orangein <= 1000 ? "&c" : orangein <= 3000 ? "&e" : "&a") + orangein}ms`)
             atLine++
         }
     }
     if (redtime !== null) {
-        if (currentTime - redtime < 5000) {
-            redin = 5000 - (currentTime-redtime)
+        if (currentTime - redtime < dragonspawntime) {
+            redin = dragonspawntime - (currentTime-redtime)
             dDisplay.setLine(atLine, `&4Red spawning in&r: ${(redin <= 1000 ? "&c" : redin <= 3000 ? "&e" : "&a") + redin}ms`)
             atLine++
         }
     }
     if (greentime !== null) {
-        if (currentTime - greentime < 5000) {
-            greenin = 5000 - (currentTime-greentime)
+        if (currentTime - greentime < dragonspawntime) {
+            greenin = dragonspawntime - (currentTime-greentime)
             dDisplay.setLine(atLine, `&aGreen spawning in&r: ${(greenin <= 1000 ? "&c" : greenin <= 3000 ? "&e" : "&a") + greenin}ms`)
             atLine++
         }
     }
     if (bluetime !== null) {
-        if (currentTime - bluetime < 5000) {
-            bluein = 5000 - (currentTime-bluetime)
+        if (currentTime - bluetime < dragonspawntime) {
+            bluein = dragonspawntime - (currentTime-bluetime)
             dDisplay.setLine(atLine, `&bBlue spawning in&r: ${(bluein <= 1000 ? "&c" : bluein <= 3000 ? "&e" : "&a") + bluein}ms`)
             atLine++
         }
     }
     if (purpletime !== null) {
-        if (currentTime - purpletime < 5000) {
-            purplein = 5000 - (currentTime-purpletime)
+        if (currentTime - purpletime < dragonspawntime) {
+            purplein = dragonspawntime - (currentTime-purpletime)
             dDisplay.setLine(atLine, `&5Purple spawning in&r: ${(purplein <= 1000 ? "&c" : purplein <= 3000 ? "&e" : "&a") + purplein}ms`)
             atLine++
         }
+    }
+    for (let i = 0; i < atLine; i++) {
+        dDisplay.getLine(i).setScale(Config.dragonTimerScale/100)
     }
     atLine = 0
 }).setFps(60)

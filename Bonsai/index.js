@@ -40,6 +40,7 @@ import "./features/cheststuff"
 import "./features/bans"
 import "./features/powerdisplay"
 import "./features/dragontimer"
+import "./features/splits"
 
 import "./utils/firsttime"
 import "./utils/memorycheck"

@@ -1,12 +1,8 @@
 {
-    "latestVersion": "2.3",
+    "latestVersion": "2.4",
     "changelog": [
-        "added power blessing display",
-        "added dragon timer display (desperately needs testing pls)",
-        "added color picking to gui",
-        "added blur in gui",
-        "added descriptions to every module",
-        "added /tf7 (look at mort) which will party tocl, open mort, and enter f7"
+        "added splits (needs testing and refining)",
+        "added dragon timer display (works well i think might bug if some particles come astray)"
     ],
     "author": "freebonsai"
 }

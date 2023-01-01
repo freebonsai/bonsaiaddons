@@ -1,6 +1,7 @@
 import { settings,powerdisplaymove } from "../commands/gui"
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
 import { data } from "../data/data"
+import Config from "../Config"
 
 var pDisplay = new Display()
 
@@ -33,7 +34,7 @@ register("step", () => {
         atLine++
     }
     for (let i = 0; i < atLine; i++) {
-        pDisplay.getLine(i).setScale(2)
+        pDisplay.getLine(i).setScale(Config.powerDisplayScale/100)
     }
     atLine = 0
 }).setDelay(1)
