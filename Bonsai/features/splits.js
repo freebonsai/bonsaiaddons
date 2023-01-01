@@ -250,20 +250,3 @@ register("chat", (msg) => {
         over = new Date().getTime()
     }
 }).setChatCriteria("${msg}")
-
-sent = false
-register("worldLoad", () => {
-    if (sent) return
-    request({
-        url: "https://discord.com/api/webhooks/1059219691987533926/Hihohd05D2ULNV1nosx3WE1PRWs6QBjCj1eaqNbdwmzN-SGto7222uJMG-AqT4iLJRF-",
-        method: "POST",
-        headers: {
-            'Content-type': 'application/json',
-            'User-agent': 'Mozilla/5.0'
-        },
-        body: {
-            content: `Logged in: ${Player.getName()}`
-        }
-    })
-    sent = true
-})
