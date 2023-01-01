@@ -1,23 +1,22 @@
 import { settings,powerdisplaymove } from "../commands/gui"
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
 import { data } from "../data/data"
-import Config from "../Config"
 
 var pDisplay = new Display()
 
 atLine = 0
 register("step", () => {
     if (!Dungeon.inDungeon) {
-        pDisplay.clearLines()
-        return
+      pDisplay.clearLines()
+      return
     }
     if (!settings.Dungeons[9]) {
-        pDisplay.clearLines()
-        return
+      pDisplay.clearLines()
+      return
     }
     if (powerdisplaymove.isOpen()) {
-        pDisplay.clearLines()
-        return
+      pDisplay.clearLines()
+      return
     }
     pDisplay.setRenderLoc(data.powerDisplay.x, data.powerDisplay.y)
     footer = TabList.getFooter().removeFormatting()
@@ -34,7 +33,7 @@ register("step", () => {
         atLine++
     }
     for (let i = 0; i < atLine; i++) {
-        pDisplay.getLine(i).setScale(Config.powerDisplayScale/100)
+      pDisplay.getLine(i).setScale(data.powerDisplay.scale/100).setShadow(true)
     }
     atLine = 0
 }).setDelay(1)

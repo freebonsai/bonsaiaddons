@@ -92,7 +92,7 @@ register("step", () => {
         }
     }
     for (let i = 0; i < atLine; i++) {
-        dDisplay.getLine(i).setScale(Config.dragonTimerScale/100)
+        dDisplay.getLine(i).setScale(data.dragonTimer.scale/100).setShadow(true)
     }
     atLine = 0
 }).setFps(60)

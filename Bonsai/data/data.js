@@ -14,10 +14,17 @@ export const data = new PogObject("Bonsai", {
     "dev": false,
     "powerDisplay": {
         "x":200,
-        "y":100
+        "y":100,
+        "scale":100
     },
     "dragonTimer": {
         "x":0,
-        "y":0
+        "y":0,
+        "scale":100
+    },
+    "splits": {
+        "x":300,
+        "y":300,
+        "scale":100
     }
 }, "data/data.json")

@@ -1,3 +1,17 @@
+export const splitsStrings = [
+    "Splits",
+    "Blood Rush",
+    "Blood Clear",
+    "Portal",
+    "Boss Entry",
+    "Maxor",
+    "Storm",
+    "Terminals",
+    "Goldor",
+    "Necron",
+    "Dragons"
+]
+
 export const dungeonStrings = [
     "Dungeons",
     "Auto Kick",
@@ -11,6 +25,7 @@ export const dungeonStrings = [
     "Terminal Counter",
     "Power Display",
     "Dragon Timer",
+    "Splits",
     "Relic Caller"
 ]
 
@@ -66,8 +81,9 @@ export const dungeonsDescriptions = [
     "Automatically ghostblocks under necron so you can enter dragon phase",
     "Automatically says 'mage pad 2nd' in storm phase",
     "Counts terminals done by every teammate and puts them in chat at end of terminal phase (/tlog)",
-    "Adds a display showing your current power blessing (middle click to move)",
-    "Adds a display showing approximate time until dragon spawn (middle click to move)",
+    "Adds a display showing your current power blessing (middle click to move and change size)",
+    "Adds a display showing approximate time until dragon spawn (middle click to move and change size)",
+    "Displays splits of dungeon run (middle click to move and change size)",
     "Automatically calls relics at necron phase so yours doesn't get stolen",
     "Which relic will be called"
 ]
@@ -95,4 +111,23 @@ export const clipDescriptions = [
     "Automatically clips on f6 boss enter (location configurable in options)",
     "Automatically clips on f7 boss enter",
     "Location of f7 clip"
+]
+
+export const colours = [
+    "&a",
+    "&b",
+    "&c",
+    "&d",
+    "&e",
+    "&f",
+    "&0",
+    "&1",
+    "&2",
+    "&3",
+    "&4",
+    "&5",
+    "&6",
+    "&7",
+    "&8",
+    "&9"
 ]

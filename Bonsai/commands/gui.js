@@ -2,12 +2,13 @@ import Config from "../Config"
 import { data } from "../data/data"
 import { prefix } from "../utils/prefix"
 import PogObject from "../../PogData/index"
-import { dungeonStrings, generalStrings, renderStrings, clipStrings, cliplocations, relics, dungeonsDescriptions, generalDescriptions, renderDescriptions, clipDescriptions } from "../utils/guiStrings"
+import { splitsStrings,dungeonStrings, generalStrings, renderStrings, clipStrings, cliplocations, relics, dungeonsDescriptions, generalDescriptions, renderDescriptions, clipDescriptions, colours } from "../utils/guiStrings"
 
 if (!FileLib.exists("Bonsai","settings.json")) {
   FileLib.write("Bonsai","settings.json",
     `{
       "Dungeons": [
+          false,
           false,
           false,
           false,
@@ -43,16 +44,30 @@ if (!FileLib.exists("Bonsai","settings.json")) {
           false,
           false,
           0
+      ],
+      "Splits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
       ]
     }`
   )
 }
 
 export const settings = new PogObject("Bonsai", {
-  "Dungeons": [false,false,false,false,false,false,false,false,false,false,false,0],
+  "Dungeons": [false,false,false,false,false,false,false,false,false,false,false,false,0],
   "General": [false,false,false,false,false,false],
   "Render": [false,false,false,false],
-  "Clip": [false,false,false,false,false,0]
+  "Clip": [false,false,false,false,false,0],
+  "Splits": [0,0,0,0,0,0,0,0,0,0]
 }, "settings.json")
 
 mainGui = new Gui()
@@ -107,11 +122,12 @@ const colors = new PogObject("Bonsai", {
   "b":[0,45]
 }, "data/colors.json")
 
-dLoc = {"x":100,"y":30}
-gLoc = {"x":270,"y":30}
-rLoc = {"x":440,"y":30}
-clipLoc = {"x":610,"y":30}
-colorLoc = {"x":780,"y":45}
+splitsLoc = {"x":20,"y":30}
+dLoc = {"x":180,"y":30}
+gLoc = {"x":340,"y":30}
+rLoc = {"x":500,"y":30}
+clipLoc = {"x":660,"y":30}
+colorLoc = {"x":820,"y":45}
 buttonwidth = 100
 buttonheight = 15
 const ResourceLocation = Java.type("net.minecraft.util.ResourceLocation")
@@ -186,10 +202,10 @@ register("renderOverlay", () => {
   my = Client.getMouseY()
   if (mx > dLoc.x && mx < dLoc.x+buttonwidth) {
     toshow = Math.floor((my-45)/15)
-    if (toshow >= 0 && toshow <= 10) {
+    if (toshow >= 0 && toshow <= 12) {
       Renderer.drawRect(Renderer.BLACK, dLoc.x+buttonwidth, my-10, Renderer.getStringWidth(dungeonsDescriptions[toshow])+4, buttonheight)
       Renderer.drawStringWithShadow(`&7${dungeonsDescriptions[toshow]}`,dLoc.x+buttonwidth+2,my-7)
-    } else if (toshow == 11 && displayrelic) {
+    } else if (toshow == 13 && displayrelic) {
       Renderer.drawRect(Renderer.BLACK, dLoc.x+buttonwidth, my-10, Renderer.getStringWidth(dungeonsDescriptions[toshow])+4, buttonheight)
       Renderer.drawStringWithShadow(`&7${dungeonsDescriptions[toshow]}`,dLoc.x+buttonwidth+2,my-7)
     }
@@ -243,6 +259,14 @@ register("renderOverlay", () => {
   Renderer.drawString("Top Color",colorLoc.x+(70-Renderer.getStringWidth("Top Color"))/2+15,colorLoc.y+3,true)
   Renderer.drawString("Button Color",colorLoc.x+(70-Renderer.getStringWidth("Button Color"))/2+15,colorLoc.y+3+(buttonheight*4),true)
 
+
+  Renderer.drawRect(topcolor, splitsLoc.x, splitsLoc.y-2, buttonwidth, buttonheight+2)
+  Renderer.drawString(`&7${splitsStrings[0]}`,splitsLoc.x+(70-Renderer.getStringWidth(splitsStrings[0]))/2+15,splitsLoc.y+3,true)
+  for (let i = 0; i < 10; i++) {
+    Renderer.drawRect(offcolor, splitsLoc.x, splitsLoc.y+buttonheight*(i+1), buttonwidth, buttonheight)
+    Renderer.drawString(`${colours[settings.Splits[i]]}${splitsStrings[i+1]}`,splitsLoc.x+(70-Renderer.getStringWidth(colours[settings.Splits[i]]+splitsStrings[i+1]))/2+15,splitsLoc.y+3+buttonheight*(i+1))
+  }
+
   Client.getMinecraft().field_71460_t.func_181022_b()
   Client.getMinecraft().field_71460_t.func_175069_a(new ResourceLocation("shaders/post/blur.json"))
 })
@@ -251,6 +275,16 @@ displayf7settings = false
 displayrelic = false
 register("clicked", (x,y,b,isdown) => {
   if (isdown && mainGui.isOpen()) {
+    if (x > splitsLoc.x && x < splitsLoc.x+buttonwidth) {
+      if (b == 0) {
+        tochange = Math.floor((y-45)/15)
+        if (settings.Splits[tochange] == 15) {
+          settings.Splits[tochange] = 0
+        } else {
+          settings.Splits[tochange]++
+        }
+      }
+    }
     if (x > dLoc.x && x < dLoc.x+buttonwidth) {
       if (b == 0) {
         tochange = Math.floor((y-45)/15)
@@ -271,6 +305,9 @@ register("clicked", (x,y,b,isdown) => {
       } else if (b == 2 && Math.floor((y-45)/15) == 10) {
         mainGui.close()
         dragonTimerMove.open()
+      } else if (b == 2 && Math.floor((y-45)/15) == 11) {
+        mainGui.close()
+        splitsMove.open()
       }
     } else if (x > gLoc.x && x < gLoc.x+buttonwidth) {
       if (b == 0) {
@@ -334,14 +371,28 @@ register("tick", () => {
   pDisplay.setRenderLoc(data.powerDisplay.x,data.powerDisplay.y)
   pDisplay.setLine(0,`&cPower&r: &a19`)
   pDisplay.setLine(1,`&cT&6i&am&1e&r: &a5`)
-  pDisplay.getLine(0).setScale(2)
-  pDisplay.getLine(1).setScale(2)
+  lines = pDisplay.getLines()
+  for (let i = 0; i < lines.length; i++) {
+    pDisplay.getLine(i).setScale(data.powerDisplay.scale/100)
+  }
 })
 
 register("dragged", (mx, my, x, y) => {
   if (!powerdisplaymove.isOpen()) return
   data.powerDisplay.x = x
   data.powerDisplay.y = y
+  data.save()
+})
+
+register("scrolled", (mx,my,dir) => {
+  if (!powerdisplaymove.isOpen()) return
+  if (dir == -1) {
+    if (data.powerDisplay.scale > 0) {
+      data.powerDisplay.scale--
+    }
+  } else {
+    data.powerDisplay.scale++
+  }
   data.save()
 })
 
@@ -358,11 +409,70 @@ register("tick", () => {
   dtDisplay.setLine(2,`&aGreen spawning in&r: &e1930ms`)
   dtDisplay.setLine(3,`&5Purple spawning in&r: &a2400ms`)
   dtDisplay.setLine(4,`&bBlue spawning in&r: &a4300ms`)
+  lines = dtDisplay.getLines()
+  for (let i = 0; i < lines.length; i++) {
+    dtDisplay.getLine(i).setScale(data.dragonTimer.scale/100)
+  }
 })
 
 register("dragged", (mx, my, x, y) => {
   if (!dragonTimerMove.isOpen()) return
   data.dragonTimer.x = x
   data.dragonTimer.y = y
+  data.save()
+})
+
+register("scrolled", (mx,my,dir) => {
+  if (!dragonTimerMove.isOpen()) return
+  if (dir == -1) {
+    if (data.dragonTimer.scale > 0) {
+      data.dragonTimer.scale--
+    }
+  } else {
+    data.dragonTimer.scale++
+  }
+  data.save()
+})
+
+export const splitsMove = new Gui()
+var sDisplay = new Display()
+register("tick", () => {
+  if (!splitsMove.isOpen()) {
+    sDisplay.clearLines()
+    return
+  }
+  sDisplay.setRenderLoc(data.splits.x,data.splits.y)
+  sDisplay.setLine(0,`${colours[settings.Splits[0]]}Bloodrush: 0s`)
+  sDisplay.setLine(1,`${colours[settings.Splits[1]]}Blood Clear: 0s`)
+  sDisplay.setLine(2,`${colours[settings.Splits[2]]}Portal: 0s`)
+  sDisplay.setLine(3,`${colours[settings.Splits[3]]}Boss Entry: 0s`)
+  sDisplay.setLine(4,`${colours[settings.Splits[4]]}Maxor: 0s`)
+  sDisplay.setLine(5,`${colours[settings.Splits[5]]}Storm: 0s`)
+  sDisplay.setLine(6,`${colours[settings.Splits[6]]}Terminals: 0s`)
+  sDisplay.setLine(7,`${colours[settings.Splits[7]]}Goldor: 0s`)
+  sDisplay.setLine(8,`${colours[settings.Splits[8]]}Necron: 0s`)
+  sDisplay.setLine(9,`${colours[settings.Splits[9]]}Dragons: 0s`)
+  lines = sDisplay.getLines()
+  for (let i = 0; i < lines.length; i++) {
+    sDisplay.getLine(i).setScale(data.splits.scale/100)
+  }
+})
+
+register("dragged", (mx, my, x, y) => {
+  if (!splitsMove.isOpen()) return
+  data.splits.x = x
+  data.splits.y = y
+  data.save()
+})
+
+register("scrolled", (mx,my,dir) => {
+  if (!splitsMove.isOpen()) return
+  if (dir == -1) {
+    if (data.splits.scale > 0) {
+      data.splits.scale--
+    }
+  } else {
+    data.splits.scale++
+  }
   data.save()
 })

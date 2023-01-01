@@ -1,8 +1,9 @@
 {
-    "latestVersion": "2.4",
+    "latestVersion": "2.5",
     "changelog": [
-        "added splits (needs testing and refining)",
-        "added dragon timer display (works well i think might bug if some particles come astray)"
+        "splits are decent now i think",
+        "you can change color of splits",
+        "you can change the size of power display, dragon timer and splits by scrolling in the move gui"
     ],
     "author": "freebonsai"
 }
