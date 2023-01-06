@@ -3,8 +3,9 @@ import { settings } from "../commands/gui"
 intrades = false
 going = false
 sellable = [
-    "1xtile.ice@0",
-    "1xitem.potion@16389"
+    "Enchanted Ice",
+    "Health Potion",
+    "superboom tnt"
 ]
 q = []
 register("tick", () => {
@@ -16,10 +17,12 @@ register("tick", () => {
     if (n == "Trades") {
         for (let i=54; i<88; i++) {
             if (Player.getContainer().getStackInSlot(i) != null) {
-                if (sellable.includes(Player.getContainer().getStackInSlot(i).toString())) {
-                    q.push(i)
-                } else {
-                    // console.log(Player.getContainer().getStackInSlot(i))
+                item = ChatLib.removeFormatting(Player.getContainer().getStackInSlot(i).getName().toLowerCase())
+                for (let j = 0; j < sellable.length; j++) {
+                    if (item.startsWith(sellable[j].toLowerCase())) {
+                        q.push(i)
+                        console.log("pushed")
+                    }
                 }
             }
         }
@@ -38,9 +41,9 @@ register("step", () => {
         q = []
         return
     }
+    console.log(q[counter])
     inv = Player.getContainer();
     inv.click(q[counter],false,"MIDDLE")
-    console.log(q[counter])
     counter++ 
 }).setFps(6)
 

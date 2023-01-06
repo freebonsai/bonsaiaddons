@@ -121,6 +121,8 @@ const colors = new PogObject("Bonsai", {
   "g":[0,45],
   "b":[0,45]
 }, "data/colors.json")
+const Font = Java.type("xyz.forkdev.fontlib.Font")
+const font = new Font("Bonsai/utils/Pacifico-Regular.ttf", 150)
 
 splitsLoc = {"x":20,"y":30}
 dLoc = {"x":180,"y":30}
@@ -135,6 +137,7 @@ register("renderOverlay", () => {
   if (!mainGui.isOpen()) {Client.getMinecraft().field_71460_t.func_181022_b();return}
   topcolor = Renderer.color(colors.r[0],colors.g[0],colors.b[0],255)
   offcolor = Renderer.color(colors.r[1],colors.g[1],colors.b[1],255)
+  font.drawStringWithShadow("Bonsai Addons", 35, 350, new java.awt.Color(colors.r[0]/255,colors.g[0]/255,colors.b[0]/255,1))
   Renderer.drawRect(topcolor, dLoc.x, dLoc.y-2, buttonwidth, buttonheight+2)
   Renderer.drawString(`&7${dungeonStrings[0]}`,dLoc.x+27,dLoc.y+3,true)
   for (let i=1; i< dungeonStrings.length; i++) {
@@ -335,7 +338,7 @@ register("clicked", (x,y,b,isdown) => {
         displayf7settings = !displayf7settings
       }
     } else if (x > colorLoc.x && x < colorLoc.x+buttonwidth) {
-      if (y > colorLoc.y+buttonheight*8 && y < colorLoc.y+buttonheight*9) {
+      if (y > colorLoc.y+buttonheight*27 && y < colorLoc.y+buttonheight*28) {
         if (b == 0) {
           mainGui.close()
           setTimeout(()=>{ChatTriggers.reloadCT()},50)
@@ -351,11 +354,17 @@ register("dragged", (mdx,mdy,mx,my,b) => {
   if (mx > colorLoc.x && mx < colorLoc.x+buttonwidth) {
     tochange = Math.floor((my-45)/15)
     if (tochange%4 == 1) {
-      colors.r[(tochange-1)/4]+=mdx*(255/(buttonwidth-10))
+      if (colors.r[(tochange-1)/4]+mdx*(255/(buttonwidth-10)) < 255 && colors.r[(tochange-1)/4]+mdx*(255/(buttonwidth-10)) > 0) {
+        colors.r[(tochange-1)/4]+=mdx*(255/(buttonwidth-10))
+      }
     } else if (tochange%4 == 2) {
-      colors.g[(tochange-2)/4]+=mdx*(255/(buttonwidth-10))
+      if (colors.g[(tochange-2)/4]+mdx*(255/(buttonwidth-10)) < 255 && colors.g[(tochange-2)/4]+mdx*(255/(buttonwidth-10)) > 0) {
+        colors.g[(tochange-2)/4]+=mdx*(255/(buttonwidth-10))
+      }
     } else if (tochange%4 == 3) {
-      colors.b[(tochange-3)/4]+=mdx*(255/(buttonwidth-10))
+      if (colors.b[(tochange-3)/4]+mdx*(255/(buttonwidth-10)) < 255 && colors.b[(tochange-3)/4]+mdx*(255/(buttonwidth-10)) > 0) {
+        colors.b[(tochange-3)/4]+=mdx*(255/(buttonwidth-10))
+      }
     }
   }
   colors.save()

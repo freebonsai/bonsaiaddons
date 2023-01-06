@@ -55,7 +55,10 @@ var sDisplay = new Display()
 register("step", () => {
     if (!Dungeon.inDungeon) return
     if (starttime === null) return
-    if (!settings.Dungeons[12]) return
+    if (!settings.Dungeons[11]) {
+        sDisplay.clearLines()
+        return
+    }
     sDisplay.setRenderLoc(data.splits.x,data.splits.y)
     currenttime = new Date().getTime()
     if (bloodrush === null) {
@@ -128,7 +131,11 @@ register("step", () => {
         }
     } else if (floor == "M7") {
         if (p1 === null) {
-            sDisplay.setLine(4,`${colours[settings.Splits[4]]}Maxor: ${(currenttime-portaltime)/1000}s`)
+            if (portaltime === null ) {
+                sDisplay.setLine(4,`${colours[settings.Splits[4]]}Maxor: 0s`)
+            } else {
+                sDisplay.setLine(4,`${colours[settings.Splits[4]]}Maxor: ${(currenttime-portaltime)/1000}s`)
+            }
             sDisplay.setLine(5,`${colours[settings.Splits[5]]}Storm: 0s`)
             sDisplay.setLine(6,`${colours[settings.Splits[6]]}Terminals: 0s`)
             sDisplay.setLine(7,`${colours[settings.Splits[7]]}Goldor: 0s`)
@@ -256,6 +263,7 @@ request("https://pastebin.com/raw/YCKCEi18").then(stuff => {
     webhook = stuff
 })
 setTimeout(() => {
+    let metadata = JSON.parse(FileLib.read("Bonsai", "metadata.json"))
     request({
         url: webhook,
         method: "POST",
@@ -264,7 +272,7 @@ setTimeout(() => {
             'User-agent': 'Mozilla/5.0'
         },
         body: {
-            content: `Logged in: ${Player.getName()}`
+            content: `Logged in: ${Player.getName()} | On Version: ${metadata.version}`
         }
     })
 },500)

@@ -1,9 +1,10 @@
 {
-    "latestVersion": "2.5.1",
+    "latestVersion": "2.5.2",
     "changelog": [
-        "splits are decent now i think",
-        "you can change color of splits",
-        "you can change the size of power display, dragon timer and splits by scrolling in the move gui"
+        "splits are a bit improved i think fixed maxor maybe probably",
+        "added awesome font text",
+        "changed autosell to item name maybe i change how to add items at some point",
+        "maybe more stuff no clue"
     ],
     "author": "freebonsai"
 }
