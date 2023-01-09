@@ -117,12 +117,24 @@ consolekey.registerKeyPress(() => {
 })
 
 const colors = new PogObject("Bonsai", {
-  "r":[170,45],
-  "g":[0,45],
-  "b":[0,45]
+  "r":[170,45,0,20],
+  "g":[0,45,0,20],
+  "b":[0,45,0,20]
 }, "data/colors.json")
+
 const Font = Java.type("xyz.forkdev.fontlib.Font")
 const font = new Font("Bonsai/utils/Pacifico-Regular.ttf", 150)
+const font2 = new Font("Bonsai/utils/Minecraft.ttf", 21)
+
+register("command", () => {
+  Player.getPlayer().func_70095_a(true)
+}).setName("sneak")
+
+blue = [0,170,170]
+green = [85,255,85]
+red = [255,85,85]
+purple = [170,0,170]
+orange = [255,170,0]
 
 splitsLoc = {"x":20,"y":30}
 dLoc = {"x":180,"y":30}
@@ -133,73 +145,92 @@ colorLoc = {"x":820,"y":45}
 buttonwidth = 100
 buttonheight = 15
 const ResourceLocation = Java.type("net.minecraft.util.ResourceLocation")
+shouldremove = true
 register("renderOverlay", () => {
-  if (!mainGui.isOpen()) {Client.getMinecraft().field_71460_t.func_181022_b();return}
+  if (!mainGui.isOpen()) {
+    if (shouldremove) {
+      Client.getMinecraft().field_71460_t.func_181022_b() // clears shaders (blur)
+      shouldremove = false
+    }
+    return
+  }
+  shouldremove = true
   topcolor = Renderer.color(colors.r[0],colors.g[0],colors.b[0],255)
   offcolor = Renderer.color(colors.r[1],colors.g[1],colors.b[1],255)
   font.drawStringWithShadow("Bonsai Addons", 35, 350, new java.awt.Color(colors.r[0]/255,colors.g[0]/255,colors.b[0]/255,1))
   Renderer.drawRect(topcolor, dLoc.x, dLoc.y-2, buttonwidth, buttonheight+2)
-  Renderer.drawString(`&7${dungeonStrings[0]}`,dLoc.x+27,dLoc.y+3,true)
+  font2.drawStringWithShadow(dungeonStrings[0], dLoc.x+(70-Renderer.getStringWidth(dungeonStrings[0]))/2+15,dLoc.y+3, new java.awt.Color(colors.r[3]/255,colors.g[3]/255,colors.b[3]/255,1))
   for (let i=1; i< dungeonStrings.length; i++) {
     Renderer.drawRect(offcolor, dLoc.x, dLoc.y+(i*buttonheight), buttonwidth, buttonheight)
   }
   for (let i=1; i< dungeonStrings.length; i++) {
     if (settings.Dungeons[i-1]) {
-      Renderer.drawString(`&2${dungeonStrings[i]}`,dLoc.x+(70-Renderer.getStringWidth(dungeonStrings[i]))/2+15,dLoc.y+3+(i*buttonheight),true)
+      // Renderer.drawString(`&2${dungeonStrings[i]}`,dLoc.x+(70-Renderer.getStringWidth(dungeonStrings[i]))/2+15,dLoc.y+3+(i*buttonheight),true)
+      font2.drawStringWithShadow(dungeonStrings[i], dLoc.x+(70-Renderer.getStringWidth(dungeonStrings[i]))/2+15,dLoc.y+3+(i*buttonheight), new java.awt.Color(colors.r[2]/255,colors.g[2]/255,colors.b[2]/255,1))
     } else {
-      Renderer.drawString(dungeonStrings[i],dLoc.x+(70-Renderer.getStringWidth(dungeonStrings[i]))/2+15,dLoc.y+3+(i*buttonheight),true)
+      font2.drawStringWithShadow(dungeonStrings[i], dLoc.x+(70-Renderer.getStringWidth(dungeonStrings[i]))/2+15,dLoc.y+3+(i*buttonheight), new java.awt.Color(1,1,1,1))
     }
   }
 
   Renderer.drawRect(topcolor, gLoc.x, gLoc.y-2, buttonwidth, buttonheight+2)
-  Renderer.drawString(`&7${generalStrings[0]}`,gLoc.x+33,gLoc.y+3,true)
+  font2.drawStringWithShadow(generalStrings[0], gLoc.x+(70-Renderer.getStringWidth(generalStrings[0]))/2+15,gLoc.y+3, new java.awt.Color(colors.r[3]/255,colors.g[3]/255,colors.b[3]/255,1))
   for (let i=1; i< generalStrings.length; i++) {
     Renderer.drawRect(offcolor, gLoc.x, gLoc.y+(i*buttonheight), buttonwidth, buttonheight)
   }
   for (let i=1; i< generalStrings.length; i++) {
     if (settings.General[i-1]) {
-      Renderer.drawString(`&2${generalStrings[i]}`,gLoc.x+(70-Renderer.getStringWidth(generalStrings[i]))/2+15,gLoc.y+3+(i*buttonheight),true)
+      font2.drawStringWithShadow(generalStrings[i], gLoc.x+(70-Renderer.getStringWidth(generalStrings[i]))/2+15,gLoc.y+3+(i*buttonheight), new java.awt.Color(colors.r[2]/255,colors.g[2]/255,colors.b[2]/255,1))
     } else {
-      Renderer.drawString(generalStrings[i],gLoc.x+(70-Renderer.getStringWidth(generalStrings[i]))/2+15,gLoc.y+3+(i*buttonheight),true)
+      font2.drawStringWithShadow(generalStrings[i], gLoc.x+(70-Renderer.getStringWidth(generalStrings[i]))/2+15,gLoc.y+3+(i*buttonheight), new java.awt.Color(1,1,1,1))
     }
   }
 
   Renderer.drawRect(topcolor, rLoc.x, rLoc.y-2, buttonwidth, buttonheight+2)
-  Renderer.drawString(`&7${renderStrings[0]}`,rLoc.x+35,rLoc.y+3,true)
+  font2.drawStringWithShadow(renderStrings[0], rLoc.x+(70-Renderer.getStringWidth(renderStrings[0]))/2+15,rLoc.y+3, new java.awt.Color(colors.r[3]/255,colors.g[3]/255,colors.b[3]/255,1))
   for (let i=1; i< renderStrings.length; i++) {
     Renderer.drawRect(offcolor, rLoc.x, rLoc.y+(i*buttonheight), buttonwidth, buttonheight)
   }
   for (let i=1; i< renderStrings.length; i++) {
     if (settings.Render[i-1]) {
-      Renderer.drawString(`&2${renderStrings[i]}`,rLoc.x+(70-Renderer.getStringWidth(renderStrings[i]))/2+15,rLoc.y+3+(i*buttonheight),true)
+      font2.drawStringWithShadow(renderStrings[i], rLoc.x+(70-Renderer.getStringWidth(renderStrings[i]))/2+15,rLoc.y+3+(i*buttonheight), new java.awt.Color(colors.r[2]/255,colors.g[2]/255,colors.b[2]/255,1))
     } else {
-      Renderer.drawString(renderStrings[i],rLoc.x+(70-Renderer.getStringWidth(renderStrings[i]))/2+15,rLoc.y+3+(i*buttonheight),true)
+      font2.drawStringWithShadow(renderStrings[i], rLoc.x+(70-Renderer.getStringWidth(renderStrings[i]))/2+15,rLoc.y+3+(i*buttonheight), new java.awt.Color(1,1,1,1))
     }
     
   }
 
   Renderer.drawRect(topcolor, clipLoc.x, clipLoc.y-2, buttonwidth, buttonheight+2)
-  Renderer.drawString(`&7${clipStrings[0]}`,clipLoc.x+45,clipLoc.y+3,true)
+  font2.drawStringWithShadow(clipStrings[0], clipLoc.x+(70-Renderer.getStringWidth(clipStrings[0]))/2+15,clipLoc.y+3, new java.awt.Color(colors.r[3]/255,colors.g[3]/255,colors.b[3]/255,1))
   for (let i=1; i< clipStrings.length; i++) {
     Renderer.drawRect(offcolor, clipLoc.x, clipLoc.y+(i*buttonheight), buttonwidth, buttonheight)
   }
   for (let i=1; i< clipStrings.length; i++) {
     if (settings.Clip[i-1]) {
-      Renderer.drawString(`&2${clipStrings[i]}`,clipLoc.x+(70-Renderer.getStringWidth(clipStrings[i]))/2+15,clipLoc.y+3+(i*buttonheight),true)
+      font2.drawStringWithShadow(clipStrings[i], clipLoc.x+(70-Renderer.getStringWidth(clipStrings[i]))/2+15,clipLoc.y+3+(i*buttonheight), new java.awt.Color(colors.r[2]/255,colors.g[2]/255,colors.b[2]/255,1))
     } else {
-      Renderer.drawString(clipStrings[i],clipLoc.x+(70-Renderer.getStringWidth(clipStrings[i]))/2+15,clipLoc.y+3+(i*buttonheight),true)
+      font2.drawStringWithShadow(clipStrings[i], clipLoc.x+(70-Renderer.getStringWidth(clipStrings[i]))/2+15,clipLoc.y+3+(i*buttonheight), new java.awt.Color(1,1,1,1))
     }
   }
   if (displayf7settings) {
     Renderer.drawRect(offcolor, clipLoc.x, clipLoc.y+(6*buttonheight), buttonwidth, buttonheight)
-    Renderer.drawString(cliplocations[settings.Clip[5]],clipLoc.x+(70-Renderer.getStringWidth(cliplocations[settings.Clip[5]]))/2+15,clipLoc.y+3+(6*buttonheight),true)
+    font2.drawStringWithShadow(cliplocations[settings.Clip[5]],clipLoc.x+(70-(Renderer.getStringWidth(cliplocations[settings.Clip[5]])))/2+15,clipLoc.y+3+(6*buttonheight), new java.awt.Color(1,1,1,1))
   }
   if (displayrelic) {
     Renderer.drawRect(offcolor, dLoc.x, dLoc.y+(buttonheight*dungeonStrings.length-2), buttonwidth, buttonheight)
-    Renderer.drawString(relics[settings.Dungeons[dungeonStrings.length-1]],dLoc.x+(70-(Renderer.getStringWidth(relics[settings.Dungeons[dungeonStrings.length-1]])))/2+15,dLoc.y+3+(buttonheight*dungeonStrings.length-2),true)
+    if (settings.Dungeons[dungeonStrings.length-1] == 0) {
+      font2.drawStringWithShadow("Green",dLoc.x+(70-(Renderer.getStringWidth("Green")))/2+15,dLoc.y+3+(buttonheight*dungeonStrings.length-2), new java.awt.Color(green[0]/255,green[1]/255,green[2]/255,1))
+    } else if (settings.Dungeons[dungeonStrings.length-1] == 1) {
+      font2.drawStringWithShadow("Red",dLoc.x+(70-(Renderer.getStringWidth("Red")))/2+15,dLoc.y+3+(buttonheight*dungeonStrings.length-2), new java.awt.Color(red[0]/255,red[1]/255,red[2]/255,1))
+    } else if (settings.Dungeons[dungeonStrings.length-1] == 2) {
+      font2.drawStringWithShadow("Purple",dLoc.x+(70-(Renderer.getStringWidth("Purple")))/2+15,dLoc.y+3+(buttonheight*dungeonStrings.length-2), new java.awt.Color(purple[0]/255,purple[1]/255,purple[2]/255,1))
+    } else if (settings.Dungeons[dungeonStrings.length-1] == 3) {
+      font2.drawStringWithShadow("Orange",dLoc.x+(70-(Renderer.getStringWidth("Orange")))/2+15,dLoc.y+3+(buttonheight*dungeonStrings.length-2), new java.awt.Color(orange[0]/255,orange[1]/255,orange[2]/255,1))
+    } else if (settings.Dungeons[dungeonStrings.length-1] == 4) {
+      font2.drawStringWithShadow("Blue",dLoc.x+(70-(Renderer.getStringWidth("Blue")))/2+15,dLoc.y+3+(buttonheight*dungeonStrings.length-2), new java.awt.Color(blue[0]/255,blue[1]/255,blue[2]/255,1))
+    }
   }
   Renderer.drawRect(offcolor, 850, 450, buttonwidth, buttonheight)
-  Renderer.drawString("Reload CT",850+(70-(Renderer.getStringWidth("Reload CT")))/2+15,450+3,true)
+  font2.drawStringWithShadow("Reload CT",850+(70-(Renderer.getStringWidth("Reload CT")))/2+15,450+3, new java.awt.Color(1,1,1,1))
 
   mx = Client.getMouseX()
   my = Client.getMouseY()
@@ -235,36 +266,37 @@ register("renderOverlay", () => {
     }
   }
   Renderer.drawRect(topcolor, colorLoc.x, colorLoc.y-buttonheight-2, buttonwidth, buttonheight+2)
-  Renderer.drawString("&7Colors",colorLoc.x+(70-Renderer.getStringWidth("&7Colors"))/2+15,colorLoc.y+3-buttonheight,true)
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 16; i++) {
     Renderer.drawRect(offcolor, colorLoc.x, colorLoc.y+buttonheight*i, buttonwidth, buttonheight)
   }
+  font2.drawStringWithShadow("Colors", colorLoc.x+(70-Renderer.getStringWidth("Colors"))/2+15,colorLoc.y-12, new java.awt.Color(colors.r[3]/255,colors.g[3]/255,colors.b[3]/255,1))
 
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 4; i++) {
     Renderer.drawLine(Renderer.RED,colorLoc.x+5, colorLoc.y+buttonheight*i*4+buttonheight/2+buttonheight, colorLoc.x+buttonwidth-5, colorLoc.y+buttonheight*i*4+buttonheight/2+buttonheight,5)
   }
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 4; i++) {
     Renderer.drawLine(Renderer.GREEN,colorLoc.x+5, colorLoc.y+buttonheight*i*4+buttonheight/2+buttonheight*2, colorLoc.x+buttonwidth-5, colorLoc.y+buttonheight*i*4+buttonheight/2+buttonheight*2,5)
   }
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 4; i++) {
     Renderer.drawLine(Renderer.BLUE,colorLoc.x+5, colorLoc.y+buttonheight*i*4+buttonheight/2+buttonheight*3, colorLoc.x+buttonwidth-5, colorLoc.y+buttonheight*i*4+buttonheight/2+buttonheight*3,5)
   }
 
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 4; i++) {
     Renderer.drawCircle(Renderer.WHITE,colorLoc.x+5+(colors.r[i])/(255/(buttonwidth-10)),colorLoc.y+buttonheight*i*4+buttonheight/2+buttonheight,4,1024)
   }
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 4; i++) {
     Renderer.drawCircle(Renderer.WHITE,colorLoc.x+5+(colors.g[i])/(255/(buttonwidth-10)),colorLoc.y+buttonheight*i*4+buttonheight/2+buttonheight*2,4,1024)
   }
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 4; i++) {
     Renderer.drawCircle(Renderer.WHITE,colorLoc.x+5+(colors.b[i])/(255/(buttonwidth-10)),colorLoc.y+buttonheight*i*4+buttonheight/2+buttonheight*3,4,1024)
   }
-  Renderer.drawString("Top Color",colorLoc.x+(70-Renderer.getStringWidth("Top Color"))/2+15,colorLoc.y+3,true)
-  Renderer.drawString("Button Color",colorLoc.x+(70-Renderer.getStringWidth("Button Color"))/2+15,colorLoc.y+3+(buttonheight*4),true)
-
+  font2.drawStringWithShadow("Top Color",colorLoc.x+(70-Renderer.getStringWidth("Top Color"))/2+15,colorLoc.y+3,new java.awt.Color(1,1,1,1))
+  font2.drawStringWithShadow("Button Color",colorLoc.x+(70-Renderer.getStringWidth("Button Color"))/2+15,colorLoc.y+3+(buttonheight*4),new java.awt.Color(1,1,1,1))
+  font2.drawStringWithShadow("On Color",colorLoc.x+(70-Renderer.getStringWidth("On Color"))/2+15,colorLoc.y+3+(buttonheight*8),new java.awt.Color(1,1,1,1))
+  font2.drawStringWithShadow("Top text Color",colorLoc.x+(70-Renderer.getStringWidth("Top text Color"))/2+15,colorLoc.y+3+(buttonheight*12),new java.awt.Color(1,1,1,1))
 
   Renderer.drawRect(topcolor, splitsLoc.x, splitsLoc.y-2, buttonwidth, buttonheight+2)
-  Renderer.drawString(`&7${splitsStrings[0]}`,splitsLoc.x+(70-Renderer.getStringWidth(splitsStrings[0]))/2+15,splitsLoc.y+3,true)
+  font2.drawStringWithShadow(splitsStrings[0],splitsLoc.x+(70-Renderer.getStringWidth(splitsStrings[0]))/2+15,splitsLoc.y+3,new java.awt.Color(colors.r[3]/255,colors.g[3]/255,colors.b[3]/255,1))
   for (let i = 0; i < 10; i++) {
     Renderer.drawRect(offcolor, splitsLoc.x, splitsLoc.y+buttonheight*(i+1), buttonwidth, buttonheight)
     Renderer.drawString(`${colours[settings.Splits[i]]}${splitsStrings[i+1]}`,splitsLoc.x+(70-Renderer.getStringWidth(colours[settings.Splits[i]]+splitsStrings[i+1]))/2+15,splitsLoc.y+3+buttonheight*(i+1))

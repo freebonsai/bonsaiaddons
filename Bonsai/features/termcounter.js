@@ -95,42 +95,42 @@ register("chat", (name,time) => {
 
 
 register("chat", () => {
-    if (settings.Dungeons[8]) {
-      ChatLib.chat(`${prefix} &6${name1} &bdid &a${tcount1} &bterms and &a${dcount1} &bdevices`)
-      addtolog(name1,tcount1,dcount1)
-      if (name2.length >= 2) {
-        ChatLib.chat(`${prefix} &6${name2} &bdid &a${tcount2} &bterms and &a${dcount2} &bdevices`)
-        addtolog(name2,tcount2,dcount2)
-      }
-      if (name3.length >= 3) {
-        ChatLib.chat(`${prefix} &6${name3} &bdid &a${tcount3} &bterms and &a${dcount3} &bdevices`)
-        addtolog(name3,tcount3,dcount3)
-      }
-      if (name4.length >= 4) {
-        ChatLib.chat(`${prefix} &6${name4} &bdid &a${tcount4} &bterms and &a${dcount4} &bdevices`)
-        addtolog(name4,tcount4,dcount4)
-      }
-      if (name4.length >= 5) {
-        ChatLib.chat(`${prefix} &6${name5} &bdid &a${tcount5} &bterms and &a${dcount5} &bdevices`)
-        addtolog(name5,tcount5,dcount5)
-      }
+  if (settings.Dungeons[8]) {
+    ChatLib.chat(`${prefix} &6${name1} &bdid &a${tcount1} &bterms and &a${dcount1} &bdevices`)
+    addtolog(name1,tcount1,dcount1)
+    if (name2.length >= 2) {
+      ChatLib.chat(`${prefix} &6${name2} &bdid &a${tcount2} &bterms and &a${dcount2} &bdevices`)
+      addtolog(name2,tcount2,dcount2)
     }
-    names = []
-    name1 = ""
-    name2 = ""
-    name3 = ""
-    name4 = ""
-    name5 = ""
-    tcount1 = 0
-    tcount2 = 0
-    tcount3 = 0
-    tcount4 = 0
-    tcount5 = 0
-    dcount1 = 0
-    dcount2 = 0
-    dcount3 = 0
-    dcount4 = 0
-    dcount5 = 0
+    if (name3.length >= 3) {
+      ChatLib.chat(`${prefix} &6${name3} &bdid &a${tcount3} &bterms and &a${dcount3} &bdevices`)
+      addtolog(name3,tcount3,dcount3)
+    }
+    if (name4.length >= 4) {
+      ChatLib.chat(`${prefix} &6${name4} &bdid &a${tcount4} &bterms and &a${dcount4} &bdevices`)
+      addtolog(name4,tcount4,dcount4)
+    }
+    if (name5.length >= 5) {
+      ChatLib.chat(`${prefix} &6${name5} &bdid &a${tcount5} &bterms and &a${dcount5} &bdevices`)
+      addtolog(name5,tcount5,dcount5)
+    }
+  }
+  names = []
+  name1 = ""
+  name2 = ""
+  name3 = ""
+  name4 = ""
+  name5 = ""
+  tcount1 = 0
+  tcount2 = 0
+  tcount3 = 0
+  tcount4 = 0
+  tcount5 = 0
+  dcount1 = 0
+  dcount2 = 0
+  dcount3 = 0
+  dcount4 = 0
+  dcount5 = 0
 }).setChatCriteria("[BOSS] Goldor: You have done it, you destroyed the factory…")
 
 register("WorldLoad", () => {

@@ -5,7 +5,7 @@ going = false
 dist = 0
 register("command", (d) => {
   going = true
-  dist = d*4
+  dist = d*20
 }).setName("funiclip")
 
 counter = 0
@@ -15,8 +15,8 @@ register("step", () => {
   py = Player.getY()
   pz = Player.getZ()
   ya = Player.getYaw()
-  newx = -Math.sin(toRadians(ya))/4
-  newz = Math.cos(toRadians(ya))/4
+  newx = -Math.sin(toRadians(ya))/20
+  newz = Math.cos(toRadians(ya))/20
   Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px+newx,py,pz+newz)
   counter++
   if (counter >= dist) {
@@ -24,4 +24,4 @@ register("step", () => {
     dist = 0
     counter = 0
   }
-}).setFps(1000/Config.funiinfdelay*4)
+}).setFps(1000/Config.funiinfdelay*20)

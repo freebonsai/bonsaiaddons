@@ -42,6 +42,7 @@ import "./features/powerdisplay"
 import "./features/dragontimer"
 import "./features/splits"
 import "./features/bombgavepower"
+import "./features/bridge"
 
 import "./utils/firsttime"
 import "./utils/memorycheck"

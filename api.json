@@ -1,10 +1,10 @@
 {
-    "latestVersion": "2.5.2",
+    "latestVersion": "2.5.3",
     "changelog": [
-        "splits are a bit improved i think fixed maxor maybe probably",
-        "added awesome font text",
-        "changed autosell to item name maybe i change how to add items at some point",
-        "maybe more stuff no clue"
+        "fixed all issues with splits i think",
+        "made almost the whole gui use awesome font (will probably make it actually everything soon)",
+        "a lot more color settings for gui",
+        ""
     ],
     "author": "freebonsai"
 }

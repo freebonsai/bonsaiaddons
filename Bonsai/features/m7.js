@@ -173,14 +173,14 @@ names = []
 register("renderEntity", (entity,pos,ticks,event) => {
   if (inp5 && settings.Render[1]) {
     if (entity.getName() == "Armor Stand") {
-      cancel(event)
+      entity.func_70106_y()
       //console.log("killed")
     }
     //console.log(entity.getName())
   }
   if (over && settings.Render[2]) {
     if (names.includes(entity.getName())) {
-      cancel(event)
+      entity.func_70106_y()
       //console.log("killed")
     }
   }

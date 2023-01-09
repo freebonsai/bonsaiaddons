@@ -22,30 +22,24 @@ register("spawnParticle", (particle, type, event) => {
     if (typeofparticle != "Flame") return
     if (x >= 82 && x <= 88 && y >= 15 && y <= 22 && z <= 59 && z >= 53 && orangetime === null) {
         orangetime = new Date().getTime()
-        console.log("ORANGE")
         return
     }
     if (x >= 24 && x <= 30 && y >= 15 && y <= 22 && z <= 62 && z >= 56 && redtime === null) {
         redtime = new Date().getTime()
-        console.log("RED")
         return
     }
     if (x >= 23 && x <= 29 && y >= 15 && y <= 22 && z <= 97 && z >= 91 && greentime === null) {
         greentime = new Date().getTime()
-        console.log("GREEN")
         return
     }
     if (x >= 53 && x <= 59 && y >= 15 && y <= 22 && z <= 128 && z >= 122 && purpletime === null) {
         purpletime = new Date().getTime()
-        console.log("PURPLE")
         return
     }
     if (x >= 82 && x <= 88 && y >= 15 && y <= 22 && z <= 97 && z >= 91 && bluetime === null) {
         bluetime = new Date().getTime()
-        console.log("BLUE")
         return
     }
-    // console.log(typeofparticle,x,y,z)
 })
 
 dragonspawntime = 5000
@@ -95,7 +89,7 @@ register("step", () => {
         dDisplay.getLine(i).setScale(data.dragonTimer.scale/100).setShadow(true)
     }
     atLine = 0
-}).setFps(60)
+}).setFps(20)
 
 register("step", () => {
     dDisplay.clearLines()

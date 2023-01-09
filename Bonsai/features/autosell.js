@@ -21,7 +21,6 @@ register("tick", () => {
                 for (let j = 0; j < sellable.length; j++) {
                     if (item.startsWith(sellable[j].toLowerCase())) {
                         q.push(i)
-                        console.log("pushed")
                     }
                 }
             }
@@ -41,7 +40,6 @@ register("step", () => {
         q = []
         return
     }
-    console.log(q[counter])
     inv = Player.getContainer();
     inv.click(q[counter],false,"MIDDLE")
     counter++ 

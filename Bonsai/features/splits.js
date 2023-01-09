@@ -47,10 +47,6 @@ register("worldLoad", () => {
     sDisplay.clearLines()
 })
 
-// register("step", () => {
-//     console.log(floor)
-// }).setFps(1)
-
 var sDisplay = new Display()
 register("step", () => {
     if (!Dungeon.inDungeon) return
@@ -85,7 +81,6 @@ register("step", () => {
         }
     }
     if (floor == "F7") {
-        // console.log("hi")
         if (portaltime === null) {
             sDisplay.setLine(4,`${colours[settings.Splits[4]]}Maxor: 0s`)
             sDisplay.setLine(5,`${colours[settings.Splits[5]]}Storm: 0s`)
@@ -128,51 +123,56 @@ register("step", () => {
                     }
                 }
             }
-        }
+        }      
     } else if (floor == "M7") {
-        if (p1 === null) {
-            if (portaltime === null ) {
-                sDisplay.setLine(4,`${colours[settings.Splits[4]]}Maxor: 0s`)
-            } else {
-                sDisplay.setLine(4,`${colours[settings.Splits[4]]}Maxor: ${(currenttime-portaltime)/1000}s`)
-            }
+        if (portaltime === null) {
+            sDisplay.setLine(4,`${colours[settings.Splits[4]]}Maxor: 0s`)
             sDisplay.setLine(5,`${colours[settings.Splits[5]]}Storm: 0s`)
             sDisplay.setLine(6,`${colours[settings.Splits[6]]}Terminals: 0s`)
             sDisplay.setLine(7,`${colours[settings.Splits[7]]}Goldor: 0s`)
             sDisplay.setLine(8,`${colours[settings.Splits[8]]}Necron: 0s`)
             sDisplay.setLine(9,`${colours[settings.Splits[9]]}Dragons: 0s`)
         } else {
-            sDisplay.setLine(4,`${colours[settings.Splits[4]]}Maxor: ${(p1-portaltime)/1000}s`)
-            if (p2 === null) {
-                sDisplay.setLine(5,`${colours[settings.Splits[5]]}Storm: ${(currenttime-p1)/1000}s`)
+            if (p1 === null) {
+                sDisplay.setLine(4,`${colours[settings.Splits[4]]}Maxor: ${(currenttime-portaltime)/1000}s`)
+                sDisplay.setLine(5,`${colours[settings.Splits[5]]}Storm: 0s`)
                 sDisplay.setLine(6,`${colours[settings.Splits[6]]}Terminals: 0s`)
                 sDisplay.setLine(7,`${colours[settings.Splits[7]]}Goldor: 0s`)
                 sDisplay.setLine(8,`${colours[settings.Splits[8]]}Necron: 0s`)
                 sDisplay.setLine(9,`${colours[settings.Splits[9]]}Dragons: 0s`)
             } else {
-                sDisplay.setLine(5,`${colours[settings.Splits[5]]}Storm: ${(p2-p1)/1000}s`)
-                if (terms === null) {
-                    sDisplay.setLine(6,`${colours[settings.Splits[6]]}Terminals: ${(currenttime-p2)/1000}s`)
+                sDisplay.setLine(4,`${colours[settings.Splits[4]]}Maxor: ${(p1-portaltime)/1000}s`)
+                if (p2 === null) {
+                    sDisplay.setLine(5,`${colours[settings.Splits[5]]}Storm: ${(currenttime-p1)/1000}s`)
+                    sDisplay.setLine(6,`${colours[settings.Splits[6]]}Terminals: 0s`)
                     sDisplay.setLine(7,`${colours[settings.Splits[7]]}Goldor: 0s`)
                     sDisplay.setLine(8,`${colours[settings.Splits[8]]}Necron: 0s`)
                     sDisplay.setLine(9,`${colours[settings.Splits[9]]}Dragons: 0s`)
                 } else {
-                    sDisplay.setLine(6,`${colours[settings.Splits[6]]}Terminals: ${(terms-p2)/1000}s`)
-                    if (goldor === null) {
-                        sDisplay.setLine(7,`${colours[settings.Splits[7]]}Goldor: ${(currenttime-terms)/1000}s`)
+                    sDisplay.setLine(5,`${colours[settings.Splits[5]]}Storm: ${(p2-p1)/1000}s`)
+                    if (terms === null) {
+                        sDisplay.setLine(6,`${colours[settings.Splits[6]]}Terminals: ${(currenttime-p2)/1000}s`)
+                        sDisplay.setLine(7,`${colours[settings.Splits[7]]}Goldor: 0s`)
                         sDisplay.setLine(8,`${colours[settings.Splits[8]]}Necron: 0s`)
                         sDisplay.setLine(9,`${colours[settings.Splits[9]]}Dragons: 0s`)
                     } else {
-                        sDisplay.setLine(7,`${colours[settings.Splits[7]]}Goldor: ${(goldor-terms)/1000}s`)
-                        if (p4 === null) {
-                            sDisplay.setLine(8,`${colours[settings.Splits[8]]}Necron: ${(currenttime-goldor)/1000}s`)
+                        sDisplay.setLine(6,`${colours[settings.Splits[6]]}Terminals: ${(terms-p2)/1000}s`)
+                        if (goldor === null) {
+                            sDisplay.setLine(7,`${colours[settings.Splits[7]]}Goldor: ${(currenttime-terms)/1000}s`)
+                            sDisplay.setLine(8,`${colours[settings.Splits[8]]}Necron: 0s`)
                             sDisplay.setLine(9,`${colours[settings.Splits[9]]}Dragons: 0s`)
                         } else {
-                            sDisplay.setLine(8,`${colours[settings.Splits[8]]}Necron: ${(p4-goldor)/1000}s`)
-                            if (p5 === null) {
-                                sDisplay.setLine(9,`${colours[settings.Splits[9]]}Dragons: ${(currenttime-p4)/1000}s`)
+                            sDisplay.setLine(7,`${colours[settings.Splits[7]]}Goldor: ${(goldor-terms)/1000}s`)
+                            if (p4 === null) {
+                                sDisplay.setLine(8,`${colours[settings.Splits[8]]}Necron: ${(currenttime-goldor)/1000}s`)
+                                sDisplay.setLine(9,`${colours[settings.Splits[9]]}Dragons: 0s`)
                             } else {
-                                sDisplay.setLine(9,`${colours[settings.Splits[9]]}Dragons: ${(p5-p4)/1000}s`)
+                                sDisplay.setLine(8,`${colours[settings.Splits[8]]}Necron: ${(p4-goldor)/1000}s`)
+                                if (p5 === null) {
+                                    sDisplay.setLine(9,`${colours[settings.Splits[9]]}Dragons: ${(currenttime-p4)/1000}s`)
+                                } else {
+                                    sDisplay.setLine(9,`${colours[settings.Splits[9]]}Dragons: ${(p5-p4)/1000}s`)
+                                }
                             }
                         }
                     }
@@ -180,7 +180,6 @@ register("step", () => {
             }
         }
     } else {
-        // console.log(floor)
         if (portaltime === null) {
             sDisplay.setLine(4,`${colours[settings.Splits[4]]}Boss: 0s`)
         } else {
