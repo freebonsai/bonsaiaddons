@@ -1,10 +1,9 @@
 {
-    "latestVersion": "2.5.3",
+    "latestVersion": "3.0",
     "changelog": [
-        "fixed all issues with splits i think",
-        "made almost the whole gui use awesome font (will probably make it actually everything soon)",
-        "a lot more color settings for gui",
-        ""
+        "made auto update (ask in dms if i haven't given already)",
+        "moved configs to a seperate folder called bonsaidata (goodbye to ur configs ;D)",
+        "might have improved some stuff aswell"
     ],
     "author": "freebonsai"
 }

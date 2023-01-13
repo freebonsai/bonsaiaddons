@@ -1,6 +1,6 @@
 import PogObject from "../../PogData/index"
 
-export const data = new PogObject("Bonsai", {
+export const data = new PogObject("bonsaidata", {
     "swarmCounter": {
         "x": 10,
         "y": 10
@@ -27,4 +27,4 @@ export const data = new PogObject("Bonsai", {
         "y":300,
         "scale":100
     }
-}, "data/data.json")
+}, "data.json")

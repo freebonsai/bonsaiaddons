@@ -55,6 +55,8 @@ register("step", () => {
             orangein = dragonspawntime - (currentTime-orangetime)
             dDisplay.setLine(atLine, `&6Orange spawning in&r: ${(orangein <= 1000 ? "&c" : orangein <= 3000 ? "&e" : "&a") + orangein}ms`)
             atLine++
+        } else {
+            orangetime = null
         }
     }
     if (redtime !== null) {
@@ -62,6 +64,8 @@ register("step", () => {
             redin = dragonspawntime - (currentTime-redtime)
             dDisplay.setLine(atLine, `&4Red spawning in&r: ${(redin <= 1000 ? "&c" : redin <= 3000 ? "&e" : "&a") + redin}ms`)
             atLine++
+        } else {
+            redtime = null
         }
     }
     if (greentime !== null) {
@@ -69,6 +73,8 @@ register("step", () => {
             greenin = dragonspawntime - (currentTime-greentime)
             dDisplay.setLine(atLine, `&aGreen spawning in&r: ${(greenin <= 1000 ? "&c" : greenin <= 3000 ? "&e" : "&a") + greenin}ms`)
             atLine++
+        }  else {
+            greentime = null
         }
     }
     if (bluetime !== null) {
@@ -76,6 +82,8 @@ register("step", () => {
             bluein = dragonspawntime - (currentTime-bluetime)
             dDisplay.setLine(atLine, `&bBlue spawning in&r: ${(bluein <= 1000 ? "&c" : bluein <= 3000 ? "&e" : "&a") + bluein}ms`)
             atLine++
+        }  else {
+            bluetime = null
         }
     }
     if (purpletime !== null) {
@@ -83,6 +91,8 @@ register("step", () => {
             purplein = dragonspawntime - (currentTime-purpletime)
             dDisplay.setLine(atLine, `&5Purple spawning in&r: ${(purplein <= 1000 ? "&c" : purplein <= 3000 ? "&e" : "&a") + purplein}ms`)
             atLine++
+        }  else {
+            purpletime = null
         }
     }
     for (let i = 0; i < atLine; i++) {

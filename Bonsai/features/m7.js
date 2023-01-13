@@ -164,23 +164,19 @@ register("command", () => {
   }
 }).setName("testnecrongb")
 
-
-
-
 entities = []
 names = []
-
 register("renderEntity", (entity,pos,ticks,event) => {
   if (inp5 && settings.Render[1]) {
     if (entity.getName() == "Armor Stand") {
-      entity.func_70106_y()
+      entity.getEntity().func_70106_y()
       //console.log("killed")
     }
     //console.log(entity.getName())
   }
   if (over && settings.Render[2]) {
     if (names.includes(entity.getName())) {
-      entity.func_70106_y()
+      entity.getEntity().func_70106_y()
       //console.log("killed")
     }
   }

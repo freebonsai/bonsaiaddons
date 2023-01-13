@@ -36,7 +36,8 @@ export const generalStrings = [
     "Swarm Counter",
     "Message Hider",
     "Auto Sell",
-    "Auto Rogue"
+    "Auto Rogue",
+    "Auto Download"
 ]
 
 export const renderStrings = [
@@ -94,7 +95,8 @@ export const generalDescriptions = [
     "Displays a preview of your swarm buff (configurable in options)",
     "Hides messages from someone (configurable in options)",
     "Automatically sells some items while in trade menu",
-    "Automatically uses rogue sword from your hotbar"
+    "Automatically uses rogue sword from your hotbar",
+    "Automatically downloads a new version when it is available"
 ]
 
 export const renderDescriptions = [

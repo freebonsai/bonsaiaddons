@@ -66,7 +66,7 @@ rightClick.setAccessible(true)
 clicked = false
 hasclipped = false
 // F7
-register("tick", () => {
+register("step", () => {
     if (settings.Clip[4] && !hasclipped)  {
         if (Dungeon.inDungeon) {
             let atCoords = (x,y,z) => Math.floor(Player.getX()) == x && Math.floor(Player.getY()) == y && Math.floor(Player.getZ()) == z
@@ -170,7 +170,7 @@ register("tick", () => {
             }
         }
     }
-})
+}).setFps(60)
 
 register("command", () => {
     px = Player.getX()

@@ -11,7 +11,7 @@ import {
     @SliderProperty
 } from 'Vigilance';
 
-@Vigilant('Bonsai', 'Proest Mod', {
+@Vigilant('bonsaidata', 'Proest Mod', {
     // SORTING
     getCategoryComparator: () => (a, b) => {
         const categories = ['Dungeons','General','Etherwarp','Swarm Counter', 'Message Hider','Terminal Caller','Clipping'];

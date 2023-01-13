@@ -2,68 +2,10 @@ import Config from "../Config"
 import { data } from "../data/data"
 import { prefix } from "../utils/prefix"
 import PogObject from "../../PogData/index"
-import { splitsStrings,dungeonStrings, generalStrings, renderStrings, clipStrings, cliplocations, relics, dungeonsDescriptions, generalDescriptions, renderDescriptions, clipDescriptions, colours } from "../utils/guiStrings"
+import { splitsStrings,dungeonStrings, generalStrings, renderStrings, clipStrings, cliplocations, dungeonsDescriptions, generalDescriptions, renderDescriptions, clipDescriptions, colours } from "../utils/guiStrings"
 
-if (!FileLib.exists("Bonsai","settings.json")) {
-  FileLib.write("Bonsai","settings.json",
-    `{
-      "Dungeons": [
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-          false,
-          0
-      ],
-      "General": [
-          false,
-          false,
-          false,
-          false,
-          false,
-          false
-      ],
-      "Render": [
-          false,
-          false,
-          false,
-          false
-      ],
-      "Clip": [
-          false,
-          false,
-          false,
-          false,
-          false,
-          0
-      ],
-      "Splits": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ]
-    }`
-  )
-}
-
-export const settings = new PogObject("Bonsai", {
-  "Dungeons": [false,false,false,false,false,false,false,false,false,false,false,false,0],
+export const settings = new PogObject("bonsaidata", {
+  "Dungeons": [false,false,false,false,false,false,false,false,false,false,false,false,false,0],
   "General": [false,false,false,false,false,false],
   "Render": [false,false,false,false],
   "Clip": [false,false,false,false,false,0],
@@ -116,11 +58,11 @@ consolekey.registerKeyPress(() => {
   ChatLib.command("ct console js", true)
 })
 
-const colors = new PogObject("Bonsai", {
+const colors = new PogObject("bonsaidata", {
   "r":[170,45,0,20],
   "g":[0,45,0,20],
   "b":[0,45,0,20]
-}, "data/colors.json")
+}, "colors.json")
 
 const Font = Java.type("xyz.forkdev.fontlib.Font")
 const font = new Font("Bonsai/utils/Pacifico-Regular.ttf", 150)
@@ -245,7 +187,7 @@ register("renderOverlay", () => {
     }
   } else if (mx > gLoc.x && mx < gLoc.x+buttonwidth) {
     toshow = Math.floor((my-45)/15)
-    if (toshow >= 0 && toshow <= 5) {
+    if (toshow >= 0 && toshow <= 6) {
       Renderer.drawRect(Renderer.BLACK, gLoc.x+buttonwidth, my-10, Renderer.getStringWidth(generalDescriptions[toshow])+4, buttonheight)
       Renderer.drawStringWithShadow(`&7${generalDescriptions[toshow]}`,gLoc.x+buttonwidth+2,my-7)
     }

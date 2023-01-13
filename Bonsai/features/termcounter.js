@@ -153,51 +153,44 @@ register("WorldLoad", () => {
 })
 
 register("tick", () => {
-    if (!Dungeon.inDungeon) {
-        names = []
-        name1 = ""
-        name2 = ""
-        name3 = ""
-        name4 = ""
-        name5 = ""
-        tcount1 = 0
-        tcount2 = 0
-        tcount3 = 0
-        tcount4 = 0
-        tcount5 = 0
-        dcount1 = 0
-        dcount2 = 0
-        dcount3 = 0
-        dcount4 = 0
-        dcount5 = 0
-    }
+  if (!Dungeon.inDungeon) {
+      names = []
+      name1 = ""
+      name2 = ""
+      name3 = ""
+      name4 = ""
+      name5 = ""
+      tcount1 = 0
+      tcount2 = 0
+      tcount3 = 0
+      tcount4 = 0
+      tcount5 = 0
+      dcount1 = 0
+      dcount2 = 0
+      dcount3 = 0
+      dcount4 = 0
+      dcount5 = 0
+  }
 })
-//#endregion
 
 function addtolog(n,t,d) {
-  if (!FileLib.exists("Bonsai", "data/termLogs.json")) FileLib.write("Bonsai", "data/termLogs.json", "[]")
+  if (!FileLib.exists("bonsaidata", "termLogs.json")) FileLib.write("bonsaidata", "termLogs.json", "[]")
   let data = {
     "n": n.toLowerCase(),
     "t": t,
     "d": d
   }
-  let logs = JSON.parse(FileLib.read("Bonsai", "data/termLogs.json"))
+  let logs = JSON.parse(FileLib.read("bonsaidata", "termLogs.json"))
   logs.push(data)
-  FileLib.write("Bonsai", "data/termLogs.json", JSON.stringify(logs))
+  FileLib.write("bonsaidata", "termLogs.json", JSON.stringify(logs))
 }
-
-register("command", (a,b,c) => {
-  if (Player.getName() == 'freebonsai') {
-    addtolog(a,b,c)
-  }
-}).setName("testtermlog")
 
 register("command", (name) => {
   if (name) {
     termcount = 0
     devcount = 0
     runcount = 0
-    let logs = JSON.parse(FileLib.read("Bonsai", "data/termLogs.json"))
+    let logs = JSON.parse(FileLib.read("bonsaidata", "termLogs.json"))
     for (let i=0;i<logs.length;i++) {
       if (name.toLowerCase() == logs[i].n) {
         runcount++

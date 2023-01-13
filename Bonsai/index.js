@@ -43,6 +43,7 @@ import "./features/dragontimer"
 import "./features/splits"
 import "./features/bombgavepower"
 import "./features/bridge"
+import "./features/bonzocooldown"
 
 import "./utils/firsttime"
 import "./utils/memorycheck"
