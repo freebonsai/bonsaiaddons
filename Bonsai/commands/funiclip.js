@@ -3,9 +3,10 @@ import toRadians from "../utils/toradians"
 
 going = false
 dist = 0
+const rate = 30
 register("command", (d) => {
   going = true
-  dist = d*20
+  dist = d*rate
 }).setName("funiclip")
 
 counter = 0
@@ -15,8 +16,8 @@ register("step", () => {
   py = Player.getY()
   pz = Player.getZ()
   ya = Player.getYaw()
-  newx = -Math.sin(toRadians(ya))/20
-  newz = Math.cos(toRadians(ya))/20
+  newx = -Math.sin(toRadians(ya))/rate
+  newz = Math.cos(toRadians(ya))/rate
   Client.getMinecraft().func_71410_x().field_71439_g.func_70107_b(px+newx,py,pz+newz)
   counter++
   if (counter >= dist) {
@@ -24,4 +25,4 @@ register("step", () => {
     dist = 0
     counter = 0
   }
-}).setFps(1000/Config.funiinfdelay*20)
+}).setFps(1000/Config.funiinfdelay*rate)

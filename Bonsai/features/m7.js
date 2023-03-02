@@ -136,16 +136,24 @@ register("chat", () => {
   for (let i = 0;i < lines.length;i++) {
     if (lines[i].toString().includes("M7")) {
       if (settings.Dungeons[12]) {
-        if (settings.Dungeons[13] == 0) {
-          ChatLib.command("pc green")
-        } else if (settings.Dungeons[13] == 1) {
-          ChatLib.command("pc red")
-        } else if (settings.Dungeons[13] == 2) {
-          ChatLib.command("pc purple")
-        } else if (settings.Dungeons[13] == 3) {
-          ChatLib.command("pc orange")
-        } else if (settings.Dungeons[13] == 4) {
-          ChatLib.command("pc blue")
+        switch(settings.Dungeons[13]) {
+          case 0:
+            ChatLib.command("pc green");
+            break;
+          case 1:
+            ChatLib.command("pc red");
+            break;
+          case 2:
+            ChatLib.command("pc purple");
+            break;
+          case 3:
+            ChatLib.command("pc orange");
+            break;
+          case 4:
+            ChatLib.command("pc blue");
+            break;
+          default:
+            break;
         }
         //inp5 = true
       }
@@ -166,18 +174,16 @@ register("command", () => {
 
 entities = []
 names = []
+const killEntity = entity => entity.func_70106_y()
 register("renderEntity", (entity,pos,ticks,event) => {
   if (inp5 && settings.Render[1]) {
     if (entity.getName() == "Armor Stand") {
-      entity.getEntity().func_70106_y()
-      //console.log("killed")
+      killEntity(entity.getEntity())
     }
-    //console.log(entity.getName())
   }
   if (over && settings.Render[2]) {
     if (names.includes(entity.getName())) {
-      entity.getEntity().func_70106_y()
-      //console.log("killed")
+      killEntity(entity.getEntity())
     }
   }
 })
@@ -203,13 +209,44 @@ register("worldLoad", () => {
 register("chat", () => {
   inp5 = true
   if (settings.Dungeons[5]) {
-    ChatLib.command("pets")
     setTimeout(() => {
       let inv = Player.getContainer();
-      inv.click(Config.edragSlot,false,"MIDDLE")
-    }, 300)
+      index = Player.getContainer()?.getItems()?.findIndex(item => item && item.getName()?.match(/§.\[Lvl \d+\] §.Ender Dragon/))
+      if (index == -1) {
+        index = Player.getContainer().getItems().findIndex(item => item?.getName()?.includes('Next Page'))
+        inv.click(index, false, "MIDDLE")
+        setTimeout(() => {
+          let inv = Player.getContainer();
+          index = Player.getContainer()?.getItems()?.findIndex(item => item && item.getName()?.match(/§.\[Lvl \d+\] §.Ender Dragon/))
+          if (Player.getContainer()?.getName()?.includes('Pets')) {
+            if (index == -1) return
+            inv.click(index, false, "MIDDLE")
+          }
+        }, 400)
+      }
+      if (Player.getContainer()?.getName()?.includes('Pets')) {
+        if (index == -1) return
+        inv.click(index, false, "MIDDLE")
+      }
+    }, 400)
   }
 }).setChatCriteria("[BOSS] Wither King: You.. again?")
+
+register("command", () => {
+  ChatLib.command("pets")
+  setTimeout(() => {
+    let inv = Player.getContainer();
+    index = Player.getContainer().getItems().findIndex(item => item?.getName()?.includes('Ender Dragon'))
+    if (index == -1) {
+      index = Player.getContainer().getItems().findIndex(item => item?.getName()?.includes('Next Page'))
+      inv.click(index, false, "MIDDLE")
+    }
+    if (Player.getContainer()?.getName()?.includes('Pets')) {
+      if (index == -1) return
+      inv.click(index, false, "MIDDLE")
+    }
+  }, 400)
+}).setName("edragopen")
 
 register("chat", () => {
   inp5 = false
@@ -223,7 +260,6 @@ register("chat", () => {
       if (Player.getName() != player) names.push(player)
     }
   }
-  //console.log(names)
   over = true
 }).setChatCriteria("[BOSS] Wither King: Incredible. You did what I couldn't do myself.")
 

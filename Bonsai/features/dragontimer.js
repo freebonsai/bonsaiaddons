@@ -1,116 +1,79 @@
 import { settings } from "../commands/gui"
 import { data } from "../data/data"
-import Dungeon from "../../BloomCore/dungeons/Dungeon"
-import Config from "../Config"
-orangetime = null
-redtime = null
-greentime = null
-bluetime = null
-purpletime = null
-let _,typeofparticle,x,y,z,rgba,age
-register("spawnParticle", (particle, type, event) => {
-    stringparticle = particle.toString()
-    match = stringparticle.match(/Entity(\w+)FX, Pos (?:(.+),(.+),(.+)), RGBA (.+), Age (.+)/)
-    try {
-        [_,typeofparticle,x,y,z,rgba,age] = match
-    } catch (error) {return}
-    x = x.replace('(','')
-    z = z.replace(')','')
-    x = Math.floor(x)
-    y = Math.floor(y)
-    z = Math.floor(z)
-    if (typeofparticle != "Flame") return
-    if (x >= 82 && x <= 88 && y >= 15 && y <= 22 && z <= 59 && z >= 53 && orangetime === null) {
-        orangetime = new Date().getTime()
-        return
-    }
-    if (x >= 24 && x <= 30 && y >= 15 && y <= 22 && z <= 62 && z >= 56 && redtime === null) {
-        redtime = new Date().getTime()
-        return
-    }
-    if (x >= 23 && x <= 29 && y >= 15 && y <= 22 && z <= 97 && z >= 91 && greentime === null) {
-        greentime = new Date().getTime()
-        return
-    }
-    if (x >= 53 && x <= 59 && y >= 15 && y <= 22 && z <= 128 && z >= 122 && purpletime === null) {
-        purpletime = new Date().getTime()
-        return
-    }
-    if (x >= 82 && x <= 88 && y >= 15 && y <= 22 && z <= 97 && z >= 91 && bluetime === null) {
-        bluetime = new Date().getTime()
-        return
-    }
-})
 
+let window = []
+window["orangetime"] = null
+window["redtime"] = null
+window["greentime"] = null
+window["bluetime"] = null
+window["purpletime"] = null
+const colors = {
+    "orangetime": {x: [82, 88], y: [15, 22], z: [53, 59]},
+    "redtime": {x: [24, 30], y: [15, 22], z: [56, 62]},
+    "greentime": {x: [23, 29], y: [15, 22], z: [91, 97]},
+    "purpletime": {x: [53, 59], y: [15, 22], z: [122, 128]},
+    "bluetime": {x: [82, 88], y: [15, 22], z: [91, 97]},
+}
+
+function checkParticle(particle, color) {
+    const [x, y, z] = [particle.x,particle.y,particle.z];
+    return x >= colors[color].x[0] && x <= colors[color].x[1] && y >= colors[color].y[0] && y <= colors[color].y[1] && z >= colors[color].z[0] && z <= colors[color].z[1];
+}
+
+register("spawnParticle", (particle, type, event) => {
+    if (type.toString() !== "FLAME") return;
+    Object.keys(colors).forEach((color) => {
+        if(checkParticle(particle, color) && window[color] === null){
+            window[color] = new Date().getTime();
+        }
+    });
+});
 dragonspawntime = 5000
 dDisplay = new Display()
 atLine = 0
 register("step", () => {
     if (!settings.Dungeons[10]) return
-    if (!Dungeon.inDungeon) return
     currentTime = new Date().getTime()
     dDisplay.setRenderLoc(data.dragonTimer.x, data.dragonTimer.y)
-    if (orangetime !== null) {
-        if (currentTime - orangetime < dragonspawntime) {
-            orangein = dragonspawntime - (currentTime-orangetime)
-            dDisplay.setLine(atLine, `&6Orange spawning in&r: ${(orangein <= 1000 ? "&c" : orangein <= 3000 ? "&e" : "&a") + orangein}ms`)
-            atLine++
-        } else {
-            orangetime = null
-        }
-    }
-    if (redtime !== null) {
-        if (currentTime - redtime < dragonspawntime) {
-            redin = dragonspawntime - (currentTime-redtime)
-            dDisplay.setLine(atLine, `&4Red spawning in&r: ${(redin <= 1000 ? "&c" : redin <= 3000 ? "&e" : "&a") + redin}ms`)
-            atLine++
-        } else {
-            redtime = null
-        }
-    }
-    if (greentime !== null) {
-        if (currentTime - greentime < dragonspawntime) {
-            greenin = dragonspawntime - (currentTime-greentime)
-            dDisplay.setLine(atLine, `&aGreen spawning in&r: ${(greenin <= 1000 ? "&c" : greenin <= 3000 ? "&e" : "&a") + greenin}ms`)
-            atLine++
-        }  else {
-            greentime = null
-        }
-    }
-    if (bluetime !== null) {
-        if (currentTime - bluetime < dragonspawntime) {
-            bluein = dragonspawntime - (currentTime-bluetime)
-            dDisplay.setLine(atLine, `&bBlue spawning in&r: ${(bluein <= 1000 ? "&c" : bluein <= 3000 ? "&e" : "&a") + bluein}ms`)
-            atLine++
-        }  else {
-            bluetime = null
-        }
-    }
-    if (purpletime !== null) {
-        if (currentTime - purpletime < dragonspawntime) {
-            purplein = dragonspawntime - (currentTime-purpletime)
-            dDisplay.setLine(atLine, `&5Purple spawning in&r: ${(purplein <= 1000 ? "&c" : purplein <= 3000 ? "&e" : "&a") + purplein}ms`)
-            atLine++
-        }  else {
-            purpletime = null
+    const dragonColors = ["orange", "red", "green", "blue", "purple"];
+    const colorCodes = ["6","c","a","b","5"]
+    for (let i = 0; i < dragonColors.length; i++) {
+        color = dragonColors[i];
+        time = window[`${color}time`];
+        if (time !== null) {
+            if (currentTime - time < dragonspawntime) {
+                const spawnTime = dragonspawntime - (currentTime - time);
+                let colorCode;
+                if (spawnTime <= 1000) {
+                    colorCode = "&c";
+                } else if (spawnTime <= 3000) {
+                    colorCode = "&e";
+                } else {
+                    colorCode = "&a";
+                }
+                dDisplay.setLine(atLine, `&${colorCodes[i]}${color.charAt(0).toUpperCase() + color.slice(1)} spawning in&r: ${colorCode}${spawnTime}ms`)
+                atLine++
+            } else {
+                window[`${color}time`] = null;
+            }
         }
     }
     for (let i = 0; i < atLine; i++) {
         dDisplay.getLine(i).setScale(data.dragonTimer.scale/100).setShadow(true)
     }
     atLine = 0
-}).setFps(20)
+}).setFps(60)
 
 register("step", () => {
     dDisplay.clearLines()
 }).setFps(2)
 
 register("worldLoad", () => {
-    orangetime = null
-    redtime = null
-    greentime = null
-    bluetime = null
-    purpletime = null
+    window["orangetime"] = null
+    window["redtime"] = null
+    window["greentime"] = null
+    window["bluetime"] = null
+    window["purpletime"] = null
     dDisplay.clearLines()
 })
 

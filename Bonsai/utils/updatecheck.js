@@ -1,6 +1,7 @@
 import {prefix} from "./prefix"
 import request from "../../requestV2"
 
+seen = false
 register("worldLoad", () => {
     if (!seen) {
         request("https://raw.githubusercontent.com/freebonsai/bonsaiaddons/main/api.json").then(stuff => {

@@ -68,10 +68,6 @@ const Font = Java.type("xyz.forkdev.fontlib.Font")
 const font = new Font("Bonsai/utils/Pacifico-Regular.ttf", 150)
 const font2 = new Font("Bonsai/utils/Minecraft.ttf", 21)
 
-register("command", () => {
-  Player.getPlayer().func_70095_a(true)
-}).setName("sneak")
-
 blue = [0,170,170]
 green = [85,255,85]
 red = [255,85,85]
@@ -174,39 +170,7 @@ register("renderOverlay", () => {
   Renderer.drawRect(offcolor, 850, 450, buttonwidth, buttonheight)
   font2.drawStringWithShadow("Reload CT",850+(70-(Renderer.getStringWidth("Reload CT")))/2+15,450+3, new java.awt.Color(1,1,1,1))
 
-  mx = Client.getMouseX()
-  my = Client.getMouseY()
-  if (mx > dLoc.x && mx < dLoc.x+buttonwidth) {
-    toshow = Math.floor((my-45)/15)
-    if (toshow >= 0 && toshow <= 12) {
-      Renderer.drawRect(Renderer.BLACK, dLoc.x+buttonwidth, my-10, Renderer.getStringWidth(dungeonsDescriptions[toshow])+4, buttonheight)
-      Renderer.drawStringWithShadow(`&7${dungeonsDescriptions[toshow]}`,dLoc.x+buttonwidth+2,my-7)
-    } else if (toshow == 13 && displayrelic) {
-      Renderer.drawRect(Renderer.BLACK, dLoc.x+buttonwidth, my-10, Renderer.getStringWidth(dungeonsDescriptions[toshow])+4, buttonheight)
-      Renderer.drawStringWithShadow(`&7${dungeonsDescriptions[toshow]}`,dLoc.x+buttonwidth+2,my-7)
-    }
-  } else if (mx > gLoc.x && mx < gLoc.x+buttonwidth) {
-    toshow = Math.floor((my-45)/15)
-    if (toshow >= 0 && toshow <= 6) {
-      Renderer.drawRect(Renderer.BLACK, gLoc.x+buttonwidth, my-10, Renderer.getStringWidth(generalDescriptions[toshow])+4, buttonheight)
-      Renderer.drawStringWithShadow(`&7${generalDescriptions[toshow]}`,gLoc.x+buttonwidth+2,my-7)
-    }
-  } else if (mx > rLoc.x && mx < rLoc.x+buttonwidth) {
-    toshow = Math.floor((my-45)/15)
-    if (toshow >= 0 && toshow <= 3) {
-      Renderer.drawRect(Renderer.BLACK, rLoc.x+buttonwidth, my-10, Renderer.getStringWidth(renderDescriptions[toshow])+4, buttonheight)
-      Renderer.drawStringWithShadow(`&7${renderDescriptions[toshow]}`,rLoc.x+buttonwidth+2,my-7)
-    }
-  } else if (mx > clipLoc.x && mx < clipLoc.x+buttonwidth) {
-    toshow = Math.floor((my-45)/15)
-    if (toshow >= 0 && toshow <= 4) {
-      Renderer.drawRect(Renderer.BLACK, clipLoc.x-Renderer.getStringWidth(clipDescriptions[toshow])-4, my-10, Renderer.getStringWidth(clipDescriptions[toshow])+4, buttonheight)
-      Renderer.drawStringWithShadow(`&7${clipDescriptions[toshow]}`,clipLoc.x-Renderer.getStringWidth(clipDescriptions[toshow])-2,my-7)
-    } else if (toshow == 5 && displayf7settings) {
-      Renderer.drawRect(Renderer.BLACK, clipLoc.x-Renderer.getStringWidth(clipDescriptions[toshow])-4, my-10, Renderer.getStringWidth(clipDescriptions[toshow])+4, buttonheight)
-      Renderer.drawStringWithShadow(`&7${clipDescriptions[toshow]}`,clipLoc.x-Renderer.getStringWidth(clipDescriptions[toshow])-2,my-7)
-    }
-  }
+  
   Renderer.drawRect(topcolor, colorLoc.x, colorLoc.y-buttonheight-2, buttonwidth, buttonheight+2)
   for (let i = 0; i < 16; i++) {
     Renderer.drawRect(offcolor, colorLoc.x, colorLoc.y+buttonheight*i, buttonwidth, buttonheight)
@@ -242,6 +206,43 @@ register("renderOverlay", () => {
   for (let i = 0; i < 10; i++) {
     Renderer.drawRect(offcolor, splitsLoc.x, splitsLoc.y+buttonheight*(i+1), buttonwidth, buttonheight)
     Renderer.drawString(`${colours[settings.Splits[i]]}${splitsStrings[i+1]}`,splitsLoc.x+(70-Renderer.getStringWidth(colours[settings.Splits[i]]+splitsStrings[i+1]))/2+15,splitsLoc.y+3+buttonheight*(i+1))
+  }
+
+
+
+
+  mx = Client.getMouseX()
+  my = Client.getMouseY()
+  if (mx > dLoc.x && mx < dLoc.x+buttonwidth) {
+    toshow = Math.floor((my-45)/15)
+    if (toshow >= 0 && toshow <= 12) {
+      Renderer.drawRect(Renderer.BLACK, dLoc.x+buttonwidth, my-10, Renderer.getStringWidth(dungeonsDescriptions[toshow])+4, buttonheight)
+      Renderer.drawStringWithShadow(`&7${dungeonsDescriptions[toshow]}`,dLoc.x+buttonwidth+2,my-7)
+    } else if (toshow == 13 && displayrelic) {
+      Renderer.drawRect(Renderer.BLACK, dLoc.x+buttonwidth, my-10, Renderer.getStringWidth(dungeonsDescriptions[toshow])+4, buttonheight)
+      Renderer.drawStringWithShadow(`&7${dungeonsDescriptions[toshow]}`,dLoc.x+buttonwidth+2,my-7)
+    }
+  } else if (mx > gLoc.x && mx < gLoc.x+buttonwidth) {
+    toshow = Math.floor((my-45)/15)
+    if (toshow >= 0 && toshow <= 6) {
+      Renderer.drawRect(Renderer.BLACK, gLoc.x+buttonwidth, my-10, Renderer.getStringWidth(generalDescriptions[toshow])+4, buttonheight)
+      Renderer.drawStringWithShadow(`&7${generalDescriptions[toshow]}`,gLoc.x+buttonwidth+2,my-7)
+    }
+  } else if (mx > rLoc.x && mx < rLoc.x+buttonwidth) {
+    toshow = Math.floor((my-45)/15)
+    if (toshow >= 0 && toshow <= 3) {
+      Renderer.drawRect(Renderer.BLACK, rLoc.x+buttonwidth, my-10, Renderer.getStringWidth(renderDescriptions[toshow])+4, buttonheight)
+      Renderer.drawStringWithShadow(`&7${renderDescriptions[toshow]}`,rLoc.x+buttonwidth+2,my-7)
+    }
+  } else if (mx > clipLoc.x && mx < clipLoc.x+buttonwidth) {
+    toshow = Math.floor((my-45)/15)
+    if (toshow >= 0 && toshow <= 4) {
+      Renderer.drawRect(Renderer.BLACK, clipLoc.x-Renderer.getStringWidth(clipDescriptions[toshow])-4, my-10, Renderer.getStringWidth(clipDescriptions[toshow])+4, buttonheight)
+      Renderer.drawStringWithShadow(`&7${clipDescriptions[toshow]}`,clipLoc.x-Renderer.getStringWidth(clipDescriptions[toshow])-2,my-7)
+    } else if (toshow == 5 && displayf7settings) {
+      Renderer.drawRect(Renderer.BLACK, clipLoc.x-Renderer.getStringWidth(clipDescriptions[toshow])-4, my-10, Renderer.getStringWidth(clipDescriptions[toshow])+4, buttonheight)
+      Renderer.drawStringWithShadow(`&7${clipDescriptions[toshow]}`,clipLoc.x-Renderer.getStringWidth(clipDescriptions[toshow])-2,my-7)
+    }
   }
 
   Client.getMinecraft().field_71460_t.func_181022_b()

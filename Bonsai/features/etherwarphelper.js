@@ -49,8 +49,8 @@ let lookAtBlock = (blcPos,plrPos) => {
   var yaw = 0;
   var pitch = 0;
   if (d.x != 0) {
-      if (d.x < 0) { yaw = 1.5 * Math.PI; } else { yaw = 0.5 * Math.PI; }
-      yaw = yaw - Math.atan(d.z / d.x);
+    if (d.x < 0) { yaw = 1.5 * Math.PI; } else { yaw = 0.5 * Math.PI; }
+    yaw = yaw - Math.atan(d.z / d.x);
   } else if (d.z < 0) { yaw = Math.PI; }
   d.xz = Math.sqrt(Math.pow(d.x, 2) + Math.pow(d.z, 2));
   pitch = -Math.atan(d.y / d.xz);
@@ -68,26 +68,20 @@ let lookAtBlock = (blcPos,plrPos) => {
 let lookAt = (yaw,pitch) => {
   yaw = Math.floor(yaw);
   yawD = yaw - Math.floor(Player.getYaw());
-
   pitch = Math.floor(pitch);
   pitchD = pitch - Math.floor(Player.getPitch());
-
-  
   if(yawD < -180) yawD += 360;
   new Thread(() => {
     for(i = (yawD >= 0 ? 0 : yawD); i < (yawD >= 0 ? yawD : 0); i++) {
       Player.getPlayer().field_70177_z += (yawD >= 0 ? 1 : -1);
       Thread.sleep(10);
     }
-
     for(i = (pitchD >= 0 ? 0 : pitchD); i < (pitchD >= 0 ? pitchD : 0); i++) {
       Player.getPlayer().field_70125_A += (pitchD >= 0 ? 1 : -1);
       Thread.sleep(10);
     }
   }).start();
 }
-
-//lookAtBlock({x:0,y:50,z:0})
 
 function etherthingy(b) {
   console.log(b)

