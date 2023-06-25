@@ -1,7 +1,3 @@
-# bonsai
-
-If you find a bug or want to share suggestions dm me on discord bonsai#8491
-
 ## Installation
 
 ### NOTE: ChatTriggers must be installed.
